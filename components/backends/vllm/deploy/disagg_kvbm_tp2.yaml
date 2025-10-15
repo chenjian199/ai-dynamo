@@ -13,28 +13,41 @@ spec:
       replicas: 1
       extraPodSpec:
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
     VllmDecodeWorker:
       dynamoNamespace: vllm-disagg-kvbm-tp2
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 1
+      replicas: 2
       resources:
         requests:
           gpu: "2"
         limits:
           gpu: "2"
       extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-8B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --gpu-memory-utilization
             - "0.23"
             - --disable-log-requests
@@ -47,7 +60,7 @@ spec:
       dynamoNamespace: vllm-disagg-kvbm-tp2
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 1
+      replicas: 2
       resources:
         requests:
           gpu: "2"
@@ -63,16 +76,29 @@ spec:
             fieldRef:
               fieldPath: metadata.name
       extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-8B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
             - --gpu-memory-utilization
             - "0.23"

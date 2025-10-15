@@ -13,7 +13,7 @@ spec:
       replicas: 1
       extraPodSpec:
         mainContainer:
-          image: my-registry/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
           command:
           - python3
@@ -26,46 +26,72 @@ spec:
       dynamoNamespace: vllm-disagg
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 1
+      replicas: 4
       multinode:
         nodeCount: 2
       resources:
         limits:
           gpu: "1"
       extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: my-registry/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-0.6B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --tensor-parallel-size
             - "2"
     prefill:
       dynamoNamespace: vllm-disagg
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 1
+      replicas: 4
       multinode:
         nodeCount: 2
       resources:
         limits:
           gpu: "1"
       extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: my-registry/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-0.6B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
             - --tensor-parallel-size
             - "2"

@@ -21,7 +21,7 @@ spec:
       dynamoNamespace: vllm-v1-disagg-router
       #envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 2
+      replicas: 4
       resources:
         limits:
           gpu: "1"
@@ -48,12 +48,12 @@ spec:
           - dynamo.vllm
           args:
             - --model
-            - /shared-models/Qwen/Qwen3-0.6B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
     VllmPrefillWorker:
       dynamoNamespace: vllm-v1-disagg-router
       #envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 1
+      replicas: 4
       resources:
         limits:
           gpu: "1"
@@ -80,5 +80,5 @@ spec:
           - dynamo.vllm
           args:
             - --model
-            - /shared-models/Qwen/Qwen3-0.6B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
