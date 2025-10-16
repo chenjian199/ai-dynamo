@@ -26,12 +26,12 @@ def print_concurrency_start(
     label: str, model: str, isl: int, osl: int, std: int
 ) -> None:
     """Print concurrency sweep start messages"""
-    print(f"⚙️  Starting {label} concurrency sweep!", flush=True)
+    print(f" Starting {label} concurrency sweep!", flush=True)
     print(
-        "⏱️  This may take several minutes - running through multiple concurrency levels...",
+        " This may take several minutes - running through multiple concurrency levels...",
         flush=True,
     )
-    print(f"🎯 Model: {model} | ISL: {isl} | OSL: {osl} | StdDev: {std}")
+    print(f" Model: {model} | ISL: {isl} | OSL: {osl} | StdDev: {std}")
 
 
 def run_endpoint_benchmark(
@@ -47,31 +47,35 @@ def run_endpoint_benchmark(
     # Normalize endpoint to a usable URL (handles in-cluster scheme-less inputs)
     service_url = normalize_service_url(endpoint)
 
-    print(f"🚀 Starting benchmark of endpoint '{label}': {service_url}")
-    print(f"📁 Results will be saved to: {output_dir / label}")
+    print(f" Starting benchmark of endpoint '{label}': {service_url}")
+    print(f" Results will be saved to: {output_dir / label}")
     print_concurrency_start(label, model, isl, osl, std)
 
     # Create output directory
     (output_dir / label).mkdir(parents=True, exist_ok=True)
 
-    run_concurrency_sweep(
-        service_url=service_url,
-        model_name=model,
-        isl=isl,
-        osl=osl,
-        stddev=std,
-        output_dir=output_dir / label,
-    )
-    print("✅ Endpoint benchmark completed successfully!")
+    try:
+        run_concurrency_sweep(
+            service_url=service_url,
+            model_name=model,
+            isl=isl,
+            osl=osl,
+            stddev=std,
+            output_dir=output_dir / label,
+        )
+        print("Endpoint benchmark completed successfully!")
+    except Exception as e:
+        print(f"Endpoint benchmark failed: {e}")
+        print("Continuing with next endpoint...")
 
 
 def print_final_summary(output_dir: Path, labels: List[str]) -> None:
     """Print final benchmark summary"""
-    print("🎉 Benchmark workflow completed successfully!")
-    print(f"📁 All results available at: {output_dir}")
+    print(" Benchmark workflow completed successfully!")
+    print(f" All results available at: {output_dir}")
 
     if labels:
-        print(f"🚀 Benchmarked: {', '.join(labels)}")
+        print(f" Benchmarked: {', '.join(labels)}")
 
 
 def run_benchmark_workflow(

@@ -45,14 +45,14 @@ SVC_NAME="${NAME}-frontend"
 #=====benchmark related=====
 BENCH_NAME="${NAME}"
 ENDPOINT="http://127.0.0.1:${LOCAL_PORT}"
-CONCURRENCIES="${CONCURRENCIES:-1,2,5,10,25,50,100,250,300,325,350,375,400,410,420,430,440,450,460,470,480,490,500,510,520,530,540}"
+CONCURRENCIES="${CONCURRENCIES:-1,2,5,10,25,50,100,250,500}"
 
 #=====model related=====
 DEPLOYMENT_MODEL_ID="${DEPLOYMENT_MODEL_ID:-DeepSeek-R1-Distill-Qwen-7B}"
 TOKENIZER_PATH="${TOKENIZER_PATH:-/home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B}"
 
 #=====cleanup related=====
-CLEANUP="${CLEANUP:-1}"
+CLEANUP="${CLEANUP:-0}"
 
 #=====log related=====
 log() { echo "[$(date '+%F %T')] $*"; }
@@ -129,7 +129,7 @@ cleanup_on_exit() {
     kubectl -n "${NS}" delete dynamographdeployment "${NAME}" || true
   fi
 }
-#trap cleanup_on_exit EXIT
+trap cleanup_on_exit EXIT
 
 #=====apply cr and wait for components ready=====
 run kubectl -n "${NS}" apply -f "${YAML}"
@@ -204,59 +204,6 @@ start_port_forward
 log "verify if the model is visible in the router:"
 run curl -s "${ENDPOINT}/v1/models" | sed -e 's/{"object":"list","data":/models=/' -e 's/}]}/}]\\n/'
 
-#=====GPU monitoring=====
-start_gpu_monitoring() {
-    local monitor_file="$1"
-    log "start GPU monitoring to file: $monitor_file"
-    
-    # background start GPU monitoring
-    {
-        echo "timestamp,gpu_id,utilization,memory_used,memory_total,power_draw,temperature"
-        while true; do
-            nvidia-smi --query-gpu=index,utilization.gpu,memory.used,memory.total,power.draw,temperature.gpu \
-                      --format=csv,noheader,nounits | \
-            while IFS=',' read -r gpu_id util mem_used mem_total power temp; do
-                util=$(echo "$util" | tr -d ' ')
-                mem_used=$(echo "$mem_used" | tr -d ' ')
-                if [[ "$util" -gt 0 && "$mem_used" -gt 0 ]]; then
-                    echo "$(date '+%Y-%m-%d %H:%M:%S'),$gpu_id,$util,$mem_used,$mem_total,$power,$temp"
-                    echo "\n"
-                fi
-            done
-            sleep 1
-        done
-    } > "$monitor_file" &
-    
-    echo $! > "${monitor_file}.pid"
-    log "GPU monitoring process PID: $(cat ${monitor_file}.pid)"
-}
-
-stop_gpu_monitoring() {
-    local monitor_file="$1"
-    if [[ -f "${monitor_file}.pid" ]]; then
-        local pid=$(cat "${monitor_file}.pid")
-        if kill -0 "$pid" 2>/dev/null; then
-            log "stop GPU monitoring process (PID: $pid)"
-            kill "$pid"
-            wait "$pid" 2>/dev/null || true
-        fi
-        rm -f "${monitor_file}.pid"
-    fi
-}
-
-# start GPU monitoring
-GPU_MONITOR_FILE="benchmarks/results/${BENCH_NAME}/gpu_monitor.csv"
-mkdir -p "benchmarks/results/${BENCH_NAME}"
-start_gpu_monitoring "$GPU_MONITOR_FILE"
-
-# set cleanup function
-cleanup() {
-    log "clean up resources..."
-    stop_gpu_monitoring "$GPU_MONITOR_FILE"
-    stop_port_forward
-}
-trap cleanup EXIT
-
 #=====run benchmark=====
 log "run benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
 export CONCURRENCIES
@@ -276,105 +223,6 @@ run python3 -m benchmarks.utils.benchmark \
   --isl 512 \
   --osl 240
 log "benchmark completed, results directory: benchmarks/results"
-
-#=====analyze benchmark results=====
-analyze_benchmark_results() {
-    local results_dir="$1"
-    local analysis_file="$results_dir/analysis.txt"
-    
-    log "analyze benchmark results in: $results_dir"
-    
-    {
-        echo "=== Benchmark Performance Analysis ==="
-        echo "test time: $(date)"
-        echo "model: $DEPLOYMENT_MODEL_ID"
-        echo "deployment: $NAME"
-        echo ""
-        
-        echo "=== performance metrics for each concurrency ==="
-        printf "┌────────────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐\n"
-        printf "│ %-18s │ %-18s │ %-18s │ %-18s │ %-18s │\n" "concurrency" "request throughput" "output throughput" "per usr throughput" "average latency"
-        printf "├────────────────────┼────────────────────┼────────────────────┼────────────────────┼────────────────────┤\n"
-            
-        for concurrency_dir in "$results_dir"/c*; do
-            if [[ -d "$concurrency_dir" ]]; then
-                local concurrency=$(basename "$concurrency_dir" | sed 's/c//')
-                local json_file=$(find "$concurrency_dir" -name "profile_export_genai_perf.json" | head -1)
-                
-                if [[ -f "$json_file" ]]; then
-                    local req_throughput=$(jq -r '.request_throughput.avg' "$json_file")
-                    local output_throughput=$(jq -r '.output_token_throughput.avg' "$json_file")
-                    local per_user_throughput=$(jq -r '.output_token_throughput_per_user.avg' "$json_file")
-                    local avg_latency=$(jq -r '.request_latency.avg' "$json_file")
-                    
-                    printf "│ %-18s │ %-18.2f │ %-18.2f │ %-18.2f │ %-18.2f │\n" \
-                           "$concurrency" "$req_throughput" "$output_throughput" "$per_user_throughput" "$avg_latency"
-                fi
-            fi
-        done
-        
-        printf "└────────────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘\n"
-        echo ""
-        echo "=== performance bottleneck analysis ==="
-        
-        # find the highest throughput
-        local max_throughput=0
-        local max_concurrency=0
-        for concurrency_dir in "$results_dir"/c*; do
-            if [[ -d "$concurrency_dir" ]]; then
-                local concurrency=$(basename "$concurrency_dir" | sed 's/c//')
-                local json_file=$(find "$concurrency_dir" -name "profile_export_genai_perf.json" | head -1)
-                
-                if [[ -f "$json_file" ]]; then
-                    local output_throughput=$(jq -r '.output_token_throughput.avg' "$json_file")
-                    if (( $(echo "$output_throughput > $max_throughput" | bc -l) )); then
-                        max_throughput=$output_throughput
-                        max_concurrency=$concurrency
-                    fi
-                fi
-            fi
-        done
-        
-        echo "highest output throughput: ${max_throughput} tokens/s (concurrency: $max_concurrency)"
-        
-        # analyze GPU utilization
-        local gpu_monitor_file="$results_dir/gpu_monitor.csv"
-        if [[ -f "$gpu_monitor_file" ]]; then
-            echo ""
-            echo "=== GPU utilization analysis ==="
-            echo "GPU monitoring data saved to: $gpu_monitor_file"
-            
-            # calculate average GPU utilization
-            if [[ -s "$gpu_monitor_file" ]]; then
-                local avg_util=$(tail -n +2 "$gpu_monitor_file" | cut -d',' -f3 | awk '{sum+=$1; count++} END {if(count>0) print sum/count; else print 0}')
-                local max_util=$(tail -n +2 "$gpu_monitor_file" | cut -d',' -f3 | sort -n | tail -1)
-                local avg_mem=$(tail -n +2 "$gpu_monitor_file" | cut -d',' -f4 | awk '{sum+=$1; count++} END {if(count>0) print sum/count; else print 0}')
-                local max_mem=$(tail -n +2 "$gpu_monitor_file" | cut -d',' -f4 | sort -n | tail -1)
-                
-                echo "average GPU utilization: ${avg_util}%"
-                echo "maximum GPU utilization: ${max_util}%"
-                echo "average memory usage: ${avg_mem}MB"
-                echo "maximum memory usage: ${max_mem}MB"
-            fi
-        fi
-        
-        echo ""
-        echo "=== test configuration ==="
-        echo "concurrencies tested: $CONCURRENCIES"
-        echo "model: $DEPLOYMENT_MODEL_ID"
-        echo "endpoint: $ENDPOINT"
-        echo "deployment: $NAME"
-        
-    } > "$analysis_file"
-    
-    log "analysis results saved to: $analysis_file"
-    cat "$analysis_file"
-}
-
-# analyze results for both benchmark runs
-if [[ -d "benchmarks/results/${BENCH_NAME}" ]]; then
-    analyze_benchmark_results "benchmarks/results/${BENCH_NAME}"
-fi
 
 # if you want to delete the deployment at the end of the script, pass CLEANUP=1
 # CLEANUP=1 ./run.sh
