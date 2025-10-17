@@ -95,7 +95,7 @@ def run_genai_perf(
             stderr=subprocess.PIPE,
             text=True,
         )
-        stdout, stderr = gap_process.communicate(timeout=400) # 30分钟超时
+        stdout, stderr = gap_process.communicate(timeout=300) # 5分钟超时
         if gap_process.returncode == 0:
             print("Genai-perf profiling completed successfully", flush=True)
             if stdout:
@@ -107,7 +107,7 @@ def run_genai_perf(
                 print(f"stderr: {stderr}")
             return False
     except subprocess.TimeoutExpired:
-        print("Genai-perf timed out after 30 minutes", flush=True)
+        print("Genai-perf timed out after 5 minutes", flush=True)
         gap_process.kill()
         gap_process.wait()
         return False
@@ -150,9 +150,9 @@ def run_concurrency_sweep(
                 break
         
         # short break between tests
-        if i < len(concurrency_levels) - 1:
-            print("Waiting 5 seconds before next test...", flush=True)
-            import time
-            time.sleep(5)
+        # if i < len(concurrency_levels) - 1:
+        #     print("Waiting 5 seconds before next test...", flush=True)
+        #     import time
+        #     time.sleep(5)
     
     print(f"Concurrency sweep completed. Total tests: {total_tests}, Failed tests: {failed_tests}", flush=True)

@@ -1,0 +1,113 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: nvidia.com/v1alpha1
+kind: DynamoGraphDeployment
+metadata:
+  name: vllm-disagg-optimized-prefix
+spec:
+  services:
+    Frontend:
+      dynamoNamespace: vllm-disagg-optimized-prefix
+      componentType: frontend
+      replicas: 1
+      extraPodSpec:
+        mainContainer:
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
+    VllmDecodeWorker:
+      dynamoNamespace: vllm-disagg-optimized-prefix
+      envFromSecret: hf-token-secret
+      componentType: worker
+      subComponentType: decode
+      replicas: 3  # 减少decode worker，因为前缀缓存会减少decode负载
+      resources:
+        limits:
+          gpu: "1"
+      extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
+        mainContainer:
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
+          workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
+          command:
+          - python3
+          - -m
+          - dynamo.vllm
+          args:
+            - --model
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+            - --gpu-memory-utilization
+            - "0.4"  # 提高GPU利用率，因为decode负载相对较轻
+            - --disable-log-requests
+            - --max-model-len
+            - "32000"
+            - --enforce-eager
+            - --max-num-seqs
+            - "256"  # 增加序列数，利用前缀缓存
+    VllmPrefillWorker:
+      dynamoNamespace: vllm-disagg-optimized-prefix
+      envFromSecret: hf-token-secret
+      componentType: worker
+      subComponentType: prefill
+      replicas: 5  # 增加prefill worker，因为前缀缓存会增加prefill负载
+      resources:
+        requests:
+          gpu: "1"
+          memory: "200Gi"
+        limits:
+          gpu: "1"
+          memory: "250Gi"
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "150"  # 增加CPU缓存，支持更多前缀缓存
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      extraPodSpec:
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
+        mainContainer:
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
+          workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
+          command:
+          - python3
+          - -m
+          - dynamo.vllm
+          args:
+            - --model
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+            - --is-prefill-worker
+            - --gpu-memory-utilization
+            - "0.5"  # 提高GPU利用率，因为prefill是主要工作负载
+            - --disable-log-requests
+            - --max-model-len
+            - "32000"
+            - --enforce-eager
+            - --max-num-seqs
+            - "128"  # 适中的序列数，平衡内存和性能
+            - --connector
+            - kvbm
+            - nixl

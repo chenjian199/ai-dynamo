@@ -11,10 +11,10 @@ log() { echo "[$(date '+%F %T')] $*"; }
 
 #=====main function=====
 main() {
-    local start_config="${1:-1}"
-    local end_config="${2:-10}"
+    # custom configuration sequence
+    local configs=("2" "3" "7" "8" "9" "10")
     
-    log "quick test: running configurations $start_config to $end_config"
+    log "quick test: running configurations: ${configs[*]}"
     
     # check if run.sh exists
     if [[ ! -f "$RUN_SCRIPT" ]]; then
@@ -23,10 +23,10 @@ main() {
     fi
     
     # make run.sh executable
-    chmod +x "$RUN_SCRIPT"
+   #chmod +x "$RUN_SCRIPT"
     
     # run each configuration
-    for i in $(seq $start_config $end_config); do
+    for i in "${configs[@]}"; do
         log "=========================================="
         log "running configuration $i"
         log "=========================================="
@@ -40,7 +40,7 @@ main() {
         fi
         
         # wait between configurations
-        if [[ $i -lt $end_config ]]; then
+        if [[ "$i" != "${configs[-1]}" ]]; then
             log "waiting 10 seconds before next configuration..."
             sleep 10
         fi

@@ -19,9 +19,6 @@ VLLM_CONFIGS=(
   "vllm-disagg-6p2d|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_6p2d.yaml"
   "vllm-disagg-multinode|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg-multinode.yaml"
   "vllm-disagg-planner|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_planner.yaml"
-  
-  # Optimized PD configurations for prefix caching
-  "vllm-disagg-optimized-prefix|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_optimized_prefix.yaml"
 )
 
 #=====select vllm configuration=====
