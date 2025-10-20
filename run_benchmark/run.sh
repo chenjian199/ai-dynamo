@@ -41,6 +41,7 @@ else
   exit 1
 fi
 
+
 #=====configuration=====
 NS="dynamo-kubernetes"
 SERVICE_NAME="${NAME}-frontend"
@@ -52,6 +53,7 @@ CONCURRENCIES="${CONCURRENCIES:-1,2,5,10,25,50,100,250,300,310,320,330,340,350,3
 DEPLOYMENT_MODEL_ID="${DEPLOYMENT_MODEL_ID:-DeepSeek-R1-Distill-Qwen-7B}"
 TOKENIZER_PATH="${TOKENIZER_PATH:-/home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B}"
 CLEANUP="${CLEANUP:-1}"
+DISTSERVE_TEST="${DISTSERVE_TEST:-1}"  # 是否运行DistServe风格测试 (0=传统测试, 1=DistServe测试)
 
 #=====log related=====
 log() { echo "[$(date '+%F %T')] $*"; }
@@ -233,24 +235,34 @@ cleanup() {
 trap cleanup EXIT
 
 #=====run benchmark=====
-log "run benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
-export CONCURRENCIES
-export TOKENIZER_PATH
-run python3 -m benchmarks.utils.benchmark \
-  --benchmark-name "${BENCH_NAME}" \
-  --endpoint-url "${ENDPOINT}" \
-  --model "${DEPLOYMENT_MODEL_ID}"
+if [[ "${DISTSERVE_TEST}" == "1" ]]; then
+    log "run DistServe-style benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
+    export CONCURRENCIES
+    export TOKENIZER_PATH
+    
+    # 运行DistServe风格的SLO测试
+    run python3 benchmarks/analysis/distserve_benchmark.py "${NAME}"
+    
+    log "DistServe benchmark completed, results directory: benchmarks/results"
+else
+    log "run traditional benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
+    export CONCURRENCIES
+    export TOKENIZER_PATH
+    run python3 -m benchmarks.utils.benchmark \
+      --benchmark-name "${BENCH_NAME}" \
+      --endpoint-url "${ENDPOINT}" \
+      --model "${DEPLOYMENT_MODEL_ID}"
 
-log "benchmark completed, results directory: benchmarks/results"
+    log "benchmark completed, results directory: benchmarks/results"
 
-export CONCURRENCIES="256"
-run python3 -m benchmarks.utils.benchmark \
-  --benchmark-name "${BENCH_NAME}" \
-  --endpoint-url "${ENDPOINT}" \
-  --model "${DEPLOYMENT_MODEL_ID}" \
-  --isl 512 \
-  --osl 240
-log "benchmark completed, results directory: benchmarks/results"
+    export CONCURRENCIES="256"
+    run python3 -m benchmarks.utils.benchmark \
+      --benchmark-name "${BENCH_NAME}" \
+      --endpoint-url "${ENDPOINT}" \
+      --model "${DEPLOYMENT_MODEL_ID}" \
+      --isl 512 \
+      --osl 240
+fi
 
 #=====analyze benchmark results=====
 analyze_benchmark_results() {
@@ -365,5 +377,11 @@ if [[ -d "benchmarks/results/${BENCH_NAME}" ]]; then
     analyze_benchmark_results "benchmarks/results/${BENCH_NAME}"
 fi
 
-# if you want to delete the deployment at the end of the script, pass CLEANUP=1
-# CLEANUP=1 ./run.sh
+# Usage examples:
+# 1. Traditional benchmark test (default):
+#    ./run.sh
+#    CLEANUP=1 ./run.sh  # with cleanup
+#
+# 2. DistServe-style SLO test:
+#    DISTSERVE_TEST=1 ./run.sh
+#    DISTSERVE_TEST=1 CLEANUP=1 ./run.sh  # with cleanup

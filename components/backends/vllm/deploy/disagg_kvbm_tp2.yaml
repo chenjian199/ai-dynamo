@@ -8,22 +8,22 @@ metadata:
 spec:
   services:
     Frontend:
-      dynamoNamespace: vllm-disagg-kvbm-tp2
+      dynamoNamespace: vllm-disagg-tp2
       componentType: frontend
       replicas: 1
       extraPodSpec:
         mainContainer:
           image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
     VllmDecodeWorker:
-      dynamoNamespace: vllm-disagg-kvbm-tp2
+      dynamoNamespace: vllm-disagg-tp2
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 2
+      replicas: 1
       resources:
         requests:
-          gpu: "2"
+          gpu: "1"
         limits:
-          gpu: "2"
+          gpu: "1"
       extraPodSpec:
         volumes:
           - name: shared-models
@@ -48,33 +48,16 @@ spec:
           args:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
-            - --gpu-memory-utilization
-            - "0.23"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
-            - --enforce-eager
-            - --tensor-parallel-size
-            - "2"
     VllmPrefillWorker:
-      dynamoNamespace: vllm-disagg-kvbm-tp2
+      dynamoNamespace: vllm-disagg-tp2
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 2
+      replicas: 1
       resources:
         requests:
           gpu: "2"
-          memory: "200Gi"
         limits:
           gpu: "2"
-          memory: "250Gi"
-      envs:
-        - name: DYN_KVBM_CPU_CACHE_GB
-          value: "100"
-        - name: DYN_KVBM_BARRIER_ID_PREFIX
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
       extraPodSpec:
         volumes:
           - name: shared-models
@@ -100,14 +83,5 @@ spec:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
-            - --gpu-memory-utilization
-            - "0.23"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
-            - --enforce-eager
-            - --connector
-            - kvbm
-            - nixl
             - --tensor-parallel-size
             - "2"

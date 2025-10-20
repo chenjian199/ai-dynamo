@@ -19,7 +19,7 @@ spec:
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: decode
-      replicas: 4
+      replicas: 2
       resources:
         limits:
           gpu: "1"
@@ -52,7 +52,7 @@ spec:
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: prefill
-      replicas: 4
+      replicas: 3
       resources:
         limits:
           gpu: "1"

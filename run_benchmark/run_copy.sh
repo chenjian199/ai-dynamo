@@ -19,6 +19,9 @@ VLLM_CONFIGS=(
   "vllm-disagg-6p2d|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_6p2d.yaml"
   "vllm-disagg-multinode|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg-multinode.yaml"
   "vllm-disagg-planner|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_planner.yaml"
+  
+  # Optimized PD configurations for prefix caching
+  "vllm-disagg-optimized-prefix|/home/bedicloud/dynamo-main/components/backends/vllm/deploy/disagg_optimized_prefix.yaml"
 )
 
 #=====select vllm configuration=====
@@ -38,17 +41,19 @@ else
   exit 1
 fi
 
+
 #=====configuration=====
 NS="dynamo-kubernetes"
 SERVICE_NAME="${NAME}-frontend"
-LOCAL_PORT="8003"
+LOCAL_PORT="8005"
 SVC_PORT="8000"
 ENDPOINT="http://127.0.0.1:${LOCAL_PORT}"
 BENCH_NAME="${NAME}_$(date +%Y%m%d_%H%M%S)"
 CONCURRENCIES="${CONCURRENCIES:-1,2,5,10,25,50,100,250,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500,510,520,530,540,550,575,600,625,650,700,750,800,850,900,950,1000}"
 DEPLOYMENT_MODEL_ID="${DEPLOYMENT_MODEL_ID:-DeepSeek-R1-Distill-Qwen-7B}"
 TOKENIZER_PATH="${TOKENIZER_PATH:-/home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B}"
-CLEANUP="${CLEANUP:-1}"
+CLEANUP="${CLEANUP:-0}"
+DISTSERVE_TEST="${DISTSERVE_TEST:-1}"  # 是否运行DistServe风格测试 (0=传统测试, 1=DistServe测试)
 
 #=====log related=====
 log() { echo "[$(date '+%F %T')] $*"; }
@@ -230,24 +235,34 @@ cleanup() {
 trap cleanup EXIT
 
 #=====run benchmark=====
-log "run benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
-export CONCURRENCIES
-export TOKENIZER_PATH
-run python3 -m benchmarks.utils.benchmark \
-  --benchmark-name "${BENCH_NAME}" \
-  --endpoint-url "${ENDPOINT}" \
-  --model "${DEPLOYMENT_MODEL_ID}"
+if [[ "${DISTSERVE_TEST}" == "1" ]]; then
+    log "run DistServe-style benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
+    export CONCURRENCIES
+    export TOKENIZER_PATH
+    
+    # 运行DistServe风格的SLO测试
+    run python3 benchmarks/analysis/distserve_benchmark_copy.py "${NAME}"
+    
+    log "DistServe benchmark completed, results directory: benchmarks/results"
+else
+    log "run traditional benchmark: ${BENCH_NAME} | model: ${DEPLOYMENT_MODEL_ID}"
+    export CONCURRENCIES
+    export TOKENIZER_PATH
+    run python3 -m benchmarks.utils.benchmark \
+      --benchmark-name "${BENCH_NAME}" \
+      --endpoint-url "${ENDPOINT}" \
+      --model "${DEPLOYMENT_MODEL_ID}"
 
-log "benchmark completed, results directory: benchmarks/results"
+    log "benchmark completed, results directory: benchmarks/results"
 
-export CONCURRENCIES="256"
-run python3 -m benchmarks.utils.benchmark \
-  --benchmark-name "${BENCH_NAME}" \
-  --endpoint-url "${ENDPOINT}" \
-  --model "${DEPLOYMENT_MODEL_ID}" \
-  --isl 512 \
-  --osl 240
-log "benchmark completed, results directory: benchmarks/results"
+    export CONCURRENCIES="256"
+    run python3 -m benchmarks.utils.benchmark \
+      --benchmark-name "${BENCH_NAME}" \
+      --endpoint-url "${ENDPOINT}" \
+      --model "${DEPLOYMENT_MODEL_ID}" \
+      --isl 512 \
+      --osl 240
+fi
 
 #=====analyze benchmark results=====
 analyze_benchmark_results() {
@@ -362,5 +377,11 @@ if [[ -d "benchmarks/results/${BENCH_NAME}" ]]; then
     analyze_benchmark_results "benchmarks/results/${BENCH_NAME}"
 fi
 
-# if you want to delete the deployment at the end of the script, pass CLEANUP=1
-# CLEANUP=1 ./run.sh
+# Usage examples:
+# 1. Traditional benchmark test (default):
+#    ./run.sh
+#    CLEANUP=1 ./run.sh  # with cleanup
+#
+# 2. DistServe-style SLO test:
+#    DISTSERVE_TEST=1 ./run.sh
+#    DISTSERVE_TEST=1 CLEANUP=1 ./run.sh  # with cleanup

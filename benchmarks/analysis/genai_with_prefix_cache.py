@@ -98,7 +98,7 @@ def main():
     
     # 输出目录
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    base_output_dir = Path(f"benchmarks/results/prefix_cache_test_{timestamp}")
+    base_output_dir = Path(f"/home/bedicloud/dynamo-main/benchmarks/results/prefix_cache_test_{timestamp}")
     
     print("🚀 开始前缀缓存测试")
     print(f"📊 测试配置:")
