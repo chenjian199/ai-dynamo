@@ -18,10 +18,10 @@ spec:
       dynamoNamespace: vllm-disagg-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 4
+      replicas: 1
       resources:
         limits:
-          gpu: "1"
+          gpu: "2"
       extraPodSpec:
         volumes:
           - name: shared-models
@@ -46,27 +46,23 @@ spec:
           args:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
-            - --gpu-memory-utilization
-            - "0.3"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
-            - --enforce-eager
+            - --tensor-parallel-size
+            - "2"
+            - --connector
+            - nixl
     VllmPrefillWorker:
       dynamoNamespace: vllm-disagg-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 4
+      replicas: 1
       resources:
         requests:
-          gpu: "1"
-          memory: "200Gi"
+          gpu: "2"
         limits:
-          gpu: "1"
-          memory: "250Gi"
+          gpu: "2"
       envs:
         - name: DYN_KVBM_CPU_CACHE_GB
-          value: "100"
+          value: "200"
       extraPodSpec:
         volumes:
           - name: shared-models
@@ -92,12 +88,8 @@ spec:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
-            - --gpu-memory-utilization
-            - "0.3"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
+            - --tensor-parallel-size
+            - "2"
             - --enforce-eager
             - --connector
             - kvbm
-            - nixl

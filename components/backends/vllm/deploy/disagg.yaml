@@ -19,7 +19,7 @@ spec:
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: decode
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           gpu: "1"
@@ -52,11 +52,19 @@ spec:
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: prefill
-      replicas: 3
+      replicas: 2
       resources:
         limits:
           gpu: "1"
-      extraPodSpec:
+      envs:
+          - name: DYN_KVBM_CPU_CACHE_GB
+            value: "200"
+          - name: DYN_KVBM_BARRIER_ID_PREFIX
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+
+      extraPodSpec:   
         volumes:
           - name: shared-models
             hostPath:
@@ -81,3 +89,5 @@ spec:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
+            - --connector
+            - kvbm
