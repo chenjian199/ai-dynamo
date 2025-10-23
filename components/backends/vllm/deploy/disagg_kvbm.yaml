@@ -12,6 +12,8 @@ spec:
       componentType: frontend
       replicas: 1
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         mainContainer:
           image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
     VllmDecodeWorker:
@@ -21,8 +23,17 @@ spec:
       replicas: 1
       resources:
         limits:
-          gpu: "2"
+          gpu: "1"
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:
@@ -46,10 +57,8 @@ spec:
           args:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
-            - --tensor-parallel-size
-            - "2"
             - --connector
-            - nixl
+            - kvbm
     VllmPrefillWorker:
       dynamoNamespace: vllm-disagg-kvbm
       envFromSecret: hf-token-secret
@@ -57,13 +66,19 @@ spec:
       replicas: 1
       resources:
         requests:
-          gpu: "2"
+          gpu: "1"
         limits:
-          gpu: "2"
+          gpu: "1"
       envs:
         - name: DYN_KVBM_CPU_CACHE_GB
           value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:
@@ -88,8 +103,5 @@ spec:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
-            - --tensor-parallel-size
-            - "2"
-            - --enforce-eager
             - --connector
             - kvbm

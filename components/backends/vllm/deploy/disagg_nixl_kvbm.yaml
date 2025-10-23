@@ -4,18 +4,20 @@
 apiVersion: nvidia.com/v1alpha1
 kind: DynamoGraphDeployment
 metadata:
-  name: vllm-disagg
+  name: vllm-disagg-nixl-kvbm
 spec:
   services:
     Frontend:
-      dynamoNamespace: vllm-disagg
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       componentType: frontend
       replicas: 1
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         mainContainer:
           image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
     VllmDecodeWorker:
-      dynamoNamespace: vllm-disagg
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: decode
@@ -23,7 +25,16 @@ spec:
       resources:
         limits:
           gpu: "1"
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:
@@ -47,8 +58,10 @@ spec:
           args:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+            - --connector
+            - nixl
     VllmPrefillWorker:
-      dynamoNamespace: vllm-disagg
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
       subComponentType: prefill
@@ -57,14 +70,15 @@ spec:
         limits:
           gpu: "1"
       envs:
-          - name: DYN_KVBM_CPU_CACHE_GB
-            value: "200"
-          - name: DYN_KVBM_BARRIER_ID_PREFIX
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:   
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:

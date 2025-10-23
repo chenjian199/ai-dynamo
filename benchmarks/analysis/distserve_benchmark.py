@@ -48,7 +48,7 @@ class DistServeStyleTest:
             service_url=self.service_url,
             model_name=self.model_name,
             isl=2000,
-            osl=256,
+            osl=2000,
             stddev=0,
             concurrency=concurrency,
             output_dir=Path(f"/tmp/distserve_test_{concurrency}")
