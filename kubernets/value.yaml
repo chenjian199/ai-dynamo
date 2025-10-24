@@ -1,0 +1,11 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    podMonitorNamespaceSelector: {}
+    probeNamespaceSelector: {}
+nodeExporter:
+  service:
+    port: 9101
+    targetPort: 9101
+  args:
+    - --web.listen-address=:9101

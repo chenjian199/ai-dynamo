@@ -20,11 +20,7 @@ from typing import Dict, Any, Optional
 # Add benchmarks/utils to path
 sys.path.append('/home/bedicloud/dynamo-main/benchmarks/utils')
 
-try:
-    from genai import run_genai_perf
-except ImportError:
-    print("Error: Could not import genai module from benchmarks/utils")
-    sys.exit(1)
+# Direct genai-perf command used instead of run_genai_perf
 
 
 class DecodeBenchmark:
@@ -33,8 +29,8 @@ class DecodeBenchmark:
     def __init__(self, 
                  service_url: Optional[str] = None,
                  model_name: Optional[str] = None):
-        self.service_url = service_url or os.getenv('SERVICE_URL', 'http://127.0.0.1:8000')
-        self.model_name = model_name or os.getenv('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B')
+        self.service_url = service_url or os.getenv('SERVICE_URL', 'http://127.0.0.1:8003')
+        self.model_name = model_name or os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B')
         self.results_dir = Path('/home/bedicloud/dynamo-main/benchmarks/results')
         self.results_dir.mkdir(parents=True, exist_ok=True)
         
@@ -65,22 +61,87 @@ class DecodeBenchmark:
         output_dir = Path(f"/tmp/decode_test_{concurrency}")
         
         try:
-            success = run_genai_perf(
-                service_url=self.service_url,
-                model_name=self.model_name,
-                isl=isl,  # Minimal input
-                osl=osl,
-                stddev=0,  # Fixed length for consistent decode testing
-                concurrency=concurrency,
-                output_dir=output_dir
-            )
+            # Direct genai-perf command for decode-only testing
+            cmd = [
+                "genai-perf", "profile",
+                "-m", self.model_name,
+                "--endpoint-type", "chat",
+                "--streaming",
+                "-u", self.service_url,
+                "--concurrency", str(concurrency),
+                "--synthetic-input-tokens-mean", "1",
+                "--synthetic-input-tokens-stddev", "0",
+                "--num-prefix-prompts", "1",
+                "--prefix-prompt-length", str(isl),
+                "--output-tokens-mean", str(osl),
+                "--output-tokens-stddev", "0",
+                #"--measurement-interval", "5000",
+                #"--warmup-request-count", str(concurrency * 2),
+                "--request-count", str(concurrency * 3),
+                "--tokenizer", f"/home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B",
+                "--artifact-dir", str(output_dir),
+                "--", "-vv", "--max-threads=300"
+            ]
             
-            if not success:
-                print(f"❌ genai-perf failed")
+            print(f"Running genai-perf with isl {isl}, osl {osl}, concurrency {concurrency}")
+            
+            # 确保输出目录存在
+            output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # 使用 Popen 和 communicate 来捕获并显示输出，就像 run_genai_perf 一样
+            process = subprocess.Popen(
+                cmd,
+                cwd=str(output_dir),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            stdout, stderr = process.communicate(timeout=400)
+            
+            if process.returncode == 0:
+                print("Genai-perf profiling completed successfully")
+                if stdout:
+                    print(stdout)  # 这里打印 genai-perf 的表格输出！
+                if stderr:
+                    #print(f"stderr: {stderr}")
+                    pass
+            else:
+                #print(f"❌ genai-perf failed with error code: {process.returncode}")
+                if stderr:
+                    #print(f"stderr: {stderr}")
+                    pass
                 return None
             
-            # Parse results
-            result_file = Path(output_dir) / f"{self.model_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+            # Parse results - use the same logic as prefill_benchmark.py
+            # genai-perf creates directories with the full model path, so we need to match that exactly
+            model_safe_name = self.model_name.replace('/', '_')  # Only replace slashes, keep hyphens
+            result_file = Path(output_dir) / f"_{model_safe_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+            
+            # If the expected path doesn't exist, try to find the actual directory
+            if not result_file.exists():
+                # Look for any directory that matches the pattern
+                import glob
+                pattern = str(output_dir / f"*{concurrency}*" / "profile_export_genai_perf.json")
+                matching_files = glob.glob(pattern)
+                
+                if matching_files:
+                    # Use the most recent file (genai-perf creates new ones each time)
+                    result_file = Path(max(matching_files, key=lambda x: Path(x).stat().st_mtime))
+                    print(f"🔍 Found result file: {result_file}")
+                else:
+                    # Fallback to model name only version
+                    model_name_only = Path(self.model_name).name  # Extract just the model name
+                    result_file = Path(output_dir) / f"{model_name_only}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+                    print(f"⚠️  Using fallback path: {result_file}")
+            else:
+                print(f"✅ Using primary path: {result_file}")
+                
+            # Debug: Check which file we're actually using
+            if result_file.exists():
+                with open(result_file, 'r') as f:
+                    data = json.load(f)
+                itl_p90 = data.get('inter_token_latency', {}).get('p90', 'Not found')
+                print(f"📊 Reading ITL P90: {itl_p90}ms from {result_file}")
             
             if not result_file.exists():
                 print(f"❌ Result file not found: {result_file}")
@@ -331,10 +392,10 @@ def main():
     parser.add_argument('--deployment', type=str, required=True,
                        help='Deployment name')
     parser.add_argument('--service-url', type=str,
-                       default=os.getenv('SERVICE_URL', 'http://127.0.0.1:8001'),
+                       default=os.getenv('SERVICE_URL', 'http://127.0.0.1:8003'),
                        help='Service URL')
     parser.add_argument('--model', type=str,
-                       default=os.getenv('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B'),
+                       default=os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B'),
                        help='Model name')
     parser.add_argument('--osl', type=int, default=256,
                        help='Output sequence length')
@@ -348,7 +409,7 @@ def main():
     
     results = tester.run_full_benchmark(
         deployment_name=args.deployment,
-        isl=100,  # Minimal input for decode-focused test
+        isl=2000,  # Minimal input for decode-focused test
         osl=args.osl
     )
     

@@ -1,0 +1,621 @@
+================================================================================
+DECODE TEST RESULTS - Concurrency: 1
+Timestamp: 2025-10-24 18:59:21
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 18:58:00] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 18:58:00] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 18:58:00] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 18:58:00] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 18:58:02] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 1                         
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSeek-                 
+                               R1-Distill-Qwen-7B-openai-chat-concurrency1/inputs.json                     
+                               --profile-export-file                                                       
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSeek-                 
+                               R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_export.                 
+                               json'                                                                       
+[2025-10-24 18:59:15] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_1/_shared-models_DeepSeek                          
+                               _DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurren                          
+                               cy1/profile_export.json'                                                    
+[2025-10-24 18:59:15] INFO     Parsing total 7 requests.                     llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │    224.26 │    217.75 │    239.21 │    238.53 │    232.40 │    226.87 │
+│       Time To Second Token (ms) │      5.48 │      5.29 │      5.72 │      5.72 │      5.68 │      5.64 │
+│            Request Latency (ms) │ 10,028.55 │  5,743.43 │ 13,027.68 │ 13,027.36 │ 13,024.47 │ 11,810.59 │
+│        Inter Token Latency (ms) │      6.43 │      6.39 │      6.48 │      6.48 │      6.47 │      6.44 │
+│     Output Token Throughput Per │    155.63 │    154.35 │    156.54 │    156.52 │    156.35 │    156.07 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,526.71 │    866.00 │  2,001.00 │  2,000.82 │  1,999.20 │  1,807.00 │
+│  Input Sequence Length (tokens) │ 10,101.00 │ 10,101.00 │ 10,101.00 │ 10,101.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │    152.13 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      0.10 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │      7.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 18:59:21] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSe                    
+                               ek-R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_e                    
+                               xport_genai_perf.json                                                       
+[2025-10-24 18:59:21] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSee                   
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_exp                   
+                               ort_genai_perf.csv                                                          
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 10
+Timestamp: 2025-10-24 19:00:59
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 18:59:27] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 18:59:27] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 18:59:27] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 18:59:27] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 18:59:28] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 10                        
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_10/_shared-models_DeepSeek_DeepSeek                 
+                               -R1-Distill-Qwen-7B-openai-chat-concurrency10/inputs.json                   
+                               --profile-export-file                                                       
+                               /tmp/simple_decode_test_10/_shared-models_DeepSeek_DeepSeek                 
+                               -R1-Distill-Qwen-7B-openai-chat-concurrency10/profile_expor                 
+                               t.json'                                                                     
+[2025-10-24 19:00:50] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_10/_shared-models_DeepSee                          
+                               k_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurre                          
+                               ncy10/profile_export.json'                                                  
+[2025-10-24 19:00:51] INFO     Parsing total 61 requests.                    llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │    253.16 │     56.16 │    825.95 │    708.85 │    238.77 │    228.65 │
+│       Time To Second Token (ms) │     29.22 │      4.76 │    594.68 │    469.91 │      7.64 │      7.28 │
+│            Request Latency (ms) │ 10,443.08 │  3,468.51 │ 15,945.10 │ 15,818.92 │ 15,220.16 │ 12,395.50 │
+│        Inter Token Latency (ms) │      7.79 │      7.00 │     24.79 │     14.67 │      7.73 │      7.63 │
+│     Output Token Throughput Per │    131.84 │     40.34 │    142.82 │    140.97 │    137.52 │    135.37 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,350.02 │    215.00 │  2,004.00 │  2,001.00 │  1,998.00 │  1,619.00 │
+│  Input Sequence Length (tokens) │ 10,100.95 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  1,146.05 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      0.85 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │     61.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:00:59] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_10/_shared-models_DeepSeek_DeepS                    
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency10/profile                    
+                               _export_genai_perf.json                                                     
+[2025-10-24 19:00:59] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_10/_shared-models_DeepSeek_DeepSe                   
+                               ek-R1-Distill-Qwen-7B-openai-chat-concurrency10/profile_e                   
+                               xport_genai_perf.csv                                                        
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 50
+Timestamp: 2025-10-24 19:02:48
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:01:05] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:01:05] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:01:05] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:01:05] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:01:06] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 50                        
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_50/_shared-models_DeepSeek_DeepSeek                 
+                               -R1-Distill-Qwen-7B-openai-chat-concurrency50/inputs.json                   
+                               --profile-export-file                                                       
+                               /tmp/simple_decode_test_50/_shared-models_DeepSeek_DeepSeek                 
+                               -R1-Distill-Qwen-7B-openai-chat-concurrency50/profile_expor                 
+                               t.json'                                                                     
+[2025-10-24 19:02:33] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_50/_shared-models_DeepSee                          
+                               k_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurre                          
+                               ncy50/profile_export.json'                                                  
+[2025-10-24 19:02:34] INFO     Parsing total 190 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │    468.21 │     34.86 │  2,096.58 │  2,095.92 │  1,515.87 │    301.15 │
+│       Time To Second Token (ms) │    209.66 │      0.00 │  2,031.37 │  1,811.53 │    822.09 │     17.81 │
+│            Request Latency (ms) │ 16,465.42 │  2,785.45 │ 28,730.41 │ 28,697.85 │ 25,243.94 │ 21,119.60 │
+│        Inter Token Latency (ms) │     12.42 │     10.33 │     20.99 │     14.59 │     13.59 │     12.84 │
+│     Output Token Throughput Per │     80.96 │     47.64 │     96.76 │     93.18 │     87.62 │     84.62 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,286.16 │    201.00 │  2,007.00 │  2,002.00 │  1,997.10 │  1,701.00 │
+│  Input Sequence Length (tokens) │ 10,100.96 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  3,403.64 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      2.65 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    190.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:02:47] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_50/_shared-models_DeepSeek_DeepS                    
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency50/profile                    
+                               _export_genai_perf.json                                                     
+[2025-10-24 19:02:47] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_50/_shared-models_DeepSeek_DeepSe                   
+                               ek-R1-Distill-Qwen-7B-openai-chat-concurrency50/profile_e                   
+                               xport_genai_perf.csv                                                        
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 100
+Timestamp: 2025-10-24 19:04:46
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:02:53] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:02:53] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:02:53] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:02:53] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:02:55] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 100                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_100/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency100/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_100/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency100/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:04:27] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_100/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency100/profile_export.json'                                                
+[2025-10-24 19:04:30] INFO     Parsing total 278 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │    515.04 │     35.77 │  2,738.46 │  2,484.76 │  1,562.78 │    850.52 │
+│       Time To Second Token (ms) │    383.09 │      0.00 │  2,513.19 │  2,512.02 │  1,595.43 │    500.29 │
+│            Request Latency (ms) │ 21,687.95 │  5,110.51 │ 35,781.06 │ 35,780.13 │ 32,020.00 │ 27,630.85 │
+│        Inter Token Latency (ms) │     16.14 │     13.88 │     31.69 │     20.82 │     17.65 │     16.93 │
+│     Output Token Throughput Per │     62.48 │     31.55 │     72.04 │     71.60 │     68.92 │     66.12 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,318.58 │    278.00 │  2,008.00 │  2,001.00 │  1,997.30 │  1,699.50 │
+│  Input Sequence Length (tokens) │ 10,100.95 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  5,085.64 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      3.86 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    278.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:04:46] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_100/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency100/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:04:46] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_100/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency100/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 250
+Timestamp: 2025-10-24 19:06:56
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:04:52] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:04:52] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:04:52] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:04:52] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:04:53] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 250                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_250/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency250/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_250/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency250/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:06:34] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_250/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency250/profile_export.json'                                                
+[2025-10-24 19:06:37] INFO     Parsing total 354 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │  1,404.44 │     42.36 │  4,432.43 │  4,175.75 │  2,997.10 │  2,428.35 │
+│       Time To Second Token (ms) │  1,162.32 │     11.49 │  3,682.68 │  3,581.69 │  3,016.13 │  1,957.99 │
+│            Request Latency (ms) │ 35,474.79 │  5,236.26 │ 56,306.72 │ 56,190.89 │ 53,717.34 │ 45,676.92 │
+│        Inter Token Latency (ms) │     26.45 │     23.71 │     46.60 │     29.26 │     27.73 │     26.96 │
+│     Output Token Throughput Per │     37.91 │     21.46 │     42.18 │     41.41 │     39.80 │     38.88 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,291.97 │    183.00 │  2,003.00 │  2,000.00 │  1,980.80 │  1,671.25 │
+│  Input Sequence Length (tokens) │ 10,100.95 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  6,366.26 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      4.93 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    354.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:06:55] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_250/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency250/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:06:55] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_250/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency250/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 300
+Timestamp: 2025-10-24 19:09:10
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:07:01] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:07:01] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:07:01] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:07:01] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:07:03] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 300                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_300/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency300/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_300/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency300/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:08:48] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_300/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency300/profile_export.json'                                                
+[2025-10-24 19:08:51] INFO     Parsing total 354 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │  2,556.89 │     52.80 │  5,733.55 │  5,731.89 │  5,128.48 │  4,150.57 │
+│       Time To Second Token (ms) │  2,127.38 │     18.19 │  5,872.51 │  5,442.84 │  4,747.29 │  3,636.09 │
+│            Request Latency (ms) │ 43,593.31 │  7,037.14 │ 70,427.63 │ 70,007.59 │ 66,793.22 │ 57,521.25 │
+│        Inter Token Latency (ms) │     31.82 │     26.88 │     49.20 │     38.14 │     34.12 │     33.17 │
+│     Output Token Throughput Per │     31.58 │     20.32 │     37.21 │     36.09 │     34.66 │     33.01 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,292.21 │    203.00 │  2,002.00 │  2,002.00 │  1,999.00 │  1,711.00 │
+│  Input Sequence Length (tokens) │ 10,100.96 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  6,355.37 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      4.92 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    354.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:09:09] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_300/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency300/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:09:09] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_300/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency300/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 350
+Timestamp: 2025-10-24 19:11:57
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:09:15] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:09:15] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:09:15] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:09:15] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:09:17] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 350                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_350/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency350/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_350/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency350/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:11:28] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_350/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency350/profile_export.json'                                                
+[2025-10-24 19:11:33] INFO     Parsing total 535 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │  2,348.19 │     35.61 │  6,795.95 │  6,513.65 │  5,229.20 │  4,345.15 │
+│       Time To Second Token (ms) │  1,773.23 │     11.73 │  6,252.27 │  6,049.27 │  4,750.39 │  3,251.67 │
+│            Request Latency (ms) │ 45,022.26 │  9,518.71 │ 72,460.67 │ 72,341.59 │ 69,124.45 │ 57,971.21 │
+│        Inter Token Latency (ms) │     33.84 │     29.16 │     72.93 │     39.65 │     35.35 │     34.53 │
+│     Output Token Throughput Per │     29.67 │     13.71 │     34.29 │     33.53 │     31.36 │     30.50 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,264.96 │    295.00 │  2,002.00 │  2,000.00 │  1,955.60 │  1,630.50 │
+│  Input Sequence Length (tokens) │ 10,100.96 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  7,043.94 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      5.57 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    535.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:11:57] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_350/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency350/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:11:57] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_350/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency350/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 400
+Timestamp: 2025-10-24 19:14:49
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:12:03] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:12:03] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:12:03] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:12:03] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:12:05] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 400                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_400/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency400/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_400/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency400/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:14:20] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_400/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency400/profile_export.json'                                                
+[2025-10-24 19:14:25] INFO     Parsing total 524 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │  2,812.12 │     58.98 │ 17,193.71 │  6,478.76 │  5,379.04 │  4,491.16 │
+│       Time To Second Token (ms) │  2,004.75 │     28.33 │  6,591.85 │  5,911.74 │  4,906.63 │  3,761.14 │
+│            Request Latency (ms) │ 51,646.40 │  1,903.47 │ 87,925.49 │ 87,808.59 │ 76,272.89 │ 67,001.70 │
+│        Inter Token Latency (ms) │     37.55 │     32.85 │     54.96 │     45.59 │     42.40 │     39.62 │
+│     Output Token Throughput Per │     26.82 │     18.19 │     30.44 │     29.98 │     29.20 │     28.57 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,300.78 │     49.00 │  2,005.00 │  2,001.00 │  1,996.70 │  1,686.25 │
+│  Input Sequence Length (tokens) │ 10,100.95 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  7,085.68 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      5.45 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    524.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:14:49] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_400/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency400/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:14:49] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_400/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency400/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 450
+Timestamp: 2025-10-24 19:17:48
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:14:54] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:14:54] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:14:54] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:14:54] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:14:56] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 450                       
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_450/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency450/inputs.json                 
+                                --profile-export-file                                                      
+                               /tmp/simple_decode_test_450/_shared-models_DeepSeek_DeepSee                 
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency450/profile_exp                 
+                               ort.json'                                                                   
+[2025-10-24 19:17:17] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_450/_shared-models_DeepSe                          
+                               ek_DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurr                          
+                               ency450/profile_export.json'                                                
+[2025-10-24 19:17:22] INFO     Parsing total 532 requests.                   llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │  3,892.23 │     64.97 │ 23,127.55 │ 17,460.28 │  6,481.69 │  5,562.53 │
+│       Time To Second Token (ms) │  2,134.49 │     10.41 │  6,208.78 │  6,193.32 │  5,132.58 │  3,686.08 │
+│            Request Latency (ms) │ 58,284.76 │ 10,530.44 │ 89,470.83 │ 87,245.00 │ 85,792.90 │ 74,974.92 │
+│        Inter Token Latency (ms) │     40.93 │     35.54 │     95.48 │     48.48 │     43.03 │     42.03 │
+│     Output Token Throughput Per │     24.55 │     10.47 │     28.14 │     27.78 │     26.28 │     25.32 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,331.35 │    124.00 │  2,005.00 │  2,001.00 │  1,997.00 │  1,710.50 │
+│  Input Sequence Length (tokens) │ 10,100.95 │ 10,100.00 │ 10,102.00 │ 10,102.00 │ 10,101.00 │ 10,101.00 │
+│         Output Token Throughput │  7,452.07 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      5.60 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │    532.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:17:47] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_450/_shared-models_DeepSeek_Deep                    
+                               Seek-R1-Distill-Qwen-7B-openai-chat-concurrency450/profi                    
+                               le_export_genai_perf.json                                                   
+[2025-10-24 19:17:47] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_450/_shared-models_DeepSeek_DeepS                   
+                               eek-R1-Distill-Qwen-7B-openai-chat-concurrency450/profile                   
+                               _export_genai_perf.csv                                                      
+
+----------------------------------------
+
+================================================================================

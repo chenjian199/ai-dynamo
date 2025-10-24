@@ -33,8 +33,8 @@ class PrefillBenchmark:
     def __init__(self, 
                  service_url: Optional[str] = None,
                  model_name: Optional[str] = None):
-        self.service_url = service_url or os.getenv('SERVICE_URL', 'http://127.0.0.1:8000')
-        self.model_name = model_name or os.getenv('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B')
+        self.service_url = service_url or os.getenv('SERVICE_URL', 'http://127.0.0.1:8003')
+        self.model_name = model_name or os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B')
         self.results_dir = Path('/home/bedicloud/dynamo-main/benchmarks/results')
         self.results_dir.mkdir(parents=True, exist_ok=True)
         
@@ -79,8 +79,36 @@ class PrefillBenchmark:
                 print(f"❌ genai-perf failed")
                 return None
             
-            # Parse results
-            result_file = Path(output_dir) / f"{self.model_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+            # Parse results - genai-perf creates files with model path converted to safe filename
+            # genai-perf creates directories with the full model path, so we need to match that exactly
+            model_safe_name = self.model_name.replace('/', '_')  # Only replace slashes, keep hyphens
+            result_file = Path(output_dir) / f"_{model_safe_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+            
+            # If the expected path doesn't exist, try to find the actual directory
+            if not result_file.exists():
+                # Look for any directory that matches the pattern
+                import glob
+                pattern = str(output_dir / f"*{concurrency}*" / "profile_export_genai_perf.json")
+                matching_files = glob.glob(pattern)
+                
+                if matching_files:
+                    # Use the most recent file (genai-perf creates new ones each time)
+                    result_file = Path(max(matching_files, key=lambda x: Path(x).stat().st_mtime))
+                    print(f"🔍 Found result file: {result_file}")
+                else:
+                    # Fallback to model name only version
+                    model_name_only = Path(self.model_name).name  # Extract just the model name
+                    result_file = Path(output_dir) / f"{model_name_only}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+                    print(f"⚠️  Using fallback path: {result_file}")
+            else:
+                print(f"✅ Using primary path: {result_file}")
+                
+            # Debug: Check which file we're actually using
+            if result_file.exists():
+                with open(result_file, 'r') as f:
+                    data = json.load(f)
+                ttft_p90 = data.get('time_to_first_token', {}).get('p90', 'Not found')
+                print(f"📊 Reading TTFT P90: {ttft_p90}ms from {result_file}")
             
             if not result_file.exists():
                 print(f"❌ Result file not found: {result_file}")
@@ -325,10 +353,10 @@ def main():
     parser.add_argument('--deployment', type=str, required=True,
                        help='Deployment name')
     parser.add_argument('--service-url', type=str,
-                       default=os.getenv('SERVICE_URL', 'http://127.0.0.1:8001'),
+                       default=os.getenv('SERVICE_URL', 'http://127.0.0.1:8003'),
                        help='Service URL')
     parser.add_argument('--model', type=str,
-                       default=os.getenv('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B'),
+                       default=os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B'),
                        help='Model name')
     parser.add_argument('--isl', type=int, default=2000,
                        help='Input sequence length')
@@ -343,7 +371,7 @@ def main():
     results = tester.run_full_benchmark(
         deployment_name=args.deployment,
         isl=args.isl,
-        osl=1  # Prefill-focused
+        osl=10  # Prefill-focused
     )
     
     report = tester.generate_report(args.deployment, results)

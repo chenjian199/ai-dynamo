@@ -1,0 +1,67 @@
+================================================================================
+DECODE BENCHMARK REPORT: sglang-agg
+================================================================================
+Timestamp: 2025-10-24 15:53:19
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+
+DECODE GOODPUT BY SLO:
+----------------------------------------------------------------------------------------------------
+SLO             TPOT Limit   Concurrency  Goodput         Goodput/3       Output Tokens/s     
+Name            (ms)                      (req/s)         (req/s)         (tokens/s)          
+----------------------------------------------------------------------------------------------------
+ultra_strict    8            91           46.76           15.59           11922.11            
+strict          12           381          103.00          34.33           26160.17            
+moderate        15           441          110.88          36.96           28221.30            
+loose           20           441          112.10          37.37           28575.92            
+very_loose      30           431          110.40          36.80           28118.23            
+
+DETAILED METRICS:
+--------------------------------------------------------------------------------
+
+ULTRA_STRICT SLO:
+  Request Goodput: 46.76 req/s
+  Request Goodput/3: 15.59 req/s
+  Output Token Throughput: 11922.11 tokens/s
+  Output Token Throughput per Request: 136.61 tokens/s/req
+  Optimal Concurrency: 91
+  P90 ITL (TPOT proxy): 7.40ms
+  Average Output Length: 254.95 tokens
+
+STRICT SLO:
+  Request Goodput: 103.00 req/s
+  Request Goodput/3: 34.33 req/s
+  Output Token Throughput: 26160.17 tokens/s
+  Output Token Throughput per Request: 96.67 tokens/s/req
+  Optimal Concurrency: 381
+  P90 ITL (TPOT proxy): 11.67ms
+  Average Output Length: 253.98 tokens
+
+MODERATE SLO:
+  Request Goodput: 110.88 req/s
+  Request Goodput/3: 36.96 req/s
+  Output Token Throughput: 28221.30 tokens/s
+  Output Token Throughput per Request: 89.63 tokens/s/req
+  Optimal Concurrency: 441
+  P90 ITL (TPOT proxy): 13.04ms
+  Average Output Length: 254.53 tokens
+
+LOOSE SLO:
+  Request Goodput: 112.10 req/s
+  Request Goodput/3: 37.37 req/s
+  Output Token Throughput: 28575.92 tokens/s
+  Output Token Throughput per Request: 89.48 tokens/s/req
+  Optimal Concurrency: 441
+  P90 ITL (TPOT proxy): 12.94ms
+  Average Output Length: 254.91 tokens
+
+VERY_LOOSE SLO:
+  Request Goodput: 110.40 req/s
+  Request Goodput/3: 36.80 req/s
+  Output Token Throughput: 28118.23 tokens/s
+  Output Token Throughput per Request: 90.78 tokens/s/req
+  Optimal Concurrency: 431
+  P90 ITL (TPOT proxy): 12.73ms
+  Average Output Length: 254.70 tokens
+
+================================================================================

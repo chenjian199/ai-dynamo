@@ -100,7 +100,7 @@ TensorRT-LLM
 /CLAUDE.md.bak
 
 # Benchmarks
-benchmarks/results
+#benchmarks/results
 profiling_results*
 
 # Direnv

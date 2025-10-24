@@ -1,0 +1,43 @@
+{
+  "deployment": "sglang-disagg",
+  "timestamp": "20251024_111902",
+  "model": "/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B",
+  "service_url": "http://127.0.0.1:8005",
+  "results": {
+    "ultra_strict": {
+      "request_goodput": 0,
+      "input_token_throughput": 0,
+      "input_token_throughput_per_request": 0,
+      "concurrency": 0,
+      "ttft_p90_ms": 0
+    },
+    "strict": {
+      "request_goodput": 0,
+      "input_token_throughput": 0,
+      "input_token_throughput_per_request": 0,
+      "concurrency": 0,
+      "ttft_p90_ms": 0
+    },
+    "moderate": {
+      "request_goodput": 0,
+      "input_token_throughput": 0,
+      "input_token_throughput_per_request": 0,
+      "concurrency": 0,
+      "ttft_p90_ms": 0
+    },
+    "loose": {
+      "request_goodput": 2.4842739533757934,
+      "input_token_throughput": 4968.547906751587,
+      "input_token_throughput_per_request": 156.07237934095207,
+      "concurrency": 1,
+      "ttft_p90_ms": 349.7011667
+    },
+    "very_loose": {
+      "request_goodput": 2.482492672242675,
+      "input_token_throughput": 4964.98534448535,
+      "input_token_throughput_per_request": 155.4357832550034,
+      "concurrency": 1,
+      "ttft_p90_ms": 347.8257372
+    }
+  }
+}

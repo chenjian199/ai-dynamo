@@ -1,0 +1,69 @@
+================================================================================
+DECODE TEST RESULTS - Concurrency: 1
+Timestamp: 2025-10-24 19:32:09
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-10-24 19:30:47] INFO     Detected passthrough args: ['-vv', '--max-threads=300']        parser.py:865
+[2025-10-24 19:30:47] INFO     Profiling these models:                                  create_config.py:58
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B                         
+[2025-10-24 19:30:47] INFO     Model name                                       perf_analyzer_config.py:157
+                               '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwe                            
+                               n-7B' cannot be used to create artifact                                     
+                               directory. Instead,                                                         
+                               '_shared-models_DeepSeek_DeepSeek-R1-Distill-Qwe                            
+                               n-7B' will be used.                                                         
+[2025-10-24 19:30:47] INFO     Creating tokenizer for:                                    subcommand.py:190
+                               /home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7                  
+                               B                                                                           
+[2025-10-24 19:30:49] INFO     Running Perf Analyzer : 'perf_analyzer -m                   subcommand.py:98
+                               /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B --async                 
+                               --stability-percentage 999 --measurement-interval 20000 -i                  
+                               http -u http://127.0.0.1:8003 --concurrency-range 1                         
+                               --service-kind openai --endpoint v1/chat/completions -vv                    
+                               --max-threads=300 --input-data                                              
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSeek-                 
+                               R1-Distill-Qwen-7B-openai-chat-concurrency1/inputs.json                     
+                               --profile-export-file                                                       
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSeek-                 
+                               R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_export.                 
+                               json'                                                                       
+[2025-10-24 19:32:04] INFO     Loading response data from                         profile_data_parser.py:66
+                               '/tmp/simple_decode_test_1/_shared-models_DeepSeek                          
+                               _DeepSeek-R1-Distill-Qwen-7B-openai-chat-concurren                          
+                               cy1/profile_export.json'                                                    
+[2025-10-24 19:32:04] INFO     Parsing total 7 requests.                     llm_profile_data_parser.py:124
+                                      NVIDIA GenAI-Perf | LLM Metrics                                      
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃                       Statistic ┃       avg ┃       min ┃       max ┃       p99 ┃       p90 ┃       p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━┩
+│        Time To First Token (ms) │    271.27 │     75.58 │    352.67 │    352.52 │    351.11 │    348.37 │
+│       Time To Second Token (ms) │      5.05 │      3.90 │      6.84 │      6.75 │      5.94 │      5.32 │
+│            Request Latency (ms) │  9,870.09 │  3,628.18 │ 16,689.03 │ 16,374.28 │ 13,541.48 │ 11,413.51 │
+│        Inter Token Latency (ms) │      6.64 │      6.61 │      6.68 │      6.68 │      6.67 │      6.66 │
+│     Output Token Throughput Per │    150.61 │    149.73 │    151.31 │    151.30 │    151.22 │    151.00 │
+│                            User │           │           │           │           │           │           │
+│               (tokens/sec/user) │           │           │           │           │           │           │
+│ Output Sequence Length (tokens) │  1,446.43 │    497.00 │  2,465.00 │  2,419.58 │  2,010.80 │  1,706.50 │
+│  Input Sequence Length (tokens) │ 20,101.14 │ 20,101.00 │ 20,102.00 │ 20,101.94 │ 20,101.40 │ 20,101.00 │
+│         Output Token Throughput │    146.43 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│                    (tokens/sec) │           │           │           │           │           │           │
+│    Request Throughput (per sec) │      0.10 │       N/A │       N/A │       N/A │       N/A │       N/A │
+│           Request Count (count) │      7.00 │       N/A │       N/A │       N/A │       N/A │       N/A │
+└─────────────────────────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘
+[2025-10-24 19:32:09] INFO     Generating                                               json_exporter.py:64
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSe                    
+                               ek-R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_e                    
+                               xport_genai_perf.json                                                       
+[2025-10-24 19:32:09] INFO     Generating                                                csv_exporter.py:75
+                               /tmp/simple_decode_test_1/_shared-models_DeepSeek_DeepSee                   
+                               k-R1-Distill-Qwen-7B-openai-chat-concurrency1/profile_exp                   
+                               ort_genai_perf.csv                                                          
+
+----------------------------------------
+
+================================================================================

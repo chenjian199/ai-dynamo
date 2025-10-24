@@ -1,0 +1,62 @@
+================================================================================
+PREFILL BENCHMARK REPORT: sglang-agg
+================================================================================
+Timestamp: 2025-10-24 10:58:54
+Model: /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+Service URL: http://127.0.0.1:8003
+
+PREFILL GOODPUT BY SLO:
+----------------------------------------------------------------------------------------------------
+SLO             TTFT Limit   Concurrency  Goodput         Goodput/3       Input Tokens/s      
+Name            (ms)                      (req/s)         (req/s)         (tokens/s)          
+----------------------------------------------------------------------------------------------------
+ultra_strict    50           11           119.91          39.97           239815.62           
+strict          100          91           552.46          184.15          1104925.20          
+moderate        200          221          768.25          256.08          1536490.01          
+loose           400          451          855.42          285.14          1710843.01          
+very_loose      800          521          822.71          274.24          1645416.91          
+
+DETAILED METRICS:
+--------------------------------------------------------------------------------
+
+ULTRA_STRICT SLO:
+  Request Goodput: 119.91 req/s
+  Request Goodput/3: 39.97 req/s
+  Input Token Throughput: 239815.62 tokens/s
+  Input Token Throughput per Request: 150.30 tokens/s/req
+  Optimal Concurrency: 11
+  P90 TTFT: 37.13ms
+
+STRICT SLO:
+  Request Goodput: 552.46 req/s
+  Request Goodput/3: 184.15 req/s
+  Input Token Throughput: 1104925.20 tokens/s
+  Input Token Throughput per Request: 114.45 tokens/s/req
+  Optimal Concurrency: 91
+  P90 TTFT: 89.19ms
+
+MODERATE SLO:
+  Request Goodput: 768.25 req/s
+  Request Goodput/3: 256.08 req/s
+  Input Token Throughput: 1536490.01 tokens/s
+  Input Token Throughput per Request: 84.66 tokens/s/req
+  Optimal Concurrency: 221
+  P90 TTFT: 172.93ms
+
+LOOSE SLO:
+  Request Goodput: 855.42 req/s
+  Request Goodput/3: 285.14 req/s
+  Input Token Throughput: 1710843.01 tokens/s
+  Input Token Throughput per Request: 77.12 tokens/s/req
+  Optimal Concurrency: 451
+  P90 TTFT: 298.28ms
+
+VERY_LOOSE SLO:
+  Request Goodput: 822.71 req/s
+  Request Goodput/3: 274.24 req/s
+  Input Token Throughput: 1645416.91 tokens/s
+  Input Token Throughput per Request: 4598.07 tokens/s/req
+  Optimal Concurrency: 521
+  P90 TTFT: 445.14ms
+
+================================================================================

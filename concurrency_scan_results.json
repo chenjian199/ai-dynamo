@@ -5,136 +5,139 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 82.44297862052917
+      "total_time": 81.14090657234192
     },
     "results": {
-      "vllm-agg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 0.4813911923488237,
+          "request_throughput_avg": 0.6044466609592841,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 122.68396122654582,
+          "output_token_throughput_avg": 154.03550025097292,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 139.80482647061484,
-          "output_token_throughput_per_user_p90": 141.36408804326953,
-          "ttft_avg": 253.8190727352941,
-          "ttft_p90": 274.17089849999996,
-          "itl_avg": 7.153170705882353,
-          "itl_p90": 7.1924005,
-          "request_latency_avg": 2069.6699906176473,
-          "request_latency_p90": 2096.4957617,
+          "output_token_throughput_per_user_avg": 160.50378567144895,
+          "output_token_throughput_per_user_p90": 160.6701772039098,
+          "ttft_avg": 66.34771960465116,
+          "ttft_p90": 68.976004,
+          "itl_avg": 6.230410813953488,
+          "itl_p90": 6.2468004,
+          "request_latency_avg": 1647.8509735581395,
+          "request_latency_p90": 1650.7271764,
           "request_count": 0,
-          "tpot_avg": 7.153170705882353,
-          "tpot_p90": 7.1924005
+          "tpot_avg": 6.230410813953488,
+          "tpot_p90": 6.2468004
         },
         "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
+          "goodput": 0.6044466609592841,
+          "token_goodput": 154.03550025097292,
+          "token_goodput_per_user": 160.50378567144895,
+          "goodput_efficiency": 0.6044466609592841,
           "requests_per_second": 0.0
         },
         "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
+          "slo_met": true,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 274.17089849999996,
-          "tpot_p90": 7.1924005,
+          "ttft_p90": 68.976004,
+          "tpot_p90": 6.2468004,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
-        "service_url": "http://127.0.0.1:8003",
-        "concurrency": 1,
-        "duration_seconds": 60,
-        "slo_config": "moderate",
-        "timestamp": "20251022_141627"
-      },
-      "vllm-disagg": {
-        "metrics": {
-          "request_throughput_avg": 0.2556663847715527,
-          "request_throughput_p90": 0,
-          "output_token_throughput_avg": 65.19492811674594,
-          "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 139.45245661241253,
-          "output_token_throughput_per_user_p90": 140.0826905972596,
-          "ttft_avg": 2081.9672153888887,
-          "ttft_p90": 2445.473433600001,
-          "itl_avg": 7.17172811111111,
-          "itl_p90": 7.218686,
-          "request_latency_avg": 3903.5861538333334,
-          "request_latency_p90": 4292.047399700001,
-          "request_count": 0,
-          "tpot_avg": 7.17172811111111,
-          "tpot_p90": 7.218686
-        },
-        "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
-          "requests_per_second": 0.0
-        },
-        "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "ttft_p90": 2445.473433600001,
-          "tpot_p90": 7.218686,
-          "ttft_threshold": 200,
-          "tpot_threshold": 15
-        },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 1,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_141627"
+        "timestamp": "20251023_192322"
+      },
+      "sglang-agg": {
+        "metrics": {
+          "request_throughput_avg": 0.6258070981994888,
+          "request_throughput_p90": 0,
+          "output_token_throughput_avg": 159.3583008503987,
+          "output_token_throughput_p90": 0,
+          "output_token_throughput_per_user_avg": 162.00054553744602,
+          "output_token_throughput_per_user_p90": 164.15836937184767,
+          "ttft_avg": 25.577880466666663,
+          "ttft_p90": 46.970322599999996,
+          "itl_avg": 6.173366733333333,
+          "itl_p90": 6.2392124,
+          "request_latency_avg": 1591.408903511111,
+          "request_latency_p90": 1596.9038905999998,
+          "request_count": 0,
+          "tpot_avg": 6.173366733333333,
+          "tpot_p90": 6.2392124
+        },
+        "efficiency": {
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
+          "tpot_slo_met": true,
+          "goodput": 0.6258070981994888,
+          "token_goodput": 159.3583008503987,
+          "token_goodput_per_user": 162.00054553744602,
+          "goodput_efficiency": 0.6258070981994888,
+          "requests_per_second": 0.0
+        },
+        "slo_analysis": {
+          "slo_met": true,
+          "ttft_slo_met": true,
+          "tpot_slo_met": true,
+          "ttft_p90": 46.970322599999996,
+          "tpot_p90": 6.2392124,
+          "ttft_threshold": 200,
+          "tpot_threshold": 15
+        },
+        "deployment_name": "sglang-agg",
+        "service_url": "http://127.0.0.1:8003",
+        "concurrency": 1,
+        "duration_seconds": 60,
+        "slo_config": "moderate",
+        "timestamp": "20251023_192322"
       }
     },
     "summary": {
       "deployment_count": 2,
       "successful_tests": 2,
       "slo_satisfaction": {
-        "satisfied_count": 0,
-        "satisfied_deployments": [],
-        "satisfaction_rate": 0.0
+        "satisfied_count": 2,
+        "satisfied_deployments": [
+          "sglang-disagg",
+          "sglang-agg"
+        ],
+        "satisfaction_rate": 1.0
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            0.6258070981994888
           ],
           [
-            "vllm-disagg",
-            0
+            "sglang-disagg",
+            0.6044466609592841
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            159.3583008503987
           ],
           [
-            "vllm-disagg",
-            0
+            "sglang-disagg",
+            154.03550025097292
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          0
+          "sglang-agg",
+          0.6258070981994888
         ],
         "lowest_latency": [
-          "vllm-agg",
-          274.17089849999996
+          "sglang-agg",
+          46.970322599999996
         ]
       }
     }
@@ -145,136 +148,139 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 84.99209809303284
+      "total_time": 82.20032668113708
     },
     "results": {
-      "vllm-agg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 1.446088250496825,
+          "request_throughput_avg": 1.7043109192891497,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 368.69688509782515,
+          "output_token_throughput_avg": 434.34782870932986,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 139.76935973144964,
-          "output_token_throughput_per_user_p90": 141.4391175223094,
-          "ttft_avg": 233.2289898076923,
-          "ttft_p90": 271.79015799999996,
-          "itl_avg": 7.157202586538462,
-          "itl_p90": 7.190859799999999,
-          "request_latency_avg": 2050.8692704038463,
-          "request_latency_p90": 2094.7480384,
+          "output_token_throughput_per_user_avg": 155.70893748060146,
+          "output_token_throughput_per_user_p90": 155.99838922687118,
+          "ttft_avg": 106.5414265,
+          "ttft_p90": 131.238343,
+          "itl_avg": 6.422279319672131,
+          "itl_p90": 6.4450277,
+          "request_latency_avg": 1736.843724090164,
+          "request_latency_p90": 1762.4371612,
           "request_count": 0,
-          "tpot_avg": 7.157202586538462,
-          "tpot_p90": 7.190859799999999
+          "tpot_avg": 6.422279319672131,
+          "tpot_p90": 6.4450277
         },
         "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
+          "goodput": 1.7043109192891497,
+          "token_goodput": 434.34782870932986,
+          "token_goodput_per_user": 155.70893748060146,
+          "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
         "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
+          "slo_met": true,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 271.79015799999996,
-          "tpot_p90": 7.190859799999999,
+          "ttft_p90": 131.238343,
+          "tpot_p90": 6.4450277,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
-        "service_url": "http://127.0.0.1:8003",
-        "concurrency": 3,
-        "duration_seconds": 60,
-        "slo_config": "moderate",
-        "timestamp": "20251022_141750"
-      },
-      "vllm-disagg": {
-        "metrics": {
-          "request_throughput_avg": 0.8182137689283879,
-          "request_throughput_p90": 0,
-          "output_token_throughput_avg": 208.5440286840635,
-          "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 122.59865500343082,
-          "output_token_throughput_per_user_p90": 133.90408282014474,
-          "ttft_avg": 1497.780529087719,
-          "ttft_p90": 2450.6936837999997,
-          "itl_avg": 8.510421105263159,
-          "itl_p90": 12.947013399999998,
-          "request_latency_avg": 3658.4958941403506,
-          "request_latency_p90": 5250.7893428,
-          "request_count": 0,
-          "tpot_avg": 8.510421105263159,
-          "tpot_p90": 12.947013399999998
-        },
-        "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
-          "requests_per_second": 0.0
-        },
-        "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "ttft_p90": 2450.6936837999997,
-          "tpot_p90": 12.947013399999998,
-          "ttft_threshold": 200,
-          "tpot_threshold": 15
-        },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 3,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_141750"
+        "timestamp": "20251023_192443"
+      },
+      "sglang-agg": {
+        "metrics": {
+          "request_throughput_avg": 1.8774391482374084,
+          "request_throughput_p90": 0,
+          "output_token_throughput_avg": 478.60791323400304,
+          "output_token_throughput_p90": 0,
+          "output_token_throughput_per_user_avg": 162.24698824421372,
+          "output_token_throughput_per_user_p90": 164.42028073159156,
+          "ttft_avg": 25.744607866666666,
+          "ttft_p90": 46.332773399999994,
+          "itl_avg": 6.164062274074074,
+          "itl_p90": 6.222599,
+          "request_latency_avg": 1590.9530186074073,
+          "request_latency_p90": 1597.6391628,
+          "request_count": 0,
+          "tpot_avg": 6.164062274074074,
+          "tpot_p90": 6.222599
+        },
+        "efficiency": {
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
+          "tpot_slo_met": true,
+          "goodput": 1.8774391482374084,
+          "token_goodput": 478.60791323400304,
+          "token_goodput_per_user": 162.24698824421372,
+          "goodput_efficiency": 1.0,
+          "requests_per_second": 0.0
+        },
+        "slo_analysis": {
+          "slo_met": true,
+          "ttft_slo_met": true,
+          "tpot_slo_met": true,
+          "ttft_p90": 46.332773399999994,
+          "tpot_p90": 6.222599,
+          "ttft_threshold": 200,
+          "tpot_threshold": 15
+        },
+        "deployment_name": "sglang-agg",
+        "service_url": "http://127.0.0.1:8003",
+        "concurrency": 3,
+        "duration_seconds": 60,
+        "slo_config": "moderate",
+        "timestamp": "20251023_192443"
       }
     },
     "summary": {
       "deployment_count": 2,
       "successful_tests": 2,
       "slo_satisfaction": {
-        "satisfied_count": 0,
-        "satisfied_deployments": [],
-        "satisfaction_rate": 0.0
+        "satisfied_count": 2,
+        "satisfied_deployments": [
+          "sglang-disagg",
+          "sglang-agg"
+        ],
+        "satisfaction_rate": 1.0
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            1.8774391482374084
           ],
           [
-            "vllm-disagg",
-            0
+            "sglang-disagg",
+            1.7043109192891497
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            478.60791323400304
           ],
           [
-            "vllm-disagg",
-            0
+            "sglang-disagg",
+            434.34782870932986
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          0
+          "sglang-agg",
+          1.8774391482374084
         ],
         "lowest_latency": [
-          "vllm-agg",
-          271.79015799999996
+          "sglang-agg",
+          46.332773399999994
         ]
       }
     }
@@ -285,136 +291,138 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 84.70739960670471
+      "total_time": 83.24972867965698
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 1.3760365890704018,
+          "request_throughput_avg": 3.0573307726729113,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 350.694890260149,
+          "output_token_throughput_avg": 779.105159583461,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 117.97483024604905,
-          "output_token_throughput_per_user_p90": 125.6445671307108,
-          "ttft_avg": 1347.8566591086958,
-          "ttft_p90": 3653.0790780999996,
-          "itl_avg": 8.893696260869564,
-          "itl_p90": 8.3576626,
-          "request_latency_avg": 3605.6259370326084,
-          "request_latency_p90": 5746.0898792,
+          "output_token_throughput_per_user_avg": 159.30989868673998,
+          "output_token_throughput_per_user_p90": 161.9429926494937,
+          "ttft_avg": 27.132612918181817,
+          "ttft_p90": 46.8536368,
+          "itl_avg": 6.278035590909091,
+          "itl_p90": 6.3611277,
+          "request_latency_avg": 1620.6886674227273,
+          "request_latency_p90": 1634.3739869,
           "request_count": 0,
-          "tpot_avg": 8.893696260869564,
-          "tpot_p90": 8.3576626
+          "tpot_avg": 6.278035590909091,
+          "tpot_p90": 6.3611277
         },
         "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
+          "goodput": 3.0573307726729113,
+          "token_goodput": 779.105159583461,
+          "token_goodput_per_user": 159.30989868673998,
+          "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
         "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
+          "slo_met": true,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 3653.0790780999996,
-          "tpot_p90": 8.3576626,
+          "ttft_p90": 46.8536368,
+          "tpot_p90": 6.3611277,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
-        "service_url": "http://127.0.0.1:8005",
-        "concurrency": 5,
-        "duration_seconds": 60,
-        "slo_config": "moderate",
-        "timestamp": "20251022_141915"
-      },
-      "vllm-agg": {
-        "metrics": {
-          "request_throughput_avg": 2.3256759282757935,
-          "request_throughput_p90": 0,
-          "output_token_throughput_avg": 592.8512203669789,
-          "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 129.74009419292418,
-          "output_token_throughput_per_user_p90": 138.19355092279537,
-          "ttft_avg": 156.1230335301205,
-          "ttft_p90": 275.16250149999996,
-          "itl_avg": 7.740779692771084,
-          "itl_p90": 8.2569465,
-          "request_latency_avg": 2121.634138180723,
-          "request_latency_p90": 2369.3919404999997,
-          "request_count": 0,
-          "tpot_avg": 7.740779692771084,
-          "tpot_p90": 8.2569465
-        },
-        "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
-          "requests_per_second": 0.0
-        },
-        "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
-          "tpot_slo_met": true,
-          "ttft_p90": 275.16250149999996,
-          "tpot_p90": 8.2569465,
-          "ttft_threshold": 200,
-          "tpot_threshold": 15
-        },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 5,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_141915"
+        "timestamp": "20251023_192606"
+      },
+      "sglang-disagg": {
+        "metrics": {
+          "request_throughput_avg": 2.69352613548975,
+          "request_throughput_p90": 0,
+          "output_token_throughput_avg": 684.4766285756206,
+          "output_token_throughput_p90": 0,
+          "output_token_throughput_per_user_avg": 154.22754974847834,
+          "output_token_throughput_per_user_p90": 155.04724047294698,
+          "ttft_avg": 186.4137653316062,
+          "ttft_p90": 230.8795208,
+          "itl_avg": 6.508116528497409,
+          "itl_p90": 6.4963884,
+          "request_latency_avg": 1827.6206524870465,
+          "request_latency_p90": 1875.7080091999999,
+          "request_count": 0,
+          "tpot_avg": 6.508116528497409,
+          "tpot_p90": 6.4963884
+        },
+        "efficiency": {
+          "slo_satisfaction_rate": 0.0,
+          "ttft_slo_met": false,
+          "tpot_slo_met": true,
+          "goodput": 0,
+          "token_goodput": 0,
+          "token_goodput_per_user": 0,
+          "goodput_efficiency": 0.0,
+          "requests_per_second": 0.0
+        },
+        "slo_analysis": {
+          "slo_met": false,
+          "ttft_slo_met": false,
+          "tpot_slo_met": true,
+          "ttft_p90": 230.8795208,
+          "tpot_p90": 6.4963884,
+          "ttft_threshold": 200,
+          "tpot_threshold": 15
+        },
+        "deployment_name": "sglang-disagg",
+        "service_url": "http://127.0.0.1:8005",
+        "concurrency": 5,
+        "duration_seconds": 60,
+        "slo_config": "moderate",
+        "timestamp": "20251023_192606"
       }
     },
     "summary": {
       "deployment_count": 2,
       "successful_tests": 2,
       "slo_satisfaction": {
-        "satisfied_count": 0,
-        "satisfied_deployments": [],
-        "satisfaction_rate": 0.0
+        "satisfied_count": 1,
+        "satisfied_deployments": [
+          "sglang-agg"
+        ],
+        "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-disagg",
-            0
+            "sglang-agg",
+            3.0573307726729113
           ],
           [
-            "vllm-agg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-disagg",
-            0
+            "sglang-agg",
+            779.105159583461
           ],
           [
-            "vllm-agg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-disagg",
-          0
+          "sglang-agg",
+          3.0573307726729113
         ],
         "lowest_latency": [
-          "vllm-agg",
-          275.16250149999996
+          "sglang-agg",
+          46.8536368
         ]
       }
     }
@@ -425,70 +433,70 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 87.0802788734436
+      "total_time": 84.34063792228699
     },
     "results": {
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 3.388868625854955,
+          "request_throughput_avg": 4.230771035782878,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 863.8837234761402,
+          "output_token_throughput_avg": 1078.4108868751014,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 130.88075085386103,
-          "output_token_throughput_per_user_p90": 137.13879336995282,
-          "ttft_avg": 84.10106383606558,
-          "ttft_p90": 270.08440310000003,
-          "itl_avg": 7.674932393442623,
-          "itl_p90": 8.402214599999999,
-          "request_latency_avg": 2032.8639195286883,
-          "request_latency_p90": 2363.6570029,
+          "output_token_throughput_per_user_avg": 157.78249232961505,
+          "output_token_throughput_per_user_p90": 160.0003328006922,
+          "ttft_avg": 27.880887764119603,
+          "ttft_p90": 47.120038,
+          "itl_avg": 6.338522255813953,
+          "itl_p90": 6.429898,
+          "request_latency_avg": 1637.205740013289,
+          "request_latency_p90": 1653.966896,
           "request_count": 0,
-          "tpot_avg": 7.674932393442623,
-          "tpot_p90": 8.402214599999999
+          "tpot_avg": 6.338522255813953,
+          "tpot_p90": 6.429898
         },
         "efficiency": {
-          "slo_satisfaction_rate": 0.0,
-          "ttft_slo_met": false,
+          "slo_satisfaction_rate": 1.0,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 0,
-          "token_goodput": 0,
-          "token_goodput_per_user": 0,
-          "goodput_efficiency": 0.0,
+          "goodput": 4.230771035782878,
+          "token_goodput": 1078.4108868751014,
+          "token_goodput_per_user": 157.78249232961505,
+          "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
         "slo_analysis": {
-          "slo_met": false,
-          "ttft_slo_met": false,
+          "slo_met": true,
+          "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 270.08440310000003,
-          "tpot_p90": 8.402214599999999,
+          "ttft_p90": 47.120038,
+          "tpot_p90": 6.429898,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 7,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142040"
+        "timestamp": "20251023_192729"
       },
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 2.4442337206770985,
+          "request_throughput_avg": 3.6457261606959883,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 623.1538953241682,
+          "output_token_throughput_avg": 929.3122963438228,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 107.45065079378432,
-          "output_token_throughput_per_user_p90": 114.35335158127104,
-          "ttft_avg": 419.10564273142853,
-          "ttft_p90": 1423.7781081999997,
-          "itl_avg": 9.447511382857142,
-          "itl_p90": 10.573532199999999,
-          "request_latency_avg": 2818.307578662857,
-          "request_latency_p90": 4058.9497179999994,
+          "output_token_throughput_per_user_avg": 154.30482717960135,
+          "output_token_throughput_per_user_p90": 154.7338596253701,
+          "ttft_avg": 265.167179870229,
+          "ttft_p90": 306.0989061,
+          "itl_avg": 6.480739423664121,
+          "itl_p90": 6.4934522,
+          "request_latency_avg": 1910.6488473091601,
+          "request_latency_p90": 1954.670545,
           "request_count": 0,
-          "tpot_avg": 9.447511382857142,
-          "tpot_p90": 10.573532199999999
+          "tpot_avg": 6.480739423664121,
+          "tpot_p90": 6.4934522
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
@@ -504,57 +512,59 @@
           "slo_met": false,
           "ttft_slo_met": false,
           "tpot_slo_met": true,
-          "ttft_p90": 1423.7781081999997,
-          "tpot_p90": 10.573532199999999,
+          "ttft_p90": 306.0989061,
+          "tpot_p90": 6.4934522,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 7,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142040"
+        "timestamp": "20251023_192729"
       }
     },
     "summary": {
       "deployment_count": 2,
       "successful_tests": 2,
       "slo_satisfaction": {
-        "satisfied_count": 0,
-        "satisfied_deployments": [],
-        "satisfaction_rate": 0.0
+        "satisfied_count": 1,
+        "satisfied_deployments": [
+          "sglang-agg"
+        ],
+        "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            4.230771035782878
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            0
+            "sglang-agg",
+            1078.4108868751014
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          0
+          "sglang-agg",
+          4.230771035782878
         ],
         "lowest_latency": [
-          "vllm-agg",
-          270.08440310000003
+          "sglang-agg",
+          47.120038
         ]
       }
     }
@@ -565,34 +575,34 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 87.74471592903137
+      "total_time": 85.47254729270935
     },
     "results": {
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 4.401353286351345,
+          "request_throughput_avg": 5.4327451912330424,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1122.0247363563458,
+          "output_token_throughput_avg": 1382.3177938902493,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 130.5187392698318,
-          "output_token_throughput_per_user_p90": 134.30295832737104,
-          "ttft_avg": 61.07200192721518,
-          "ttft_p90": 64.767601,
-          "itl_avg": 7.680499316455696,
-          "itl_p90": 8.4224265,
-          "request_latency_avg": 2011.3475668892404,
-          "request_latency_p90": 2203.211449,
+          "output_token_throughput_per_user_avg": 156.79679332266886,
+          "output_token_throughput_per_user_p90": 159.02090450732263,
+          "ttft_avg": 28.151189583979328,
+          "ttft_p90": 45.7463968,
+          "itl_avg": 6.378319377260982,
+          "itl_p90": 6.443721999999999,
+          "request_latency_avg": 1644.676936736434,
+          "request_latency_p90": 1656.2469975999998,
           "request_count": 0,
-          "tpot_avg": 7.680499316455696,
-          "tpot_p90": 8.4224265
+          "tpot_avg": 6.378319377260982,
+          "tpot_p90": 6.443721999999999
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 4.401353286351345,
-          "token_goodput": 1122.0247363563458,
-          "token_goodput_per_user": 130.5187392698318,
+          "goodput": 5.4327451912330424,
+          "token_goodput": 1382.3177938902493,
+          "token_goodput_per_user": 156.79679332266886,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -600,35 +610,35 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 64.767601,
-          "tpot_p90": 8.4224265,
+          "ttft_p90": 45.7463968,
+          "tpot_p90": 6.443721999999999,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 9,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142207"
+        "timestamp": "20251023_192853"
       },
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 2.5206075333305606,
+          "request_throughput_avg": 4.458685533821021,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 642.6713649484643,
+          "output_token_throughput_avg": 1133.784004310513,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 97.16701079287175,
-          "output_token_throughput_per_user_p90": 108.1118365054968,
-          "ttft_avg": 757.2372052983426,
-          "ttft_p90": 2364.270483,
-          "itl_avg": 10.659397563535912,
-          "itl_p90": 12.617239999999999,
-          "request_latency_avg": 3464.3784188397785,
-          "request_latency_p90": 5301.494626,
+          "output_token_throughput_per_user_avg": 151.94900036592068,
+          "output_token_throughput_per_user_p90": 152.1030297250388,
+          "ttft_avg": 321.16110077258566,
+          "ttft_p90": 333.125492,
+          "itl_avg": 6.581183747663551,
+          "itl_p90": 6.594663,
+          "request_latency_avg": 1988.0765447850467,
+          "request_latency_p90": 2003.4270589999999,
           "request_count": 0,
-          "tpot_avg": 10.659397563535912,
-          "tpot_p90": 12.617239999999999
+          "tpot_avg": 6.581183747663551,
+          "tpot_p90": 6.594663
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
@@ -644,17 +654,17 @@
           "slo_met": false,
           "ttft_slo_met": false,
           "tpot_slo_met": true,
-          "ttft_p90": 2364.270483,
-          "tpot_p90": 12.617239999999999,
+          "ttft_p90": 333.125492,
+          "tpot_p90": 6.594663,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 9,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142207"
+        "timestamp": "20251023_192853"
       }
     },
     "summary": {
@@ -663,40 +673,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            4.401353286351345
+            "sglang-agg",
+            5.4327451912330424
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            1122.0247363563458
+            "sglang-agg",
+            1382.3177938902493
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          4.401353286351345
+          "sglang-agg",
+          5.4327451912330424
         ],
         "lowest_latency": [
-          "vllm-agg",
-          64.767601
+          "sglang-agg",
+          45.7463968
         ]
       }
     }
@@ -707,26 +717,26 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 87.94576954841614
+      "total_time": 86.25527119636536
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 3.184399427867888,
+          "request_throughput_avg": 5.317842734238927,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 811.8254594279408,
+          "output_token_throughput_avg": 1355.2057952096186,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 96.46272865210467,
-          "output_token_throughput_per_user_p90": 107.47450845303997,
-          "ttft_avg": 665.9413666211453,
-          "ttft_p90": 1932.5438398,
-          "itl_avg": 10.777219726872246,
-          "itl_p90": 12.6195684,
-          "request_latency_avg": 3402.717954480176,
-          "request_latency_p90": 4749.6704118,
+          "output_token_throughput_per_user_avg": 151.61490165576888,
+          "output_token_throughput_per_user_p90": 151.84283529687585,
+          "ttft_avg": 386.30158032010576,
+          "ttft_p90": 483.14158510000004,
+          "itl_avg": 6.595731894179894,
+          "itl_p90": 6.6142472,
+          "request_latency_avg": 2060.5586229285714,
+          "request_latency_p90": 2161.0727024,
           "request_count": 0,
-          "tpot_avg": 10.777219726872246,
-          "tpot_p90": 12.6195684
+          "tpot_avg": 6.595731894179894,
+          "tpot_p90": 6.6142472
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
@@ -742,43 +752,43 @@
           "slo_met": false,
           "ttft_slo_met": false,
           "tpot_slo_met": true,
-          "ttft_p90": 1932.5438398,
-          "tpot_p90": 12.6195684,
+          "ttft_p90": 483.14158510000004,
+          "tpot_p90": 6.6142472,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 11,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142334"
+        "timestamp": "20251023_193019"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 5.2370077071825625,
+          "request_throughput_avg": 6.609415729688213,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1335.0738661305222,
+          "output_token_throughput_avg": 1682.9416935896802,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 127.02280669426709,
-          "output_token_throughput_per_user_p90": 131.71724014644406,
-          "ttft_avg": 60.608517845333324,
-          "ttft_p90": 64.1967058,
-          "itl_avg": 7.898421573333333,
-          "itl_p90": 8.6396284,
-          "request_latency_avg": 2066.2600716026664,
-          "request_latency_p90": 2246.920827,
+          "output_token_throughput_per_user_avg": 156.3176543707355,
+          "output_token_throughput_per_user_p90": 158.31587875989226,
+          "ttft_avg": 28.59258158350951,
+          "ttft_p90": 46.786923200000004,
+          "itl_avg": 6.397796076109937,
+          "itl_p90": 6.4711647999999995,
+          "request_latency_avg": 1651.2214137378435,
+          "request_latency_p90": 1664.1957201999999,
           "request_count": 0,
-          "tpot_avg": 7.898421573333333,
-          "tpot_p90": 8.6396284
+          "tpot_avg": 6.397796076109937,
+          "tpot_p90": 6.4711647999999995
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 5.2370077071825625,
-          "token_goodput": 1335.0738661305222,
-          "token_goodput_per_user": 127.02280669426709,
+          "goodput": 6.609415729688213,
+          "token_goodput": 1682.9416935896802,
+          "token_goodput_per_user": 156.3176543707355,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -786,17 +796,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 64.1967058,
-          "tpot_p90": 8.6396284,
+          "ttft_p90": 46.786923200000004,
+          "tpot_p90": 6.4711647999999995,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 11,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142334"
+        "timestamp": "20251023_193019"
       }
     },
     "summary": {
@@ -805,40 +815,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            5.2370077071825625
+            "sglang-agg",
+            6.609415729688213
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            1335.0738661305222
+            "sglang-agg",
+            1682.9416935896802
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          5.2370077071825625
+          "sglang-agg",
+          6.609415729688213
         ],
         "lowest_latency": [
-          "vllm-agg",
-          64.1967058
+          "sglang-agg",
+          46.786923200000004
         ]
       }
     }
@@ -849,31 +859,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 88.35671329498291
+      "total_time": 87.43267035484314
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 3.39789352177995,
+          "request_throughput_avg": 6.089427576481898,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 866.1982579845684,
+          "output_token_throughput_avg": 1551.4981407743612,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 82.5838856698306,
-          "output_token_throughput_per_user_p90": 97.14465070204018,
-          "ttft_avg": 509.4095950286885,
-          "ttft_p90": 1359.3731827000026,
-          "itl_avg": 12.721027319672132,
-          "itl_p90": 15.9152503,
-          "request_latency_avg": 3739.464060094262,
-          "request_latency_p90": 6201.384566600003,
+          "output_token_throughput_per_user_avg": 151.4419902679084,
+          "output_token_throughput_per_user_p90": 151.60928250281225,
+          "ttft_avg": 450.82832097902093,
+          "ttft_p90": 462.6102528,
+          "itl_avg": 6.603247533799533,
+          "itl_p90": 6.6228714,
+          "request_latency_avg": 2126.623973191142,
+          "request_latency_p90": 2138.0996202,
           "request_count": 0,
-          "tpot_avg": 12.721027319672132,
-          "tpot_p90": 15.9152503
+          "tpot_avg": 6.603247533799533,
+          "tpot_p90": 6.6228714
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -883,44 +893,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 1359.3731827000026,
-          "tpot_p90": 15.9152503,
+          "tpot_slo_met": true,
+          "ttft_p90": 462.6102528,
+          "tpot_p90": 6.6228714,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 13,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142502"
+        "timestamp": "20251023_193145"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 6.058046875313516,
+          "request_throughput_avg": 7.759899162497873,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1544.4955692250458,
+          "output_token_throughput_avg": 1976.6326655211428,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 123.88166167139492,
-          "output_token_throughput_per_user_p90": 128.80477097685932,
-          "ttft_avg": 56.94411344597701,
-          "ttft_p90": 64.2657642,
-          "itl_avg": 8.092697335632183,
-          "itl_p90": 8.8855346,
-          "request_latency_avg": 2112.0758331931033,
-          "request_latency_p90": 2313.6779664,
+          "output_token_throughput_per_user_avg": 155.46834704886052,
+          "output_token_throughput_per_user_p90": 157.79989080544615,
+          "ttft_avg": 27.96803994802867,
+          "ttft_p90": 46.4663986,
+          "itl_avg": 6.432894521505376,
+          "itl_p90": 6.513494,
+          "request_latency_avg": 1660.134912408602,
+          "request_latency_p90": 1678.5620568,
           "request_count": 0,
-          "tpot_avg": 8.092697335632183,
-          "tpot_p90": 8.8855346
+          "tpot_avg": 6.432894521505376,
+          "tpot_p90": 6.513494
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 6.058046875313516,
-          "token_goodput": 1544.4955692250458,
-          "token_goodput_per_user": 123.88166167139492,
+          "goodput": 7.759899162497873,
+          "token_goodput": 1976.6326655211428,
+          "token_goodput_per_user": 155.46834704886052,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -928,17 +938,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 64.2657642,
-          "tpot_p90": 8.8855346,
+          "ttft_p90": 46.4663986,
+          "tpot_p90": 6.513494,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 13,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142502"
+        "timestamp": "20251023_193145"
       }
     },
     "summary": {
@@ -947,40 +957,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            6.058046875313516
+            "sglang-agg",
+            7.759899162497873
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            1544.4955692250458
+            "sglang-agg",
+            1976.6326655211428
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          6.058046875313516
+          "sglang-agg",
+          7.759899162497873
         ],
         "lowest_latency": [
-          "vllm-agg",
-          64.2657642
+          "sglang-agg",
+          46.4663986
         ]
       }
     }
@@ -991,26 +1001,26 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 89.55952143669128
+      "total_time": 88.30313849449158
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 3.857295313853631,
+          "request_throughput_avg": 6.791751098130419,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 983.415351478907,
+          "output_token_throughput_avg": 1730.661666187233,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 88.71618402830683,
-          "output_token_throughput_per_user_p90": 99.03655670104135,
-          "ttft_avg": 883.9513858086642,
-          "ttft_p90": 2280.4593428000003,
-          "itl_avg": 11.467142851985558,
-          "itl_p90": 12.8243324,
-          "request_latency_avg": 3796.006441537906,
-          "request_latency_p90": 5039.4533028,
+          "output_token_throughput_per_user_avg": 151.0153680615644,
+          "output_token_throughput_per_user_p90": 151.3469706370067,
+          "ttft_avg": 520.1673350867768,
+          "ttft_p90": 628.8991152,
+          "itl_avg": 6.621939838842975,
+          "itl_p90": 6.640441099999999,
+          "request_latency_avg": 2200.920683161157,
+          "request_latency_p90": 2313.8880440999997,
           "request_count": 0,
-          "tpot_avg": 11.467142851985558,
-          "tpot_p90": 12.8243324
+          "tpot_avg": 6.621939838842975,
+          "tpot_p90": 6.640441099999999
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
@@ -1026,43 +1036,43 @@
           "slo_met": false,
           "ttft_slo_met": false,
           "tpot_slo_met": true,
-          "ttft_p90": 2280.4593428000003,
-          "tpot_p90": 12.8243324,
+          "ttft_p90": 628.8991152,
+          "tpot_p90": 6.640441099999999,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 15,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142631"
+        "timestamp": "20251023_193312"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 6.732474462760116,
+          "request_throughput_avg": 8.906866181979446,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1716.4193261525245,
+          "output_token_throughput_avg": 2270.0915700128185,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 119.37343117123238,
-          "output_token_throughput_per_user_p90": 123.40885204719144,
-          "ttft_avg": 56.03791866115702,
-          "ttft_p90": 64.072575,
-          "itl_avg": 8.398266632231405,
-          "itl_p90": 9.1833919,
-          "request_latency_avg": 2188.7334069938015,
-          "request_latency_p90": 2379.5546145999997,
+          "output_token_throughput_per_user_avg": 154.44146962972476,
+          "output_token_throughput_per_user_p90": 156.71259109611316,
+          "ttft_avg": 28.78153993333333,
+          "ttft_p90": 47.1183281,
+          "itl_avg": 6.475683817460317,
+          "itl_p90": 6.5604360999999995,
+          "request_latency_avg": 1672.7506708603173,
+          "request_latency_p90": 1685.9403905999998,
           "request_count": 0,
-          "tpot_avg": 8.398266632231405,
-          "tpot_p90": 9.1833919
+          "tpot_avg": 6.475683817460317,
+          "tpot_p90": 6.5604360999999995
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 6.732474462760116,
-          "token_goodput": 1716.4193261525245,
-          "token_goodput_per_user": 119.37343117123238,
+          "goodput": 8.906866181979446,
+          "token_goodput": 2270.0915700128185,
+          "token_goodput_per_user": 154.44146962972476,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1070,17 +1080,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 64.072575,
-          "tpot_p90": 9.1833919,
+          "ttft_p90": 47.1183281,
+          "tpot_p90": 6.5604360999999995,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 15,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142631"
+        "timestamp": "20251023_193312"
       }
     },
     "summary": {
@@ -1089,40 +1099,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            6.732474462760116
+            "sglang-agg",
+            8.906866181979446
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            1716.4193261525245
+            "sglang-agg",
+            2270.0915700128185
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          6.732474462760116
+          "sglang-agg",
+          8.906866181979446
         ],
         "lowest_latency": [
-          "vllm-agg",
-          64.072575
+          "sglang-agg",
+          47.1183281
         ]
       }
     }
@@ -1133,31 +1143,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 89.53565883636475
+      "total_time": 88.36336970329285
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 3.9252097763337086,
+          "request_throughput_avg": 7.439304595382929,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1000.7468996302475,
+          "output_token_throughput_avg": 1892.497445110201,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 80.97534253593324,
-          "output_token_throughput_per_user_p90": 93.46479218664247,
-          "ttft_avg": 886.3854892669038,
-          "ttft_p90": 2680.709955,
-          "itl_avg": 12.690167633451956,
-          "itl_p90": 16.29325,
-          "request_latency_avg": 4109.153652323844,
-          "request_latency_p90": 6251.625002,
+          "output_token_throughput_per_user_avg": 148.66992837015508,
+          "output_token_throughput_per_user_p90": 149.34179842471283,
+          "ttft_avg": 569.8721125951035,
+          "ttft_p90": 628.6780309999999,
+          "itl_avg": 6.726457126177023,
+          "itl_p90": 6.755832,
+          "request_latency_avg": 2274.308815120527,
+          "request_latency_p90": 2331.3326939999997,
           "request_count": 0,
-          "tpot_avg": 12.690167633451956,
-          "tpot_p90": 16.29325
+          "tpot_avg": 6.726457126177023,
+          "tpot_p90": 6.755832
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1167,44 +1177,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2680.709955,
-          "tpot_p90": 16.29325,
+          "tpot_slo_met": true,
+          "ttft_p90": 628.6780309999999,
+          "tpot_p90": 6.755832,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 17,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142800"
+        "timestamp": "20251023_193441"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 7.302937558373425,
+          "request_throughput_avg": 10.050479990255395,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1861.7743166261703,
+          "output_token_throughput_avg": 2561.830751129581,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 114.875369525368,
-          "output_token_throughput_per_user_p90": 121.22594832171026,
-          "ttft_avg": 65.79811886233269,
-          "ttft_p90": 79.37086000000002,
-          "itl_avg": 8.74807731548757,
-          "itl_p90": 9.474893999999999,
-          "request_latency_avg": 2287.2485669732314,
-          "request_latency_p90": 2550.9269900000004,
+          "output_token_throughput_per_user_avg": 153.90523542500716,
+          "output_token_throughput_per_user_p90": 156.1544164211414,
+          "ttft_avg": 28.118696231092436,
+          "ttft_p90": 46.8553184,
+          "itl_avg": 6.498276640056022,
+          "itl_p90": 6.5837789,
+          "request_latency_avg": 1677.9988454061624,
+          "request_latency_p90": 1692.1423350999999,
           "request_count": 0,
-          "tpot_avg": 8.74807731548757,
-          "tpot_p90": 9.474893999999999
+          "tpot_avg": 6.498276640056022,
+          "tpot_p90": 6.5837789
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 7.302937558373425,
-          "token_goodput": 1861.7743166261703,
-          "token_goodput_per_user": 114.875369525368,
+          "goodput": 10.050479990255395,
+          "token_goodput": 2561.830751129581,
+          "token_goodput_per_user": 153.90523542500716,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1212,17 +1222,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 79.37086000000002,
-          "tpot_p90": 9.474893999999999,
+          "ttft_p90": 46.8553184,
+          "tpot_p90": 6.5837789,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 17,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142800"
+        "timestamp": "20251023_193441"
       }
     },
     "summary": {
@@ -1231,40 +1241,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            7.302937558373425
+            "sglang-agg",
+            10.050479990255395
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            1861.7743166261703
+            "sglang-agg",
+            2561.830751129581
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          7.302937558373425
+          "sglang-agg",
+          10.050479990255395
         ],
         "lowest_latency": [
-          "vllm-agg",
-          79.37086000000002
+          "sglang-agg",
+          46.8553184
         ]
       }
     }
@@ -1275,31 +1285,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 90.46490287780762
+      "total_time": 89.15109252929688
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 4.092409079501213,
+          "request_throughput_avg": 8.186044263428991,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1043.2710026766674,
+          "output_token_throughput_avg": 2084.9149045482654,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 70.93434854057782,
-          "output_token_throughput_per_user_p90": 85.7588555903149,
-          "ttft_avg": 821.7371975017064,
-          "ttft_p90": 2045.3963992,
-          "itl_avg": 14.57821399317406,
-          "itl_p90": 18.833474,
-          "request_latency_avg": 4523.44000671331,
-          "request_latency_p90": 5670.2498568,
+          "output_token_throughput_per_user_avg": 150.05156157213477,
+          "output_token_throughput_per_user_p90": 150.49706855313482,
+          "ttft_avg": 619.1970421568966,
+          "ttft_p90": 729.2773042,
+          "itl_avg": 6.664463470689655,
+          "itl_p90": 6.6873207,
+          "request_latency_avg": 2309.9643282810343,
+          "request_latency_p90": 2425.4533011,
           "request_count": 0,
-          "tpot_avg": 14.57821399317406,
-          "tpot_p90": 18.833474
+          "tpot_avg": 6.664463470689655,
+          "tpot_p90": 6.6873207
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1309,44 +1319,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2045.3963992,
-          "tpot_p90": 18.833474,
+          "tpot_slo_met": true,
+          "ttft_p90": 729.2773042,
+          "tpot_p90": 6.6873207,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 19,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142930"
+        "timestamp": "20251023_193609"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 8.050678782526075,
+          "request_throughput_avg": 11.193941111503559,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2052.2151850305136,
+          "output_token_throughput_avg": 2853.276673842723,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 112.8035141068779,
-          "output_token_throughput_per_user_p90": 118.26417537362848,
-          "ttft_avg": 57.46973445517241,
-          "ttft_p90": 65.2041327,
-          "itl_avg": 8.900321322413792,
-          "itl_p90": 9.7612069,
-          "request_latency_avg": 2317.351384839655,
-          "request_latency_p90": 2557.6350788,
+          "output_token_throughput_per_user_avg": 153.44177607041075,
+          "output_token_throughput_per_user_p90": 155.5309778598499,
+          "ttft_avg": 28.201974497493733,
+          "ttft_p90": 46.7872237,
+          "itl_avg": 6.517760528822055,
+          "itl_p90": 6.5985744,
+          "request_latency_avg": 1683.0187581353382,
+          "request_latency_p90": 1698.1220289,
           "request_count": 0,
-          "tpot_avg": 8.900321322413792,
-          "tpot_p90": 9.7612069
+          "tpot_avg": 6.517760528822055,
+          "tpot_p90": 6.5985744
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 8.050678782526075,
-          "token_goodput": 2052.2151850305136,
-          "token_goodput_per_user": 112.8035141068779,
+          "goodput": 11.193941111503559,
+          "token_goodput": 2853.276673842723,
+          "token_goodput_per_user": 153.44177607041075,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1354,17 +1364,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 65.2041327,
-          "tpot_p90": 9.7612069,
+          "ttft_p90": 46.7872237,
+          "tpot_p90": 6.5985744,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 19,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_142930"
+        "timestamp": "20251023_193609"
       }
     },
     "summary": {
@@ -1373,40 +1383,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            8.050678782526075
+            "sglang-agg",
+            11.193941111503559
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2052.2151850305136
+            "sglang-agg",
+            2853.276673842723
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          8.050678782526075
+          "sglang-agg",
+          11.193941111503559
         ],
         "lowest_latency": [
-          "vllm-agg",
-          65.2041327
+          "sglang-agg",
+          46.7872237
         ]
       }
     }
@@ -1417,31 +1427,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 90.33209657669067
+      "total_time": 90.40152072906494
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 4.881048213098053,
+          "request_throughput_avg": 8.751753648895244,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1244.2756916180356,
+          "output_token_throughput_avg": 2228.6704728441996,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 75.13536382318156,
-          "output_token_throughput_per_user_p90": 84.97769999050196,
-          "ttft_avg": 706.5031528252148,
-          "ttft_p90": 2179.4913954,
-          "itl_avg": 13.78401193982808,
-          "itl_p90": 16.195114999999998,
-          "request_latency_avg": 4206.538986747851,
-          "request_latency_p90": 5440.842569999999,
+          "output_token_throughput_per_user_avg": 149.8147434652164,
+          "output_token_throughput_per_user_p90": 150.27770568851705,
+          "ttft_avg": 696.0214938140293,
+          "ttft_p90": 786.6448634,
+          "itl_avg": 6.675023133768352,
+          "itl_p90": 6.7047964,
+          "request_latency_avg": 2389.1653911141925,
+          "request_latency_p90": 2480.8006084,
           "request_count": 0,
-          "tpot_avg": 13.78401193982808,
-          "tpot_p90": 16.195114999999998
+          "tpot_avg": 6.675023133768352,
+          "tpot_p90": 6.7047964
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1451,44 +1461,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2179.4913954,
-          "tpot_p90": 16.195114999999998,
+          "tpot_slo_met": true,
+          "ttft_p90": 786.6448634,
+          "tpot_p90": 6.7047964,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 21,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143100"
+        "timestamp": "20251023_193738"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 8.499961917691452,
+          "request_throughput_avg": 12.317912083447284,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2166.8097365048384,
+          "output_token_throughput_avg": 3139.433572533294,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 108.18228157272142,
-          "output_token_throughput_per_user_p90": 113.1419776042209,
-          "ttft_avg": 62.22081275326797,
-          "ttft_p90": 69.913786,
-          "itl_avg": 9.282034563725489,
-          "itl_p90": 9.9529283,
-          "request_latency_avg": 2419.109314985294,
-          "request_latency_p90": 2573.1529501,
+          "output_token_throughput_per_user_avg": 153.08502565939614,
+          "output_token_throughput_per_user_p90": 155.4445591595629,
+          "ttft_avg": 28.090991650793647,
+          "ttft_p90": 47.099093599999996,
+          "itl_avg": 6.533142777777778,
+          "itl_p90": 6.6202822,
+          "request_latency_avg": 1686.6313011882085,
+          "request_latency_p90": 1702.002962,
           "request_count": 0,
-          "tpot_avg": 9.282034563725489,
-          "tpot_p90": 9.9529283
+          "tpot_avg": 6.533142777777778,
+          "tpot_p90": 6.6202822
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 8.499961917691452,
-          "token_goodput": 2166.8097365048384,
-          "token_goodput_per_user": 108.18228157272142,
+          "goodput": 12.317912083447284,
+          "token_goodput": 3139.433572533294,
+          "token_goodput_per_user": 153.08502565939614,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1496,17 +1506,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 69.913786,
-          "tpot_p90": 9.9529283,
+          "ttft_p90": 47.099093599999996,
+          "tpot_p90": 6.6202822,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 21,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143100"
+        "timestamp": "20251023_193738"
       }
     },
     "summary": {
@@ -1515,40 +1525,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            8.499961917691452
+            "sglang-agg",
+            12.317912083447284
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2166.8097365048384
+            "sglang-agg",
+            3139.433572533294
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          8.499961917691452
+          "sglang-agg",
+          12.317912083447284
         ],
         "lowest_latency": [
-          "vllm-agg",
-          69.913786
+          "sglang-agg",
+          47.099093599999996
         ]
       }
     }
@@ -1559,31 +1569,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 91.14486145973206
+      "total_time": 91.91602921485901
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 4.32865125317237,
+          "request_throughput_avg": 9.338810657508546,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1103.651474871341,
+          "output_token_throughput_avg": 2380.24535744663,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 65.60567033631246,
-          "output_token_throughput_per_user_p90": 83.33285902968458,
-          "ttft_avg": 1077.1434492142855,
-          "ttft_p90": 2906.218949300001,
-          "itl_avg": 16.364567103896103,
-          "itl_p90": 23.244075,
-          "request_latency_avg": 5233.127384522727,
-          "request_latency_p90": 7469.145502400001,
+          "output_token_throughput_per_user_avg": 150.8121729653045,
+          "output_token_throughput_per_user_p90": 151.5057994753609,
+          "ttft_avg": 757.2750820837139,
+          "ttft_p90": 914.9192237999999,
+          "itl_avg": 6.631079590563166,
+          "itl_p90": 6.7220428,
+          "request_latency_avg": 2440.7410454733636,
+          "request_latency_p90": 2605.2379608,
           "request_count": 0,
-          "tpot_avg": 16.364567103896103,
-          "tpot_p90": 23.244075
+          "tpot_avg": 6.631079590563166,
+          "tpot_p90": 6.7220428
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1593,44 +1603,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2906.218949300001,
-          "tpot_p90": 23.244075,
+          "tpot_slo_met": true,
+          "ttft_p90": 914.9192237999999,
+          "tpot_p90": 6.7220428,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 23,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143231"
+        "timestamp": "20251023_193909"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 9.178235829493111,
+          "request_throughput_avg": 13.438745414633269,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2339.880835962484,
+          "output_token_throughput_avg": 3423.7638499106993,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 106.59704000334752,
-          "output_token_throughput_per_user_p90": 112.47384420752954,
-          "ttft_avg": 64.13100847503782,
-          "ttft_p90": 64.436643,
-          "itl_avg": 9.431757765506807,
-          "itl_p90": 10.088049,
-          "request_latency_avg": 2459.219176231467,
-          "request_latency_p90": 2775.402533,
+          "output_token_throughput_per_user_avg": 152.26974919786957,
+          "output_token_throughput_per_user_p90": 154.54319150488612,
+          "ttft_avg": 28.689313562111803,
+          "ttft_p90": 47.8843525,
+          "itl_avg": 6.568109080745341,
+          "itl_p90": 6.65796,
+          "request_latency_avg": 1695.4359662339543,
+          "request_latency_p90": 1711.937717,
           "request_count": 0,
-          "tpot_avg": 9.431757765506807,
-          "tpot_p90": 10.088049
+          "tpot_avg": 6.568109080745341,
+          "tpot_p90": 6.65796
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 9.178235829493111,
-          "token_goodput": 2339.880835962484,
-          "token_goodput_per_user": 106.59704000334752,
+          "goodput": 13.438745414633269,
+          "token_goodput": 3423.7638499106993,
+          "token_goodput_per_user": 152.26974919786957,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1638,17 +1648,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 64.436643,
-          "tpot_p90": 10.088049,
+          "ttft_p90": 47.8843525,
+          "tpot_p90": 6.65796,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 23,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143231"
+        "timestamp": "20251023_193909"
       }
     },
     "summary": {
@@ -1657,40 +1667,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            9.178235829493111
+            "sglang-agg",
+            13.438745414633269
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2339.880835962484
+            "sglang-agg",
+            3423.7638499106993
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          9.178235829493111
+          "sglang-agg",
+          13.438745414633269
         ],
         "lowest_latency": [
-          "vllm-agg",
-          64.436643
+          "sglang-agg",
+          47.8843525
         ]
       }
     }
@@ -1701,31 +1711,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 91.24357533454895
+      "total_time": 92.89350843429565
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 5.600922023895035,
+          "request_throughput_avg": 9.983635524068278,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1427.8450021214203,
+          "output_token_throughput_avg": 2544.753853121387,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 70.56488018755701,
-          "output_token_throughput_per_user_p90": 78.36968309846816,
-          "ttft_avg": 550.7680827014925,
-          "ttft_p90": 2431.8377892000067,
-          "itl_avg": 14.929053810945273,
-          "itl_p90": 20.5406568,
-          "request_latency_avg": 4341.818782485075,
-          "request_latency_p90": 6392.1556976,
+          "output_token_throughput_per_user_avg": 149.65774721843522,
+          "output_token_throughput_per_user_p90": 150.09846309797425,
+          "ttft_avg": 799.4943031598302,
+          "ttft_p90": 927.9160533999999,
+          "itl_avg": 6.6820408656294195,
+          "itl_p90": 6.7240344,
+          "request_latency_avg": 2496.0063883719945,
+          "request_latency_p90": 2634.153953,
           "request_count": 0,
-          "tpot_avg": 14.929053810945273,
-          "tpot_p90": 20.5406568
+          "tpot_avg": 6.6820408656294195,
+          "tpot_p90": 6.7240344
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1735,44 +1745,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2431.8377892000067,
-          "tpot_p90": 20.5406568,
+          "tpot_slo_met": true,
+          "ttft_p90": 927.9160533999999,
+          "tpot_p90": 6.7240344,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 25,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143402"
+        "timestamp": "20251023_194041"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 9.728021308795086,
+          "request_throughput_avg": 14.369018244222971,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2479.853294864745,
+          "output_token_throughput_avg": 3662.235184543705,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 104.43982504126316,
-          "output_token_throughput_per_user_p90": 112.51941789873565,
-          "ttft_avg": 70.7444374042857,
-          "ttft_p90": 139.37113470000014,
-          "itl_avg": 9.650752612857142,
-          "itl_p90": 10.8762074,
-          "request_latency_avg": 2521.2636601371423,
-          "request_latency_p90": 2901.9278715,
+          "output_token_throughput_per_user_avg": 150.80649546323266,
+          "output_token_throughput_per_user_p90": 153.4449827204542,
+          "ttft_avg": 29.15424827317073,
+          "ttft_p90": 47.763336800000005,
+          "itl_avg": 6.632123635121951,
+          "itl_p90": 6.7291152,
+          "request_latency_avg": 1712.8427747131707,
+          "request_latency_p90": 1733.5327452,
           "request_count": 0,
-          "tpot_avg": 9.650752612857142,
-          "tpot_p90": 10.8762074
+          "tpot_avg": 6.632123635121951,
+          "tpot_p90": 6.7291152
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 9.728021308795086,
-          "token_goodput": 2479.853294864745,
-          "token_goodput_per_user": 104.43982504126316,
+          "goodput": 14.369018244222971,
+          "token_goodput": 3662.235184543705,
+          "token_goodput_per_user": 150.80649546323266,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1780,17 +1790,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 139.37113470000014,
-          "tpot_p90": 10.8762074,
+          "ttft_p90": 47.763336800000005,
+          "tpot_p90": 6.7291152,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 25,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143402"
+        "timestamp": "20251023_194041"
       }
     },
     "summary": {
@@ -1799,40 +1809,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            9.728021308795086
+            "sglang-agg",
+            14.369018244222971
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2479.853294864745
+            "sglang-agg",
+            3662.235184543705
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          9.728021308795086
+          "sglang-agg",
+          14.369018244222971
         ],
         "lowest_latency": [
-          "vllm-agg",
-          139.37113470000014
+          "sglang-agg",
+          47.763336800000005
         ]
       }
     }
@@ -1843,31 +1853,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 92.44336771965027
+      "total_time": 92.67681527137756
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 4.957892800377236,
+          "request_throughput_avg": 10.460991259312197,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1263.9693802967363,
+          "output_token_throughput_avg": 2666.459831739309,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 62.01050727224368,
-          "output_token_throughput_per_user_p90": 77.82779161228031,
-          "ttft_avg": 1015.8425977183099,
-          "ttft_p90": 2603.9248571999997,
-          "itl_avg": 16.752516509859152,
-          "itl_p90": 21.2635042,
-          "request_latency_avg": 5270.132806538028,
-          "request_latency_p90": 6321.7333376,
+          "output_token_throughput_per_user_avg": 149.53708345001965,
+          "output_token_throughput_per_user_p90": 149.81738011105867,
+          "ttft_avg": 874.750684127544,
+          "ttft_p90": 979.7490617999999,
+          "itl_avg": 6.6873849470827675,
+          "itl_p90": 6.714211799999999,
+          "request_latency_avg": 2572.6394698453187,
+          "request_latency_p90": 2676.4710778,
           "request_count": 0,
-          "tpot_avg": 16.752516509859152,
-          "tpot_p90": 21.2635042
+          "tpot_avg": 6.6873849470827675,
+          "tpot_p90": 6.714211799999999
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -1877,44 +1887,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2603.9248571999997,
-          "tpot_p90": 21.2635042,
+          "tpot_slo_met": true,
+          "ttft_p90": 979.7490617999999,
+          "tpot_p90": 6.714211799999999,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 27,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143533"
+        "timestamp": "20251023_194213"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 10.379261102429616,
+          "request_throughput_avg": 15.529933106337799,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2646.266954137922,
+          "output_token_throughput_avg": 3958.1127882161272,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 102.29918314719193,
-          "output_token_throughput_per_user_p90": 107.26837973275588,
-          "ttft_avg": 63.36592100535475,
-          "ttft_p90": 92.55016579999987,
-          "itl_avg": 9.806467819277108,
-          "itl_p90": 10.499518,
-          "request_latency_avg": 2553.7888591231595,
-          "request_latency_p90": 2719.979638,
+          "output_token_throughput_per_user_avg": 149.91058382667165,
+          "output_token_throughput_per_user_p90": 152.64718876897103,
+          "ttft_avg": 29.628608522131884,
+          "ttft_p90": 47.073056799999996,
+          "itl_avg": 6.671761835591689,
+          "itl_p90": 6.7828995999999995,
+          "request_latency_avg": 1723.3764276269194,
+          "request_latency_p90": 1745.1241072,
           "request_count": 0,
-          "tpot_avg": 9.806467819277108,
-          "tpot_p90": 10.499518
+          "tpot_avg": 6.671761835591689,
+          "tpot_p90": 6.7828995999999995
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 10.379261102429616,
-          "token_goodput": 2646.266954137922,
-          "token_goodput_per_user": 102.29918314719193,
+          "goodput": 15.529933106337799,
+          "token_goodput": 3958.1127882161272,
+          "token_goodput_per_user": 149.91058382667165,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -1922,17 +1932,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 92.55016579999987,
-          "tpot_p90": 10.499518,
+          "ttft_p90": 47.073056799999996,
+          "tpot_p90": 6.7828995999999995,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 27,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143533"
+        "timestamp": "20251023_194213"
       }
     },
     "summary": {
@@ -1941,40 +1951,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            10.379261102429616
+            "sglang-agg",
+            15.529933106337799
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2646.266954137922
+            "sglang-agg",
+            3958.1127882161272
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          10.379261102429616
+          "sglang-agg",
+          15.529933106337799
         ],
         "lowest_latency": [
-          "vllm-agg",
-          92.55016579999987
+          "sglang-agg",
+          47.073056799999996
         ]
       }
     }
@@ -1985,31 +1995,31 @@
       "duration_seconds": 60,
       "slo_config": "moderate",
       "parallel": true,
-      "total_time": 92.20451641082764
+      "total_time": 93.96444129943848
     },
     "results": {
-      "vllm-disagg": {
+      "sglang-disagg": {
         "metrics": {
-          "request_throughput_avg": 4.767429617732764,
+          "request_throughput_avg": 10.68090651698668,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 1215.3460562047692,
+          "output_token_throughput_avg": 2722.221002931975,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 59.11622663800798,
-          "output_token_throughput_per_user_p90": 75.4998678263628,
-          "ttft_avg": 1146.7120634327484,
-          "ttft_p90": 2899.138539000013,
-          "itl_avg": 18.37732449707602,
-          "itl_p90": 26.0078536,
-          "request_latency_avg": 5813.296877657895,
-          "request_latency_p90": 8533.981976,
+          "output_token_throughput_per_user_avg": 149.18978515357617,
+          "output_token_throughput_per_user_p90": 149.53515660839545,
+          "ttft_avg": 962.8891563464052,
+          "ttft_p90": 1068.7284436,
+          "itl_avg": 6.702993583006536,
+          "itl_p90": 6.7294284,
+          "request_latency_avg": 2664.5518214379085,
+          "request_latency_p90": 2778.0552341999996,
           "request_count": 0,
-          "tpot_avg": 18.37732449707602,
-          "tpot_p90": 26.0078536
+          "tpot_avg": 6.702993583006536,
+          "tpot_p90": 6.7294284
         },
         "efficiency": {
           "slo_satisfaction_rate": 0.0,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
+          "tpot_slo_met": true,
           "goodput": 0,
           "token_goodput": 0,
           "token_goodput_per_user": 0,
@@ -2019,44 +2029,44 @@
         "slo_analysis": {
           "slo_met": false,
           "ttft_slo_met": false,
-          "tpot_slo_met": false,
-          "ttft_p90": 2899.138539000013,
-          "tpot_p90": 26.0078536,
+          "tpot_slo_met": true,
+          "ttft_p90": 1068.7284436,
+          "tpot_p90": 6.7294284,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-disagg",
+        "deployment_name": "sglang-disagg",
         "service_url": "http://127.0.0.1:8005",
         "concurrency": 29,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143705"
+        "timestamp": "20251023_194346"
       },
-      "vllm-agg": {
+      "sglang-agg": {
         "metrics": {
-          "request_throughput_avg": 10.784143268780435,
+          "request_throughput_avg": 16.646977622826522,
           "request_throughput_p90": 0,
-          "output_token_throughput_avg": 2749.179297988108,
+          "output_token_throughput_avg": 4240.331020842817,
           "output_token_throughput_p90": 0,
-          "output_token_throughput_per_user_avg": 99.91995040609808,
-          "output_token_throughput_per_user_p90": 106.02459304308485,
-          "ttft_avg": 72.37876912870011,
-          "ttft_p90": 136.03119719999998,
-          "itl_avg": 10.090008674388674,
-          "itl_p90": 10.986552399999997,
-          "request_latency_avg": 2634.470040387387,
-          "request_latency_p90": 2932.8382051999997,
+          "output_token_throughput_per_user_avg": 149.61199883324537,
+          "output_token_throughput_per_user_p90": 152.7635351347366,
+          "ttft_avg": 29.991180301934396,
+          "ttft_p90": 47.2500646,
+          "itl_avg": 6.685327236333053,
+          "itl_p90": 6.7989124,
+          "request_latency_avg": 1726.2325175441545,
+          "request_latency_p90": 1750.0281478,
           "request_count": 0,
-          "tpot_avg": 10.090008674388674,
-          "tpot_p90": 10.986552399999997
+          "tpot_avg": 6.685327236333053,
+          "tpot_p90": 6.7989124
         },
         "efficiency": {
           "slo_satisfaction_rate": 1.0,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "goodput": 10.784143268780435,
-          "token_goodput": 2749.179297988108,
-          "token_goodput_per_user": 99.91995040609808,
+          "goodput": 16.646977622826522,
+          "token_goodput": 4240.331020842817,
+          "token_goodput_per_user": 149.61199883324537,
           "goodput_efficiency": 1.0,
           "requests_per_second": 0.0
         },
@@ -2064,17 +2074,17 @@
           "slo_met": true,
           "ttft_slo_met": true,
           "tpot_slo_met": true,
-          "ttft_p90": 136.03119719999998,
-          "tpot_p90": 10.986552399999997,
+          "ttft_p90": 47.2500646,
+          "tpot_p90": 6.7989124,
           "ttft_threshold": 200,
           "tpot_threshold": 15
         },
-        "deployment_name": "vllm-agg",
+        "deployment_name": "sglang-agg",
         "service_url": "http://127.0.0.1:8003",
         "concurrency": 29,
         "duration_seconds": 60,
         "slo_config": "moderate",
-        "timestamp": "20251022_143705"
+        "timestamp": "20251023_194346"
       }
     },
     "summary": {
@@ -2083,40 +2093,40 @@
       "slo_satisfaction": {
         "satisfied_count": 1,
         "satisfied_deployments": [
-          "vllm-agg"
+          "sglang-agg"
         ],
         "satisfaction_rate": 0.5
       },
       "performance_ranking": {
         "by_goodput": [
           [
-            "vllm-agg",
-            10.784143268780435
+            "sglang-agg",
+            16.646977622826522
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ],
         "by_token_goodput": [
           [
-            "vllm-agg",
-            2749.179297988108
+            "sglang-agg",
+            4240.331020842817
           ],
           [
-            "vllm-disagg",
+            "sglang-disagg",
             0
           ]
         ]
       },
       "best_performers": {
         "highest_goodput": [
-          "vllm-agg",
-          10.784143268780435
+          "sglang-agg",
+          16.646977622826522
         ],
         "lowest_latency": [
-          "vllm-agg",
-          136.03119719999998
+          "sglang-agg",
+          47.2500646
         ]
       }
     }

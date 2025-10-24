@@ -48,7 +48,7 @@ class DistServeStyleTest:
             service_url=self.service_url,
             model_name=self.model_name,
             isl=2000,
-            osl=2000,
+            osl=256,
             stddev=0,
             concurrency=concurrency,
             output_dir=Path(f"/tmp/distserve_test_{concurrency}")
@@ -57,17 +57,41 @@ class DistServeStyleTest:
         if not result:
             return None
             
-        # 从输出目录读取结果
+        # 从输出目录读取结果 - 使用与 prefill_benchmark.py 相同的路径匹配逻辑
         output_dir = Path(f"/tmp/distserve_test_{concurrency}")
-        json_files = list(output_dir.glob("**/profile_export_genai_perf.json"))
         
-        if not json_files:
-            print(f"Warning: No results found in {output_dir}")
+        # 优先使用完整模型路径的目录
+        model_safe_name = self.model_name.replace('/', '_')  # Only replace slashes, keep hyphens
+        result_file = Path(output_dir) / f"_{model_safe_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+        
+        # 如果期望的路径不存在，尝试查找实际目录
+        if not result_file.exists():
+            import glob
+            pattern = str(output_dir / f"*{concurrency}*" / "profile_export_genai_perf.json")
+            matching_files = glob.glob(pattern)
+            
+            if matching_files:
+                # 使用最新的文件 (genai-perf 每次都会创建新的)
+                result_file = Path(max(matching_files, key=lambda x: Path(x).stat().st_mtime))
+                print(f"🔍 Found result file: {result_file}")
+            else:
+                # 回退到模型名目录
+                model_name_only = Path(self.model_name).name
+                result_file = Path(output_dir) / f"{model_name_only}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
+                print(f"⚠️  Using fallback path: {result_file}")
+        else:
+            print(f"✅ Using primary path: {result_file}")
+        
+        if not result_file.exists():
+            print(f"❌ Result file not found: {result_file}")
             return None
             
-        # 读取第一个结果文件
-        with open(json_files[0], 'r') as f:
+        # 调试：显示实际读取的数值
+        with open(result_file, 'r') as f:
             result_data = json.load(f)
+        ttft_p90 = result_data.get('time_to_first_token', {}).get('p90', 'Not found')
+        itl_p90 = result_data.get('inter_token_latency', {}).get('p90', 'Not found')
+        print(f"📊 Reading TTFT P90: {ttft_p90}ms, ITL P90: {itl_p90}ms from {result_file}")
             
         # 分析SLO满足率
         slo_analysis = self.analyze_slo_satisfaction(result_data, slo)

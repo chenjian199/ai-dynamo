@@ -5,6 +5,8 @@ apiVersion: nvidia.com/v1alpha1
 kind: DynamoGraphDeployment
 metadata:
   name: vllm-agg
+  annotations:
+    nvidia.com/enable-metrics: "false"
 spec:
   services:
     Frontend:
