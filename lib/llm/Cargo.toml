@@ -1,0 +1,169 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "dynamo-llm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme.workspace = true
+description = "Dynamo LLM Library"
+
+[features]
+default = []
+# todo(ops): get this working in CI as a default.
+# default = ["block-manager", "testing-full"]
+
+testing-full = ["testing-cuda", "testing-nixl"]
+testing-cuda = ["dep:cudarc"]
+testing-nixl = ["dep:nixl-sys"]
+testing-etcd = []
+block-manager = ["dep:nixl-sys", "dep:cudarc", "dep:ndarray", "dep:nix"]
+cuda = ["dep:cudarc"]
+integration = ["dynamo-runtime/integration"]
+
+[[bench]]
+name = "tokenizer"
+harness = false
+
+[[bench]]
+name = "transfer_context_v2"
+harness = false
+required-features = ["block-manager", "testing-cuda"]
+[dependencies]
+# repo
+dynamo-runtime = { workspace = true }
+
+# workspace
+aho-corasick = "1.1"
+anyhow = { workspace = true }
+dynamo-async-openai = { workspace = true }
+dynamo-parsers = { workspace = true }
+async-stream = { workspace = true }
+async-trait = { workspace = true }
+async-nats = { workspace = true }
+async_zmq = { workspace = true }
+bytes = { workspace = true }
+chrono = { workspace = true }
+derive_builder = { workspace = true }
+either = { workspace = true }
+etcd-client = { workspace = true }
+futures = { workspace = true }
+futures-util = "0.3.31"
+hf-hub = { workspace = true }
+humantime = { workspace = true }                           # input/batch
+rand = { workspace = true }
+oneshot = { workspace = true }
+parking_lot = "0.12.4"
+prometheus = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+strum = { workspace = true }
+tempfile = { workspace = true }
+thiserror = { workspace = true }
+tmq = "0.5.0"
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+tokio-util = { workspace = true }
+tracing = { workspace = true }
+validator = { workspace = true }
+url = { workspace = true }
+uuid = { workspace = true }
+xxhash-rust = { workspace = true }
+modelexpress-client = { workspace = true }
+modelexpress-common = { workspace = true }
+akin = "0.4.0"
+bitflags = { version = "2.4", features = ["serde"] }
+blake3 = { version = "1.8", features = ["mmap", "rayon"] }
+bytemuck = "1.22"
+candle-core = { version = "0.9.1" }
+derive-getters = "0.5"
+offset-allocator = "0.2"
+regex = "1"
+rayon = "1"
+dashmap = { version = "5.5.3" }
+
+# input/text
+dialoguer = { version = "0.11", default-features = false, features = [
+  "editor",
+  "history",
+] }
+
+# block_manager
+nixl-sys = { version = "0.4.1", optional = true }
+cudarc = { version = "0.17.1", features = ["cuda-12020"], optional = true }
+ndarray = { version = "0.16", optional = true }
+nix = { version = "0.26", optional = true }
+
+# protocols
+unicode-segmentation = "1.12"
+
+# http-service
+axum = { workspace = true }
+axum-server = { version = "0.7", features = ["tls-rustls"] }
+tower-http = { workspace = true }
+rustls = { version = "0.23" }
+utoipa = { version = "5.3", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "9.0", features = ["axum"] }
+
+
+# grpc-service
+# ping version to 0.13.1 so it depends on prost 0.13.5
+# which is used across other libraries
+tonic = { version = "0.13.1" }
+# Request prost specifically so tonic-build properly compiles protobuf message
+prost = { version = "0.13.5" }
+
+# tokenizers
+tokenizers = { version = "0.21.4", default-features = false, features = [
+  "onig",
+  "esaxx_fast",
+  "rustls-tls",
+] }
+
+# backend
+galil-seiferas = { version = "0.1" }
+toktrie = { version = "1.1" }
+toktrie_hf_tokenizers = { version = "1.1" }
+
+# preprocessor
+bs62 = { version = "0.1" }
+erased-serde = { version = "0.4" }
+itertools = { version = "0.14.0" }
+minijinja = { version = "2.10.2", features = ["loader"] }
+minijinja-contrib = { version = "2.10.2", features = ["pycompat"] }
+json-five = { version = "0.3" }
+
+# Publishers
+zeromq = "0.4.1"
+rmp-serde = "1.3"
+ahash = "0.8.12"
+
+[dev-dependencies]
+approx = "0.5"
+assert_matches = "1.5"
+criterion = { version = "0.3", features = ["html_reports"] }
+hf-hub = { workspace = true }
+modelexpress-client = { workspace = true }
+modelexpress-common = { workspace = true }
+proptest = "1.5.0"
+reqwest = { workspace = true }
+rstest = "0.18.2"
+rstest_reuse = "0.7.0"
+serial_test = "3"
+temp-env = { version = "0.3.6", features = ["async_closure"] }
+tempfile = "3.17.1"
+insta = { version = "1.41", features = [
+  "glob",
+  "json",
+  "redactions",
+  "filters",
+] }
+aligned-vec = "0.6.4"
+lazy_static = "1.4"
+
+[build-dependencies]
+tonic-build = { version = "0.13.1" }
