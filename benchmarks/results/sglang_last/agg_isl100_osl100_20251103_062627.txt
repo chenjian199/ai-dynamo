@@ -1,0 +1,56 @@
+================================================================================
+DECODE TEST RESULTS - Concurrency: 1
+Timestamp: 2025-11-03 06:26:40
+Model: /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+Service URL: http://127.0.0.1:8003
+Input Length: 100, Output Length: 100
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-03 06:26:28] INFO     Detected passthrough args: ['-vv', '--max-threads=300']                                parser.py:865
+[2025-11-03 06:26:28] INFO     Profiling these models: /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B   create_config.py:58
+[2025-11-03 06:26:28] INFO     Model name '/raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B'      perf_analyzer_config.py:157
+                               cannot be used to create artifact directory. Instead,                                               
+                               '_raid5_models_deepseek-ai_DeepSeek-R1-Distill-Llama-8B' will be used.                              
+[2025-11-03 06:26:28] INFO     Creating tokenizer for: /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B     subcommand.py:190
+[2025-11-03 06:26:31] INFO     Running Perf Analyzer : 'perf_analyzer -m                                           subcommand.py:98
+                               /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B --async                                      
+                               --stability-percentage 999 --request-count 4 -i http -u http://127.0.0.1:8003                       
+                               --concurrency-range 1 --service-kind openai --endpoint v1/chat/completions -vv                      
+                               --max-threads=300 --input-data                                                                      
+                               /tmp/simple_decode_test_1/_raid5_models_deepseek-ai_DeepSeek-R1-Distill-Llama-8B-op                 
+                               enai-chat-concurrency1/inputs.json --profile-export-file                                            
+                               /tmp/simple_decode_test_1/_raid5_models_deepseek-ai_DeepSeek-R1-Distill-Llama-8B-op                 
+                               enai-chat-concurrency1/profile_export.json'                                                         
+[2025-11-03 06:26:34] INFO     Loading response data from                                                 profile_data_parser.py:66
+                               '/tmp/simple_decode_test_1/_raid5_models_deepseek-ai_DeepSeek-R1-Distill-L                          
+                               lama-8B-openai-chat-concurrency1/profile_export.json'                                               
+[2025-11-03 06:26:34] INFO     Parsing total 4 requests.                                             llm_profile_data_parser.py:124
+                               NVIDIA GenAI-Perf | LLM Metrics                                
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+┃                            Statistic ┃    avg ┃    min ┃    max ┃    p99 ┃    p90 ┃    p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+│             Time To First Token (ms) │  28.86 │  22.67 │  45.96 │  45.29 │  39.30 │  29.30 │
+│            Time To Second Token (ms) │   4.29 │   0.00 │   5.77 │   5.77 │   5.76 │   5.76 │
+│                 Request Latency (ms) │ 669.11 │ 657.77 │ 678.62 │ 678.38 │ 676.24 │ 672.66 │
+│             Inter Token Latency (ms) │   6.53 │   6.46 │   6.61 │   6.61 │   6.61 │   6.60 │
+│     Output Token Throughput Per User │ 153.08 │ 151.32 │ 154.90 │ 154.89 │ 154.80 │ 154.65 │
+│                    (tokens/sec/user) │        │        │        │        │        │        │
+│      Output Sequence Length (tokens) │  99.00 │  99.00 │  99.00 │  99.00 │  99.00 │  99.00 │
+│       Input Sequence Length (tokens) │ 201.00 │ 201.00 │ 201.00 │ 201.00 │ 201.00 │ 201.00 │
+│ Output Token Throughput (tokens/sec) │ 146.80 │    N/A │    N/A │    N/A │    N/A │    N/A │
+│         Request Throughput (per sec) │   1.48 │    N/A │    N/A │    N/A │    N/A │    N/A │
+│                Request Count (count) │   4.00 │    N/A │    N/A │    N/A │    N/A │    N/A │
+└──────────────────────────────────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+[2025-11-03 06:26:39] INFO     Generating                                                                       json_exporter.py:64
+                               /tmp/simple_decode_test_1/_raid5_models_deepseek-ai_DeepSeek-R1-Distill-Llama-8B                    
+                               -openai-chat-concurrency1/profile_export_genai_perf.json                                            
+[2025-11-03 06:26:39] INFO     Generating                                                                        csv_exporter.py:75
+                               /tmp/simple_decode_test_1/_raid5_models_deepseek-ai_DeepSeek-R1-Distill-Llama-8B-                   
+                               openai-chat-concurrency1/profile_export_genai_perf.csv                                              
+
+----------------------------------------
+
+================================================================================

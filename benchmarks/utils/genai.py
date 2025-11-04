@@ -61,6 +61,8 @@ def run_genai_perf(
         str(concurrency),
         "--output-tokens-mean",
         str(osl),
+        "--request-count",
+        str(concurrency * 4),
         "--extra-inputs",
         f"max_tokens:{osl}",
         "--extra-inputs",

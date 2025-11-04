@@ -5,8 +5,8 @@
 # Setup cleanup trap
 cleanup() {
     echo "Cleaning up background processes..."
-    kill $DYNAMO_PID $DECODE_PID 2>/dev/null || true
-    wait $DYNAMO_PID $DECODE_PID 2>/dev/null || true
+    kill $DYNAMO_PID $AGG_PID $AGG_PID2 $AGG_PID3 2>/dev/null || true
+    wait $DYNAMO_PID $AGG_PID $AGG_PID2 $AGG_PID3 2>/dev/null || true
     echo "Cleanup complete."
 }
 trap cleanup EXIT INT TERM
@@ -17,17 +17,33 @@ python3 -m dynamo.frontend --http-port=8003 &
 DYNAMO_PID=$!
 
 # run worker
-CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m dynamo.sglang \
-  --model-path /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
-  --served-model-name /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
+CUDA_VISIBLE_DEVICES=0 python3 -m dynamo.sglang \
+  --model-path /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --page-size 16 \
-  --tp 4 \
+  --tp 1 \
   --trust-remote-code &
-DECODE_PID=$!
+AGG_PID=$!
 
-CUDA_VISIBLE_DEVICES=4,5,6,7 python3 -m dynamo.sglang \
-  --model-path /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
-  --served-model-name /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
+CUDA_VISIBLE_DEVICES=1 python3 -m dynamo.sglang \
+  --model-path /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --page-size 16 \
-  --tp 4 \
+  --tp 1 \
+  --trust-remote-code &
+AGG_PID2=$!
+
+CUDA_VISIBLE_DEVICES=2 python3 -m dynamo.sglang \
+  --model-path /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --page-size 16 \
+  --tp 1 \
+  --trust-remote-code &
+AGG_PID3=$!
+
+CUDA_VISIBLE_DEVICES=3 python3 -m dynamo.sglang \
+  --model-path /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --page-size 16 \
+  --tp 1 \
   --trust-remote-code 

@@ -1,0 +1,16 @@
+📊 DistServe-Style Performance Test Report - sglang-agg
+============================================================
+
+🎯 SLO Constraint Test Results:
+------------------------------
+ultra_strict SLO (TTFT<150000ms, TPOT<100ms): 0 requests/sec
+
+📈 Performance Analysis:
+------------------------------
+
+💡 Recommendations:
+--------------------
+1. 如果Goodput较低，考虑优化资源配置
+2. 如果SLO满足率低，考虑调整worker比例
+3. 使用prefix_data_generator生成真实测试数据
+4. 监控延迟分布和资源利用率

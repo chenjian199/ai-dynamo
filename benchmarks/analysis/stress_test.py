@@ -10,6 +10,7 @@ import os
 import sys
 import subprocess
 import time
+import threading
 from pathlib import Path
 from typing import List
 from datetime import datetime
@@ -25,7 +26,7 @@ class SimpleDecodeTest:
         self.model_name = model_name or os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B')
         self.tokenizer = tokenizer or os.getenv('TOKENIZER', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B')
         # 创建结果目录
-        self.results_dir = Path('/home/bedicloud/dynamo-main/benchmarks/results/sglang_new')
+        self.results_dir = Path('/home/bedicloud/dynamo-main/benchmarks/results/sglang_last')
         self.results_dir.mkdir(parents=True, exist_ok=True)
         
         # 生成时间戳
@@ -74,8 +75,8 @@ class SimpleDecodeTest:
             f"min_tokens:{osl}",
             "--extra-inputs",
             "ignore_eos:true",
-            #"--request-count", str(concurrency * 10),  # 足够的请求数
-            "--measurement-interval", str(int(duration * 1000/3)),
+            "--request-count", str(concurrency * 4),  # 足够的请求数
+            #"--measurement-interval", str(int(duration * 1000/3)),
             "--tokenizer", self.tokenizer,
             "--artifact-dir", str(output_dir),
             "--", "-vv", "--max-threads=300"
@@ -96,7 +97,7 @@ class SimpleDecodeTest:
             )
             
             # 获取输出
-            stdout, stderr = process.communicate(timeout=600)
+            stdout, stderr = process.communicate(timeout=36000)
             
             if process.returncode == 0:
                 print("✅ Genai-perf completed successfully")
@@ -108,7 +109,7 @@ class SimpleDecodeTest:
                     print("="*60)
                     
                     # 保存结果到文件
-                    self.save_results(concurrency, stdout)
+                    self.save_results(concurrency, stdout, isl=isl, osl=osl)
                 if stderr:
                     #print(f"\nstderr: {stderr}")
                     pass
@@ -124,10 +125,13 @@ class SimpleDecodeTest:
             import traceback
             traceback.print_exc()
     
-    def save_results(self, concurrency: int, stdout: str,  success: bool = True):
+    def save_results(self, concurrency: int, stdout: str, isl: int = None, osl: int = None, success: bool = True):
         """保存测试结果到文件"""
-        # 创建结果文件
-        result_file = self.results_dir / f"disagg_intra_{self.timestamp}.txt"
+        # 创建结果文件，文件名包含输入输出长度
+        if isl is not None and osl is not None:
+            result_file = self.results_dir / f"agg_isl{isl}_osl{osl}_{self.timestamp}.txt"
+        else:
+            result_file = self.results_dir / f"agg_{self.timestamp}.txt"
         
         # 准备结果内容
         content = []
@@ -136,6 +140,8 @@ class SimpleDecodeTest:
         content.append(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         content.append(f"Model: {self.model_name}")
         content.append(f"Service URL: {self.service_url}")
+        if isl is not None and osl is not None:
+            content.append(f"Input Length: {isl}, Output Length: {osl}")
         content.append(f"Status: {'SUCCESS' if success else 'FAILED'}")
         content.append("=" * 80)
         content.append("")
@@ -203,18 +209,18 @@ def main():
                        help='Concurrency levels to test (default: 1 5 10 20)')
     parser.add_argument('--duration', type=int, default=60,
                        help='Test duration in seconds (default: 60)')
-    parser.add_argument('--isl', type=int, default=10000,
+    parser.add_argument('--isl', type=int, default=100,
                        help='Input sequence length (default: 10000)')
-    parser.add_argument('--osl', type=int, default=512,
+    parser.add_argument('--osl', type=int, default=100,
                        help='Output sequence length (default: 512)')
     parser.add_argument('--service-url', type=str,
                        default=os.getenv('SERVICE_URL', 'http://127.0.0.1:8003'),
                        help='Service URL')
     parser.add_argument('--model', type=str,
-                       default=os.getenv('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B'),
+                       default=os.getenv('DEPLOYMENT_MODEL_ID', '/home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B'),
                        help='Model name')
     parser.add_argument('--tokenizer', type=str,
-                       default=os.getenv('TOKENIZER', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B'),
+                       default=os.getenv('TOKENIZER', '/home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B'),
                        help='Tokenizer')
     args = parser.parse_args()
     

@@ -1,0 +1,1374 @@
+================================================================================
+DECODE TEST RESULTS - Concurrency: 1
+Timestamp: 2025-11-01 13:38:14
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:37:10] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:37:10] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:37:10] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:37:10] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:37:13] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 4 -i http -u                 
+                               http://127.0.0.1:8003                            
+                               --concurrency-range 1                            
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_1/_home_                 
+                               bedicloud_models_deepseek-ai_Dee                 
+                               pSeek-R1-Distill-Llama-70B-opena                 
+                               i-chat-concurrency1/inputs.json                  
+                               --profile-export-file                            
+                               /tmp/simple_decode_test_1/_home_                 
+                               bedicloud_models_deepseek-ai_Dee                 
+                               pSeek-R1-Distill-Llama-70B-opena                 
+                               i-chat-concurrency1/profile_expo                 
+                               rt.json'                                         
+[2025-11-01 13:38:08] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_1/_home_bedicloud_mod                          
+                               els_deepseek-ai_DeepSee                          
+                               k-R1-Distill-Llama-70B-                          
+                               openai-chat-concurrency                          
+                               1/profile_export.json'                           
+[2025-11-01 13:38:08] INFO     Parsing total 4    llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │    97.77 │    61.37 │    158.14 │   156.13 │    138.04 │   107.88 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    35.22 │    16.45 │     47.54 │    47.49 │     47.03 │    46.25 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 13,430.… │ 8,127.70 │ 21,334.12 │ 21,151.… │ 19,511.66 │ 16,777.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    26.18 │    15.78 │     41.82 │    41.45 │     38.15 │    32.66 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    44.53 │    23.91 │     63.38 │    63.19 │     61.48 │    58.64 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.50 │   509.00 │    511.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │    37.96 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     0.07 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │     4.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:38:13] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_1/_ho                    
+                               me_bedicloud_models_deepseek-                    
+                               ai_DeepSeek-R1-Distill-Llama-                    
+                               70B-openai-chat-concurrency1/                    
+                               profile_export_genai_perf.jso                    
+                               n                                                
+[2025-11-01 13:38:13] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_1/_hom                   
+                               e_bedicloud_models_deepseek-ai                   
+                               _DeepSeek-R1-Distill-Llama-70B                   
+                               -openai-chat-concurrency1/prof                   
+                               ile_export_genai_perf.csv                        
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 10
+Timestamp: 2025-11-01 13:39:38
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:38:19] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:38:19] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:38:19] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:38:19] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:38:23] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 40 -i http                   
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 10                           
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_10/_home                 
+                               _bedicloud_models_deepseek-ai_De                 
+                               epSeek-R1-Distill-Llama-70B-open                 
+                               ai-chat-concurrency10/inputs.jso                 
+                               n --profile-export-file                          
+                               /tmp/simple_decode_test_10/_home                 
+                               _bedicloud_models_deepseek-ai_De                 
+                               epSeek-R1-Distill-Llama-70B-open                 
+                               ai-chat-concurrency10/profile_ex                 
+                               port.json'                                       
+[2025-11-01 13:39:30] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_10/_home_bedicloud_mo                          
+                               dels_deepseek-ai_DeepSe                          
+                               ek-R1-Distill-Llama-70B                          
+                               -openai-chat-concurrenc                          
+                               y10/profile_export.json                          
+                               '                                                
+[2025-11-01 13:39:30] INFO     Parsing total 40   llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │    77.84 │    53.00 │    124.08 │   124.06 │    112.25 │   104.22 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    30.18 │    15.86 │     51.62 │    51.59 │     46.35 │    32.79 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 16,385.… │ 9,275.06 │ 21,476.04 │ 21,476.… │ 21,471.56 │ 20,743.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    31.99 │    18.05 │     42.00 │    42.00 │     41.99 │    40.57 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    34.64 │    23.81 │     55.39 │    55.35 │     53.93 │    39.91 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.70 │   506.00 │    511.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │   309.29 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     0.61 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │    40.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:39:37] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_10/_h                    
+                               ome_bedicloud_models_deepseek                    
+                               -ai_DeepSeek-R1-Distill-Llama                    
+                               -70B-openai-chat-concurrency1                    
+                               0/profile_export_genai_perf.j                    
+                               son                                              
+[2025-11-01 13:39:37] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_10/_ho                   
+                               me_bedicloud_models_deepseek-a                   
+                               i_DeepSeek-R1-Distill-Llama-70                   
+                               B-openai-chat-concurrency10/pr                   
+                               ofile_export_genai_perf.csv                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 50
+Timestamp: 2025-11-01 13:40:46
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:39:43] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:39:43] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:39:43] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:39:43] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:39:47] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 200 -i http                  
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 50                           
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_50/_home                 
+                               _bedicloud_models_deepseek-ai_De                 
+                               epSeek-R1-Distill-Llama-70B-open                 
+                               ai-chat-concurrency50/inputs.jso                 
+                               n --profile-export-file                          
+                               /tmp/simple_decode_test_50/_home                 
+                               _bedicloud_models_deepseek-ai_De                 
+                               epSeek-R1-Distill-Llama-70B-open                 
+                               ai-chat-concurrency50/profile_ex                 
+                               port.json'                                       
+[2025-11-01 13:40:36] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_50/_home_bedicloud_mo                          
+                               dels_deepseek-ai_DeepSe                          
+                               ek-R1-Distill-Llama-70B                          
+                               -openai-chat-concurrenc                          
+                               y50/profile_export.json                          
+                               '                                                
+[2025-11-01 13:40:37] INFO     Parsing total 200  llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │    90.38 │    49.85 │    144.54 │   144.11 │    141.17 │   106.96 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    26.92 │    18.19 │     68.93 │    68.48 │     37.64 │    28.21 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 12,161.… │ 10,698.… │ 13,793.84 │ 13,793.… │ 13,769.27 │ 12,940.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    23.67 │    20.78 │     26.93 │    26.93 │     26.79 │    25.25 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    42.63 │    37.13 │     48.12 │    48.12 │     48.01 │    45.62 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   511.00 │   511.00 │    512.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 2,090.89 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     4.09 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │   200.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:40:45] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_50/_h                    
+                               ome_bedicloud_models_deepseek                    
+                               -ai_DeepSeek-R1-Distill-Llama                    
+                               -70B-openai-chat-concurrency5                    
+                               0/profile_export_genai_perf.j                    
+                               son                                              
+[2025-11-01 13:40:45] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_50/_ho                   
+                               me_bedicloud_models_deepseek-a                   
+                               i_DeepSeek-R1-Distill-Llama-70                   
+                               B-openai-chat-concurrency50/pr                   
+                               ofile_export_genai_perf.csv                      
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 100
+Timestamp: 2025-11-01 13:42:05
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:40:52] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:40:52] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:40:52] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:40:52] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:40:55] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 400 -i http                  
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 100                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_100/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency100/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_100/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency100/profile_                 
+                               export.json'                                     
+[2025-11-01 13:41:52] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_100/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy100/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:41:53] INFO     Parsing total 400  llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   120.15 │    77.09 │    188.93 │   185.52 │    177.80 │   126.47 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    31.34 │    12.56 │     83.65 │    83.53 │     61.53 │    40.45 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 13,730.… │ 11,754.… │ 15,666.02 │ 15,656.… │ 15,635.19 │ 14,588.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    26.70 │    22.76 │     30.51 │    30.51 │     30.47 │    28.63 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    37.89 │    32.78 │     43.93 │    43.87 │     43.86 │    40.32 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.81 │   454.00 │    512.00 │   511.01 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 3,703.59 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     7.25 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │   400.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:42:04] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_100/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               100/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:42:04] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_100/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency100/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 150
+Timestamp: 2025-11-01 13:43:50
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:42:10] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:42:10] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:42:10] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:42:10] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:42:14] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 600 -i http                  
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 150                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_150/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency150/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_150/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency150/profile_                 
+                               export.json'                                     
+[2025-11-01 13:43:31] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_150/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy150/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:43:34] INFO     Parsing total 600  llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   137.35 │    64.52 │    309.34 │   307.94 │    230.51 │   162.34 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    38.38 │    10.39 │    100.94 │    98.57 │     50.32 │    44.86 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 18,897.… │ 14,057.… │ 22,868.42 │ 22,865.… │ 22,482.21 │ 21,731.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    36.79 │    27.25 │     44.62 │    44.61 │     43.62 │    42.44 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    28.09 │    22.41 │     36.69 │    36.55 │     36.41 │    31.22 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.94 │   509.00 │    513.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 3,997.97 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     7.82 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │   600.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:43:49] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_150/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               150/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:43:49] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_150/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency150/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 200
+Timestamp: 2025-11-01 13:45:46
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:43:55] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:43:55] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:43:55] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:43:55] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:43:59] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 800 -i http                  
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 200                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_200/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency200/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_200/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency200/profile_                 
+                               export.json'                                     
+[2025-11-01 13:45:26] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_200/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy200/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:45:28] INFO     Parsing total 800  llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   233.51 │    67.34 │    469.49 │   468.97 │    374.42 │   338.61 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    69.67 │     7.52 │    259.15 │   257.12 │    235.84 │    94.29 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 20,996.… │ 9,432.39 │ 27,659.29 │ 27,652.… │ 27,551.71 │ 26,271.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    40.74 │    27.22 │     53.69 │    53.69 │     53.36 │    50.95 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    26.48 │    18.63 │     36.74 │    36.38 │     36.34 │    34.70 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.57 │   343.00 │    515.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 4,790.97 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     9.38 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │   800.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:45:45] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_200/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               200/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:45:45] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_200/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency200/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 250
+Timestamp: 2025-11-01 13:48:06
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:45:51] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:45:51] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:45:51] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:45:51] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:45:55] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 1000 -i http                 
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 250                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_250/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency250/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_250/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency250/profile_                 
+                               export.json'                                     
+[2025-11-01 13:47:45] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_250/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy250/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:47:47] INFO     Parsing total 1000 llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   159.77 │    90.93 │    353.14 │   304.56 │    228.95 │   177.07 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    79.53 │    15.36 │    264.47 │   255.29 │    159.48 │   100.38 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 26,843.… │ 18,789.… │ 32,737.75 │ 32,724.… │ 32,581.87 │ 29,014.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    52.33 │    44.57 │     63.83 │    63.82 │     63.57 │    56.48 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    19.45 │    15.67 │     22.44 │    22.08 │     21.97 │    21.89 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.92 │   420.00 │    513.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 4,718.15 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     9.23 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │ 1,000.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:48:06] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_250/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               250/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:48:06] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_250/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency250/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 300
+Timestamp: 2025-11-01 13:50:49
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:48:12] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:48:12] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:48:12] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:48:12] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:48:16] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 1200 -i http                 
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 300                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_300/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency300/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_300/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency300/profile_                 
+                               export.json'                                     
+[2025-11-01 13:50:19] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_300/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy300/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:50:24] INFO     Parsing total 1200 llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   239.40 │    96.42 │    580.05 │   566.53 │    535.57 │   303.29 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    83.84 │     9.94 │    284.78 │   269.56 │    152.52 │   104.51 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 29,850.… │ 21,059.… │ 36,242.58 │ 36,231.… │ 36,128.49 │ 31,337.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    58.08 │    47.50 │     70.70 │    70.67 │     70.53 │    61.36 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    17.49 │    14.14 │     21.05 │    19.78 │     19.76 │    19.05 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.84 │   438.00 │    513.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 5,092.13 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     9.97 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │ 1,200.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:50:48] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_300/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               300/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:50:48] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_300/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency300/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 350
+Timestamp: 2025-11-01 13:53:32
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:50:54] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:50:54] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:50:54] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:50:54] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:50:58] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 1400 -i http                 
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 350                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_350/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency350/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_350/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency350/profile_                 
+                               export.json'                                     
+[2025-11-01 13:53:01] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_350/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy350/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:53:04] INFO     Parsing total 1400 llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   230.14 │    82.91 │    697.57 │   679.27 │    424.47 │   312.76 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │    68.11 │     4.83 │    361.08 │   312.32 │    108.27 │    65.93 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 23,696.… │ 14,826.… │ 27,632.13 │ 27,620.… │ 26,948.17 │ 25,754.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    46.04 │    38.25 │     53.66 │    53.55 │     52.58 │    50.25 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    21.90 │    18.63 │     26.15 │    24.01 │     23.90 │    23.64 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.73 │   384.00 │    513.00 │   511.01 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 5,929.68 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │    11.61 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │ 1,400.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:53:31] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_350/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               350/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:53:31] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_350/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency350/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 400
+Timestamp: 2025-11-01 13:56:40
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:53:38] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:53:38] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:53:38] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:53:38] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:53:41] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 1600 -i http                 
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 400                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_400/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency400/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_400/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency400/profile_                 
+                               export.json'                                     
+[2025-11-01 13:56:08] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_400/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy400/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:56:11] INFO     Parsing total 1600 llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   241.59 │    80.76 │    678.86 │   614.93 │    550.83 │   334.82 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │   108.51 │    14.41 │    566.67 │   510.62 │    181.69 │   126.92 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 29,916.… │ 20,312.… │ 34,420.98 │ 34,391.… │ 34,303.06 │ 33,210.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    58.23 │    39.62 │     95.66 │    67.19 │     67.00 │    66.64 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    17.65 │    10.45 │     25.24 │    25.24 │     23.84 │    18.53 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.72 │   340.00 │    512.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 5,677.63 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │    11.12 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │ 1,600.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 13:56:40] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_400/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               400/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 13:56:40] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_400/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency400/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
+================================================================================
+DECODE TEST RESULTS - Concurrency: 450
+Timestamp: 2025-11-01 14:00:31
+Model: /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+Service URL: http://127.0.0.1:8003
+Input Length: 2000, Output Length: 512
+Status: SUCCESS
+================================================================================
+
+GENAI-PERF OUTPUT:
+----------------------------------------
+[2025-11-01 13:56:46] INFO     Detected passthrough args: ['-vv',  parser.py:865
+                               '--max-threads=300']                             
+[2025-11-01 13:56:46] INFO     Profiling these models:       create_config.py:58
+                               /home/bedicloud/models/deepse                    
+                               ek-ai/DeepSeek-R1-Distill-Lla                    
+                               ma-70B                                           
+[2025-11-01 13:56:46] INFO     Model name            perf_analyzer_config.py:157
+                               '/home/bedicloud/mode                            
+                               ls/deepseek-ai/DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' cannot be used to                            
+                               create artifact                                  
+                               directory. Instead,                              
+                               '_home_bedicloud_mode                            
+                               ls_deepseek-ai_DeepSe                            
+                               ek-R1-Distill-Llama-7                            
+                               0B' will be used.                                
+[2025-11-01 13:56:46] INFO     Creating tokenizer for:         subcommand.py:190
+                               /home/bedicloud/models/deepseek                  
+                               -ai/DeepSeek-R1-Distill-Llama-7                  
+                               0B                                               
+[2025-11-01 13:56:49] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               /home/bedicloud/models/deepseek-                 
+                               ai/DeepSeek-R1-Distill-Llama-70B                 
+                                --async --stability-percentage                  
+                               999 --request-count 1800 -i http                 
+                               -u http://127.0.0.1:8003                         
+                               --concurrency-range 450                          
+                               --service-kind openai --endpoint                 
+                               v1/chat/completions -vv                          
+                               --max-threads=300 --input-data                   
+                               /tmp/simple_decode_test_450/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency450/inputs.j                 
+                               son --profile-export-file                        
+                               /tmp/simple_decode_test_450/_hom                 
+                               e_bedicloud_models_deepseek-ai_D                 
+                               eepSeek-R1-Distill-Llama-70B-ope                 
+                               nai-chat-concurrency450/profile_                 
+                               export.json'                                     
+[2025-11-01 13:59:55] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               '/tmp/simple_decode_tes                          
+                               t_450/_home_bedicloud_m                          
+                               odels_deepseek-ai_DeepS                          
+                               eek-R1-Distill-Llama-70                          
+                               B-openai-chat-concurren                          
+                               cy450/profile_export.js                          
+                               on'                                              
+[2025-11-01 13:59:59] INFO     Parsing total 1800 llm_profile_data_parser.py:124
+                               requests.                                        
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ Statist… ┃      avg ┃      min ┃       max ┃      p99 ┃       p90 ┃      p75 ┃
+┡━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━┩
+│  Time To │   252.93 │    78.74 │  1,307.45 │ 1,299.83 │    407.84 │   351.83 │
+│    First │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Time To │   100.86 │     7.66 │    439.96 │   415.02 │    212.80 │   126.63 │
+│   Second │          │          │           │          │           │          │
+│    Token │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│  Request │ 34,201.… │ 11,064.… │ 41,856.58 │ 41,561.… │ 40,574.79 │ 40,000.… │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│    Inter │    66.59 │    29.90 │     79.84 │    79.50 │     79.22 │    77.93 │
+│    Token │          │          │           │          │           │          │
+│  Latency │          │          │           │          │           │          │
+│     (ms) │          │          │           │          │           │          │
+│   Output │    16.23 │    12.53 │     33.45 │    33.02 │     21.71 │    16.37 │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ Per User │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│   Output │   510.73 │   293.00 │    513.00 │   511.00 │    511.00 │   511.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│    Input │ 2,100.90 │ 2,100.00 │  2,101.00 │ 2,101.00 │  2,101.00 │ 2,101.00 │
+│ Sequence │          │          │           │          │           │          │
+│   Length │          │          │           │          │           │          │
+│ (tokens) │          │          │           │          │           │          │
+│   Output │ 5,067.30 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Token │          │          │           │          │           │          │
+│ Through… │          │          │           │          │           │          │
+│ (tokens… │          │          │           │          │           │          │
+│  Request │     9.92 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│ Through… │          │          │           │          │           │          │
+│     (per │          │          │           │          │           │          │
+│     sec) │          │          │           │          │           │          │
+│  Request │ 1,800.00 │      N/A │       N/A │      N/A │       N/A │      N/A │
+│    Count │          │          │           │          │           │          │
+│  (count) │          │          │           │          │           │          │
+└──────────┴──────────┴──────────┴───────────┴──────────┴───────────┴──────────┘
+[2025-11-01 14:00:30] INFO     Generating                    json_exporter.py:64
+                               /tmp/simple_decode_test_450/_                    
+                               home_bedicloud_models_deepsee                    
+                               k-ai_DeepSeek-R1-Distill-Llam                    
+                               a-70B-openai-chat-concurrency                    
+                               450/profile_export_genai_perf                    
+                               .json                                            
+[2025-11-01 14:00:30] INFO     Generating                     csv_exporter.py:75
+                               /tmp/simple_decode_test_450/_h                   
+                               ome_bedicloud_models_deepseek-                   
+                               ai_DeepSeek-R1-Distill-Llama-7                   
+                               0B-openai-chat-concurrency450/                   
+                               profile_export_genai_perf.csv                    
+
+----------------------------------------
+
+================================================================================
