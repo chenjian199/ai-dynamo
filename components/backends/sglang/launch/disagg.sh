@@ -63,7 +63,7 @@ CUDA_VISIBLE_DEVICES=1 python3 -m dynamo.sglang \
   --page-size 16 \
   --tp 1 \
   --trust-remote-code \
-  --disaggregation-mode prefill \
+  --disaggregation-mode decode \
   --disaggregation-bootstrap-port 12348 \
   --host 0.0.0.0 \
   --disaggregation-ib-device mlx5_2 \
@@ -76,7 +76,7 @@ CUDA_VISIBLE_DEVICES=2 python3 -m dynamo.sglang \
   --page-size 16 \
   --tp 1 \
   --trust-remote-code \
-  --disaggregation-mode prefill \
+  --disaggregation-mode decode \
   --disaggregation-bootstrap-port 12349 \
   --host 0.0.0.0 \
   --disaggregation-ib-device mlx5_2 \
@@ -94,5 +94,5 @@ CUDA_VISIBLE_DEVICES=3 python3 -m dynamo.sglang \
   --disaggregation-bootstrap-port 12350 \
   --host 0.0.0.0 \
   --disaggregation-ib-device mlx5_2 \
-  --disaggregation-transfer-backend nixl 
+  --disaggregation-transfer-backend nixl   
 
