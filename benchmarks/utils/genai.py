@@ -41,13 +41,16 @@ def run_genai_perf(
     stddev: int,
     concurrency: int,
     output_dir: Path,
-) -> None:
+    tokenizer: str,
+) -> bool:
     output_dir.mkdir(parents=True, exist_ok=True)
+
     cmd = [
         "genai-perf",
         "profile",
         "-m",
         model_name,
+        #model_name,
         "--endpoint-type",
         "chat",
         "--streaming",
@@ -61,8 +64,6 @@ def run_genai_perf(
         str(concurrency),
         "--output-tokens-mean",
         str(osl),
-        "--request-count",
-        str(concurrency * 4),
         "--extra-inputs",
         f"max_tokens:{osl}",
         "--extra-inputs",
@@ -70,7 +71,7 @@ def run_genai_perf(
         "--extra-inputs",
         "ignore_eos:true",
         "--tokenizer",
-        model_name,
+        tokenizer,
         "--artifact-dir",
         str(output_dir),
         "--",
@@ -82,29 +83,37 @@ def run_genai_perf(
         flush=True,
     )
 
-    gap_process = subprocess.Popen(
-        cmd,
-        cwd=str(output_dir),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-    )
-    stdout, stderr = gap_process.communicate()
-    if gap_process.returncode == 0:
-        print("Genai-perf profiling completed successfully", flush=True)
-        if stdout:
-            print(stdout)
-    else:
-        print(f"Genai-perf failed with error code: {gap_process.returncode}")
-        if stderr:
-            print(f"stderr: {stderr}")
-        raise subprocess.CalledProcessError(
-            gap_process.returncode, cmd, output=stdout, stderr=stderr
+    try:
+        gap_process = subprocess.Popen(
+            cmd,
+            cwd=str(output_dir),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
         )
+        stdout, stderr = gap_process.communicate(timeout=400) # 30分钟超时
+        if gap_process.returncode == 0:
+            print("Genai-perf profiling completed successfully", flush=True)
+            if stdout:
+                print(stdout)
+            return True
+        else:
+            print(f"Genai-perf failed with error code: {gap_process.returncode}")
+            if stderr:
+                print(f"stderr: {stderr}")
+            return False
+    except subprocess.TimeoutExpired:
+        print("Genai-perf timed out after 30 minutes", flush=True)
+        gap_process.kill()
+        gap_process.wait()
+        return False
+    except Exception as e:
+        print(f"Genai-perf failed with exception: {e}", flush=True)
+        return False
 
 
 def run_concurrency_sweep(
-    service_url: str, model_name: str, isl: int, osl: int, stddev: int, output_dir: Path
+    service_url: str, model_name: str, isl: int, osl: int, stddev: int, output_dir: Path, tokenizer: str
 ) -> None:
     concurrency_levels = get_concurrency_levels()
     print(
@@ -113,8 +122,33 @@ def run_concurrency_sweep(
     )
     print(f"Concurrency levels: {concurrency_levels}", flush=True)
 
-    for c in concurrency_levels:
-        print(f"Starting concurrency level {c}", flush=True)
-        run_genai_perf(
-            service_url, model_name, isl, osl, stddev, c, output_dir / f"c{c}"
+    failed_tests = 0
+    total_tests = len(concurrency_levels)
+    
+    for i, c in enumerate(concurrency_levels):
+        print(f"Starting concurrency level {c} ({i+1}/{total_tests})", flush=True)
+        
+        success = run_genai_perf(
+            service_url, model_name, isl, osl, stddev, c, output_dir / f"c{c}", tokenizer
         )
+        
+        if success:
+            print(f"Concurrency {c} test completed successfully", flush=True)
+            failed_tests = 0  # reset failed count on success
+        else:
+            failed_tests += 1
+            print(f"Concurrency {c} test failed ({failed_tests} consecutive failures)", flush=True)
+            
+            # if consecutive failures too many, stop the test
+            if failed_tests >= 3:
+                print(f"WARNING: {failed_tests} consecutive failures, stopping the test", flush=True)
+                print("This usually indicates the system has reached its performance limit", flush=True)
+                break
+        
+        # short break between tests
+        if i < len(concurrency_levels) - 1:
+            print("Waiting 5 seconds before next test...", flush=True)
+            import time
+            time.sleep(5)
+    
+    print(f"Concurrency sweep completed. Total tests: {total_tests}, Failed tests: {failed_tests}", flush=True)

@@ -12,8 +12,10 @@ spec:
       componentType: frontend
       replicas: 1
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
     VllmDecodeWorker:
       dynamoNamespace: vllm-disagg-kvbm
       envFromSecret: hf-token-secret
@@ -22,23 +24,41 @@ spec:
       resources:
         limits:
           gpu: "1"
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-8B
-            - --gpu-memory-utilization
-            - "0.3"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
-            - --enforce-eager
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+            - --connector
+            - kvbm
     VllmPrefillWorker:
       dynamoNamespace: vllm-disagg-kvbm
       envFromSecret: hf-token-secret
@@ -47,31 +67,41 @@ spec:
       resources:
         requests:
           gpu: "1"
-          memory: "200Gi"
         limits:
           gpu: "1"
-          memory: "250Gi"
       envs:
         - name: DYN_KVBM_CPU_CACHE_GB
-          value: "100"
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
           workingDir: /workspace/components/backends/vllm
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: TRANSFORMERS_OFFLINE
+              value: "1"
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.vllm
           args:
             - --model
-            - Qwen/Qwen3-8B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
-            - --gpu-memory-utilization
-            - "0.3"
-            - --disable-log-requests
-            - --max-model-len
-            - "32000"
-            - --enforce-eager
             - --connector
             - kvbm
-            - nixl

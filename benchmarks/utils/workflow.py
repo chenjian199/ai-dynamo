@@ -26,12 +26,12 @@ def print_concurrency_start(
     label: str, model: str, isl: int, osl: int, std: int
 ) -> None:
     """Print concurrency sweep start messages"""
-    print(f"⚙️  Starting {label} concurrency sweep!", flush=True)
+    print(f" Starting {label} concurrency sweep!", flush=True)
     print(
-        "⏱️  This may take several minutes - running through multiple concurrency levels...",
+        " This may take several minutes - running through multiple concurrency levels...",
         flush=True,
     )
-    print(f"🎯 Model: {model} | ISL: {isl} | OSL: {osl} | StdDev: {std}")
+    print(f" Model: {model} | ISL: {isl} | OSL: {osl} | StdDev: {std}")
 
 
 def run_endpoint_benchmark(
@@ -42,36 +42,42 @@ def run_endpoint_benchmark(
     osl: int,
     std: int,
     output_dir: Path,
+    tokenizer: str,
 ) -> None:
     """Run benchmark for an existing endpoint with custom label"""
     # Normalize endpoint to a usable URL (handles in-cluster scheme-less inputs)
     service_url = normalize_service_url(endpoint)
 
-    print(f"🚀 Starting benchmark of endpoint '{label}': {service_url}")
-    print(f"📁 Results will be saved to: {output_dir / label}")
+    print(f" Starting benchmark of endpoint '{label}': {service_url}")
+    print(f" Results will be saved to: {output_dir / label}")
     print_concurrency_start(label, model, isl, osl, std)
 
     # Create output directory
     (output_dir / label).mkdir(parents=True, exist_ok=True)
 
-    run_concurrency_sweep(
-        service_url=service_url,
-        model_name=model,
-        isl=isl,
-        osl=osl,
-        stddev=std,
-        output_dir=output_dir / label,
-    )
-    print("✅ Endpoint benchmark completed successfully!")
+    try:
+        run_concurrency_sweep(
+            service_url=service_url,
+            model_name=model,
+            isl=isl,
+            osl=osl,
+            stddev=std,
+            output_dir=output_dir / label,
+            tokenizer=tokenizer,
+        )
+        print("Endpoint benchmark completed successfully!")
+    except Exception as e:
+        print(f"Endpoint benchmark failed: {e}")
+        print("Continuing with next endpoint...")
 
 
 def print_final_summary(output_dir: Path, labels: List[str]) -> None:
     """Print final benchmark summary"""
-    print("🎉 Benchmark workflow completed successfully!")
-    print(f"📁 All results available at: {output_dir}")
+    print(" Benchmark workflow completed successfully!")
+    print(f" All results available at: {output_dir}")
 
     if labels:
-        print(f"🚀 Benchmarked: {', '.join(labels)}")
+        print(f" Benchmarked: {', '.join(labels)}")
 
 
 def run_benchmark_workflow(
@@ -81,6 +87,7 @@ def run_benchmark_workflow(
     osl: int = 256,
     model: str = "Qwen/Qwen3-0.6B",
     output_dir: str = "benchmarks/results",
+    tokenizer: str = "/raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
 ) -> None:
     """Main benchmark workflow orchestrator for HTTP endpoints (and in-cluster internal service URLs)"""
     output_dir_path = Path(output_dir)
@@ -89,7 +96,7 @@ def run_benchmark_workflow(
     # Run endpoint benchmarks
     benchmarked_labels = []
     for label, endpoint in inputs.items():
-        run_endpoint_benchmark(label, endpoint, model, isl, osl, std, output_dir_path)
+        run_endpoint_benchmark(label, endpoint, model, isl, osl, std, output_dir_path, tokenizer)
         benchmarked_labels.append(label)
 
     # Generate final summary

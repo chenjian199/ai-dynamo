@@ -12,33 +12,49 @@ spec:
       componentType: frontend
       replicas: 1
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker14
         mainContainer:
-          image: my-registry/sglang-runtime:my-tag
-    decode:
+          image: nvcr.io/nvidia/ai-dynamo/sglang-runtime:0.5.0
+    sglangDecodeWorker:
       envFromSecret: hf-token-secret
       dynamoNamespace: sglang-agg
       componentType: worker
-      replicas: 1
+      replicas: 3
       resources:
         limits:
           gpu: "1"
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker14
+        volumes:
+          - name: shared-models
+            hostPath:
+              path: /home/bedicloud/models
+              type: Directory
         mainContainer:
-          image: my-registry/sglang-runtime:my-tag
+          image: nvcr.io/nvidia/ai-dynamo/sglang-runtime:0.5.0
           workingDir: /workspace/components/backends/sglang
+          volumeMounts:
+            - name: shared-models
+              mountPath: /shared-models
           command:
           - python3
           - -m
           - dynamo.sglang
           args:
             - --model-path
-            - Qwen/Qwen3-0.6B
-            - --served-model-name
-            - Qwen/Qwen3-0.6B
+            - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
+            # - --served-model-name
+            # - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --page-size
             - "16"
             - --tp
             - "1"
+            - --chunked-prefill-size
+            - "-1"
+            #- --max-total-tokens
+            #- --enable-mixed-chunk
             - --trust-remote-code
             - --skip-tokenizer-init
 

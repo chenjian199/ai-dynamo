@@ -76,6 +76,9 @@ def main() -> int:
     parser.add_argument(
         "--output-dir", type=str, default="benchmarks/results", help="Output directory"
     )
+    parser.add_argument(
+        "--tokenizer", type=str, default="/raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B", help="Tokenizer path"
+    )
     args = parser.parse_args()
 
     # Validate inputs
@@ -94,6 +97,7 @@ def main() -> int:
         osl=args.osl,
         model=args.model,
         output_dir=args.output_dir,
+        tokenizer=args.tokenizer,
     )
     return 0
 

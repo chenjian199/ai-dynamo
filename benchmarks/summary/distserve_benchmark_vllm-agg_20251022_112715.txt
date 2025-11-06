@@ -1,0 +1,41 @@
+📊 DistServe-Style Performance Test Report - vllm-agg
+============================================================
+cofig: i/o=10000+256 gpu:3a
+
+🎯 SLO Constraint Test Results:
+------------------------------
+ultra_strict SLO (TTFT<50ms, TPOT<8ms):
+  Request Goodput: 0.00 req/s
+  Token Goodput: 0.00 tokens/s
+  Token Goodput/User: 0.00 tokens/s/user
+strict SLO (TTFT<100ms, TPOT<12ms):
+  Request Goodput: 0.00 req/s
+  Token Goodput: 0.00 tokens/s
+  Token Goodput/User: 0.00 tokens/s/user
+moderate SLO (TTFT<200ms, TPOT<15ms):
+  Request Goodput: 5.42 req/s
+  Token Goodput: 1382.86 tokens/s
+  Token Goodput/User: 130.20 tokens/s/user
+loose SLO (TTFT<400ms, TPOT<20ms):
+  Request Goodput: 8.04 req/s
+  Token Goodput: 2048.77 tokens/s
+  Token Goodput/User: 107.92 tokens/s/user
+very_loose SLO (TTFT<800ms, TPOT<30ms):
+  Request Goodput: 27.17 req/s
+  Token Goodput: 6926.24 tokens/s
+  Token Goodput/User: 57.27 tokens/s/user
+
+📈 Performance Analysis:
+------------------------------
+Best Performance (very_loose SLO):
+  Request Goodput: 27.17 req/s
+  Token Goodput: 6926.24 tokens/s
+  Token Goodput/User: 57.27 tokens/s/user
+  Concurrency: 141
+
+💡 Recommendations:
+--------------------
+1. 如果Goodput较低，考虑优化资源配置
+2. 如果SLO满足率低，考虑调整worker比例
+3. 使用prefix_data_generator生成真实测试数据
+4. 监控延迟分布和资源利用率

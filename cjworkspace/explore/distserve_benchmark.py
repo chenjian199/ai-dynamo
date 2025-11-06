@@ -13,20 +13,28 @@ from typing import List, Dict, Tuple
 import statistics
 from pathlib import Path
 
+# 添加项目路径
+sys.path.append('/home/bedicloud/dynamo-main/benchmarks/utils')
+from genai import run_genai_perf
+
 class DistServeStyleTest:
     """基于DistServe理论的性能测试"""
     
-    def __init__(self, service_url: str = None, model_name: str = None, deployment_name: str = None):
+    def __init__(self, service_url: str = None, model_name: str = None):
         self.results = {}
         
         # 服务URL和模型名称配置（可通过环境变量覆盖）
         self.service_url = service_url or os.environ.get('SERVICE_URL', 'http://127.0.0.1:8003')
         self.model_name = model_name or os.environ.get('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B')
-        self.deployment_name = deployment_name or os.environ.get('DEPLOYMENT_NAME', 'agg')
         
         self.slo_configs = {
             # 基于实际数据分析的SLO配置
-            'ultra_strict': {'ttft': 1500000, 'tpot': 100000},      # 超严格SLO (P50水平)
+            'ultra_strict': {'ttft': 50, 'tpot': 8},      # 超严格SLO (P50水平)
+            'strict': {'ttft': 100, 'tpot': 12},          # 严格SLO (P75水平)
+            'moderate': {'ttft': 200, 'tpot': 15},        # 中等SLO (P90水平)
+            'loose': {'ttft': 400, 'tpot': 20},           # 宽松SLO (P95水平)
+            'very_loose': {'ttft': 800, 'tpot': 30},      # 很宽松SLO (P99水平)
+            #
         }
         
     def run_benchmark_with_slo(self, concurrency: int, slo_config: str) -> Dict:
@@ -35,115 +43,47 @@ class DistServeStyleTest:
         slo = self.slo_configs[slo_config]
         print(f"Testing concurrency {concurrency} with {slo_config} SLO (TTFT<{slo['ttft']}ms, TPOT<{slo['tpot']}ms)")
         
-        # 运行genai-perf测试 - 直接执行命令
-        # 使用 cjworkspace/temp 目录，包含部署名和ISL/OSL信息
-        isl = 5000
-        osl = 100
-        stddev = 0
+        # 运行genai-perf测试
+        result = run_genai_perf(
+            service_url=self.service_url,
+            model_name=self.model_name,
+            isl=2000,
+            osl=256,
+            stddev=0,
+            concurrency=concurrency,
+            output_dir=Path(f"/tmp/distserve_test_{concurrency}")
+        )
         
-        # 获取项目根目录
-        script_dir = Path(__file__).parent
-        # script_dir 是 cjworkspace/analysis/genai_perf
-        # script_dir.parent.parent 是 cjworkspace
-        # 所以直接使用 cjworkspace/temp
-        temp_dir = script_dir.parent.parent / "temp"
-        
-        # 目录格式: agg_{deployment_name}_isl{isl}_osl{osl}_concurrency{concurrency}
-        output_dir = temp_dir / f"agg_{self.deployment_name}_isl{isl}_osl{osl}_concurrency{concurrency}"
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        cmd = [
-            "genai-perf",
-            "profile",
-            "-m",
-            self.model_name,
-            "--endpoint-type",
-            "chat",
-            "--streaming",
-            "-u",
-            self.service_url,
-            "--synthetic-input-tokens-mean",
-            str(isl),
-            "--synthetic-input-tokens-stddev",
-            str(stddev),
-            "--concurrency",
-            str(concurrency),
-            "--output-tokens-mean",
-            str(osl),
-            "--request-count",
-            str(concurrency *2),
-            "--extra-inputs",
-            f"max_tokens:{osl}",
-            "--extra-inputs",
-            f"min_tokens:{osl}",
-            "--extra-inputs",
-            "ignore_eos:true",
-            "--tokenizer",
-            self.model_name,
-            "--artifact-dir",
-            str(output_dir),
-            "--",
-            "-vv",
-            "--max-threads=300",
-        ]
-        
-        print(f"Running genai-perf with isl {isl}, osl {osl}, concurrency {concurrency}", flush=True)
-        
-        try:
-            process = subprocess.Popen(
-                cmd,
-                cwd=str(output_dir),
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-            )
+        if not result:
+            return None
             
-            # 获取输出
-            stdout, stderr = process.communicate()
-            
-            if process.returncode == 0:
-                print(stdout)
-                print("Genai-perf profiling completed successfully", flush=True)
-            else:
-                print(f"Genai-perf failed with error code: {process.returncode}")
-                print(stderr)
-                raise subprocess.CalledProcessError(
-                    process.returncode, cmd
-                )
-        except subprocess.TimeoutExpired:
-            print(f"Genai-perf timed out after 10 hours")
-            raise
-        except Exception as e:
-            print(f"Error running genai-perf: {e}")
-            raise
+        # 从输出目录读取结果 - 使用与 prefill_benchmark.py 相同的路径匹配逻辑
+        output_dir = Path(f"/tmp/distserve_test_{concurrency}")
         
         # 优先使用完整模型路径的目录
         model_safe_name = self.model_name.replace('/', '_')  # Only replace slashes, keep hyphens
         result_file = Path(output_dir) / f"_{model_safe_name}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
         
-        # 如果期望的路径不存在，尝试在 agg 输出目录中查找
-        # 只查找 agg 自己的路径，不混读 disagg 的结果
+        # 如果期望的路径不存在，尝试查找实际目录
         if not result_file.exists():
             import glob
-            # 在当前输出目录中查找（新格式：benchmarks/temp/agg_isl*_osl*_concurrency*）
             pattern = str(output_dir / f"*{concurrency}*" / "profile_export_genai_perf.json")
             matching_files = glob.glob(pattern)
             
             if matching_files:
                 # 使用最新的文件 (genai-perf 每次都会创建新的)
                 result_file = Path(max(matching_files, key=lambda x: Path(x).stat().st_mtime))
-                print(f"🔍 Found result file in agg directory: {result_file}")
+                print(f"🔍 Found result file: {result_file}")
             else:
-                # 回退到模型名目录（仍然在 agg 目录中）
+                # 回退到模型名目录
                 model_name_only = Path(self.model_name).name
                 result_file = Path(output_dir) / f"{model_name_only}-openai-chat-concurrency{concurrency}" / "profile_export_genai_perf.json"
-                print(f"⚠️  Using fallback path in agg directory: {result_file}")
+                print(f"⚠️  Using fallback path: {result_file}")
         else:
-            print(f"✅ Using primary path in agg directory: {result_file}")
+            print(f"✅ Using primary path: {result_file}")
         
         if not result_file.exists():
-            print(f"❌ Result file not found in agg directory: {result_file}")
-            print(f"    Expected path: {output_dir}/_*{concurrency}*/profile_export_genai_perf.json")
+            print(f"❌ Result file not found: {result_file}")
             return None
             
         # 调试：显示实际读取的数值
@@ -226,7 +166,7 @@ class DistServeStyleTest:
         max_goodput_result = {}
         consecutive_failures = 0
         
-        while concurrency <= 501 and consecutive_failures < 3:
+        while concurrency <= 1000 and consecutive_failures < 3:
             result = self.run_benchmark_with_slo(concurrency, slo_config)
             
             if result is None:
@@ -454,15 +394,13 @@ class DistServeStyleTest:
         # 生成报告
         report = self.generate_single_deployment_report(deployment_name, results)
         
-        # 保存结果到cjworkspace/results目录
-        script_dir = Path(__file__).parent
-        project_root = script_dir.parent.parent.parent
+        # 保存结果到benchmarks/results目录
         timestamp = time.strftime("%Y%m%d_%H%M%S")
-        results_dir = project_root / "cjworkspace" / "results" / "sglang"
-        results_dir.mkdir(parents=True, exist_ok=True)
-        report_file = results_dir / f"distserve_benchmark_{deployment_name}_{timestamp}.txt"
+        results_dir = "/home/bedicloud/dynamo-main/benchmarks/results"
+        os.makedirs(results_dir, exist_ok=True)
+        report_file = os.path.join(results_dir, f"distserve_benchmark_{deployment_name}_{timestamp}.txt")
         
-        with open(str(report_file), 'w') as f:
+        with open(report_file, 'w') as f:
             f.write(report)
         
         print(f"\n📄 Report saved to: {report_file}")
@@ -479,7 +417,7 @@ def main():
     
     # 从环境变量获取配置
     service_url = os.environ.get('SERVICE_URL', 'http://127.0.0.1:8003')
-    model_name = os.environ.get('DEPLOYMENT_MODEL_ID', '/raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B')
+    model_name = os.environ.get('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B')
     
     print(f"Service URL: {service_url}")
     print(f"Model Name: {model_name}")
@@ -498,15 +436,15 @@ def main():
         print("Please ensure the service is running and port forwarding is active")
         return
     
+    # 运行测试
+    tester = DistServeStyleTest(service_url=service_url, model_name=model_name)
+    
     # 从命令行参数或环境变量获取部署名称
     import sys
     if len(sys.argv) > 1:
         deployment_name = sys.argv[1]
     else:
-        deployment_name = os.environ.get('DEPLOYMENT_NAME', 'sglang-agg')
-    
-    # 运行测试，传入部署名称
-    tester = DistServeStyleTest(service_url=service_url, model_name=model_name, deployment_name=deployment_name)
+        deployment_name = os.environ.get('DEPLOYMENT_NAME', 'vllm-agg')
     
     print(f"Testing deployment: {deployment_name}")
     results = tester.run_single_deployment_test(deployment_name)

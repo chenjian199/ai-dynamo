@@ -5,6 +5,7 @@ set -e
 trap 'echo Cleaning up...; kill 0' EXIT
 
 # run ingress
+<<<<<<< HEAD
 python3 -m dynamo.frontend --http-port=8003 &
 
 # run worker with KVBM enabled
@@ -21,3 +22,11 @@ CUDA_VISIBLE_DEVICES=4,5,6,7 \
   --model /home/bedicloud/models/deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
   --is-prefill-worker \
   --connector kvbm 
+=======
+python -m dynamo.frontend --http-port=8000 &
+
+# run worker with KVBM enabled
+# NOTE: remove --enforce-eager for production use
+DYN_KVBM_CPU_CACHE_GB=20 \
+  python -m dynamo.vllm --model Qwen/Qwen3-0.6B --connector kvbm --enforce-eager
+>>>>>>> origin/master

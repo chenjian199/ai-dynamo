@@ -1,0 +1,77 @@
+benchmark summary:
+
+1.
+测试指标：output_token_throughput
+测试配置：
+    agg:1a
+    agg:8a
+    agg_router:8a
+    disagg:2p1d
+    disagg:4p4d
+    disagg:2p6d
+    disagg:6p2d
+    disagg_router:4p4d
+    disagg_kvbm:4p4d
+    disagg_kvbm:6p2d
+测试结果：
+    输出token吞吐率，ttft均低于聚合式标准值
+分析：
+    离线测试场景有空闲GPU+KV传输时延，纯吞吐率一定低于聚合式。
+证据：
+    DistServe论文，LMcache,LLAMA实验团队结果。
+    均分析离线场景低时延敏感场景，以吞吐量作为优化指标时，更适合使用聚合式部署，
+    或者chunkfill等部署。
+
+2.
+测试指标：满足SLO条件限制下的良请求吞吐率，即Goodput_throughput,表现为QPS
+    其中，具体为：
+    'ultra_strict': {'ttft': 50, 'tpot': 8},      # 超严格SLO (P50水平)
+    'strict': {'ttft': 100, 'tpot': 12},          # 严格SLO (P75水平)
+    'moderate': {'ttft': 200, 'tpot': 15},        # 中等SLO (P90水平)
+    'loose': {'ttft': 400, 'tpot': 20},           # 宽松SLO (P95水平)
+    'very_loose': {'ttft': 800, 'tpot': 30},      # 很宽松SLO (P99水平)
+测试配置：
+    agg:1a
+    agg:3a
+    agg:4a
+    agg:8a
+    disagg:2p1d
+    disagg:2p2d
+    disagg:2p4d
+    disagg_kvbm:2p1d
+    disagg_kvbm_nixl:2p1d
+    disagg:2p1d+p_tp=2 #报错，vllm引擎不支持pd tp不等情况，具体表现为此版本的实现，1d端无法识别tp=2时的KV
+    disagg:2p2d+p_tp=2+p_dp=2
+    disagg:2p1d+p_kvbm_nixl+d_nixl #报错，vllm引擎初始化时不支持两个connector
+    disagg:2p2d+p_kvbm+d_kvbm #报错，vllm初始化时注册KV抢占，d端不应注册KVBM
+测试结果：
+    五种SLO限制条件下，Goodput_throughput均低于聚合式，甚至2p1d中3卡总goodput_throughput低于1a
+分析：
+    planner调度策略，源码实现为pd为流水线，但实际表现更像串行执行。
+    并且随着并发数的增大，disagg模式ttft显著增大，相关论文也提到这个现象。
+    实际表现并没有改善ttft，tpot则两者表现相近，因此总体吞吐并没有提升。
+证据：
+    查看相关论文时，发现论文所著图标，仅在特定测试下，如A1OO+LLAMA13B上，QPS从0.10上升到0.12。
+    且p端与d端，tp,pp不等情况下才有的提升。
+    或LMACHECH实现室，在qps=3.3,qps=5.6时，测试了LMACHECH连接器ITL提高了少许。
+    从实用角度看，并没有实际意义。
+
+3.上面的测试每个并发度基于单次测试，下面将每个并法度稳流到测试窗口为60s
+   上面的并法度为1-650窗口，下面为1-30小窗口
+测试指标：Goodput_throughput
+测试配置：
+    i/o 2000+256
+    i/o 8000+256
+    i/0 10000+256
+    i/o 120000+256
+    agg:1a
+    agg:3a
+    disagg:2p1d
+    disagg:2p1d+kvbm
+    disagg:2p1d+kvbm+kv_cache_block=128
+测试结果：
+    ttft和qps均disagg均远低于agg,itl表现相近。
+    kvbm性能远超无连接器的分离式部署。
+分析：
+    聚合式处理ttft时总有比分离式更多的卡，且无传输时延，因此ttft总比分离式表现好。
+    而itl表现相近则是decode负载未跑满的表现，聚合式3d应当比分离式1d快。

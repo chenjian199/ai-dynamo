@@ -4,35 +4,37 @@
 apiVersion: nvidia.com/v1alpha1
 kind: DynamoGraphDeployment
 metadata:
-  name: vllm-disagg
+  name: vllm-disagg-nixl-kvbm
 spec:
   services:
     Frontend:
-      dynamoNamespace: vllm-disagg
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       componentType: frontend
       replicas: 1
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         mainContainer:
           image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.0
-          workingDir: /workspace/components/backends/vllm
-          command:
-          - python3
-          - -m
-          - dynamo.frontend
-          args:
-            - --http-port
-            - "8000"
-    decode:
-      dynamoNamespace: vllm-disagg
+    VllmDecodeWorker:
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 4
-      multinode:
-        nodeCount: 2
+      subComponentType: decode
+      replicas: 1
       resources:
         limits:
           gpu: "1"
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
       extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:
@@ -56,19 +58,27 @@ spec:
           args:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
-            - --tensor-parallel-size
-            - "2"
-    prefill:
-      dynamoNamespace: vllm-disagg
+            - --connector
+            - nixl
+    VllmPrefillWorker:
+      dynamoNamespace: vllm-disagg-nixl-kvbm
       envFromSecret: hf-token-secret
       componentType: worker
-      replicas: 4
-      multinode:
-        nodeCount: 2
+      subComponentType: prefill
+      replicas: 2
       resources:
         limits:
           gpu: "1"
-      extraPodSpec:
+      envs:
+        - name: DYN_KVBM_CPU_CACHE_GB
+          value: "200"
+        - name: DYN_KVBM_BARRIER_ID_PREFIX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      extraPodSpec:   
+        nodeSelector:
+          kubernetes.io/hostname: worker06
         volumes:
           - name: shared-models
             hostPath:
@@ -93,5 +103,5 @@ spec:
             - --model
             - /shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B
             - --is-prefill-worker
-            - --tensor-parallel-size
-            - "2"
+            - --connector
+            - kvbm

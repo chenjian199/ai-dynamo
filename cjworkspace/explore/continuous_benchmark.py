@@ -18,22 +18,25 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# 添加项目路径
+sys.path.append('/home/bedicloud/dynamo-main/benchmarks/utils')
+from genai import run_genai_perf
 
 class ContinuousBenchmark:
     """持续性能测试类"""
     
     def __init__(self, model_name: str = None):
-        self.model_name = model_name or os.environ.get('DEPLOYMENT_MODEL_ID', '/shared-models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B')
-        print(f"model_name: {self.model_name}")
+        self.model_name = model_name or os.environ.get('DEPLOYMENT_MODEL_ID', 'DeepSeek-R1-Distill-Qwen-7B')
         self.results = {}
         self.start_time = None
         
         # SLO配置
         self.slo_configs = {
-            'ultra_strict': {'ttft': 4000, 'tpot': 20},
-            'strict': {'ttft': 4000, 'tpot': 40},
-            'moderate': {'ttft': 15000, 'tpot': 20},
-            'loose': {'ttft': 15000, 'tpot': 40},
+            'ultra_strict': {'ttft': 50, 'tpot': 8},
+            'strict': {'ttft': 100, 'tpot': 12},
+            'moderate': {'ttft': 200, 'tpot': 15},
+            'loose': {'ttft': 400, 'tpot': 20},
+            'very_loose': {'ttft': 800, 'tpot': 30},
         }
         
     def run_continuous_test(self, 
@@ -63,10 +66,8 @@ class ContinuousBenchmark:
         print(f"   SLO要求: TTFT<{slo['ttft']}ms, TPOT<{slo['tpot']}ms")
         
         # 创建输出目录
-        script_dir = Path(__file__).parent
-        project_root = script_dir.parent.parent
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_dir = project_root / "cjworkspace" / "results" / "sglang" / f"continuous_test_{deployment_name}_{concurrency}_{timestamp}"
+        output_dir = Path(f"/home/bedicloud/dynamo-main/benchmarks/results/continuous_test_{deployment_name}_{concurrency}_{timestamp}")
         output_dir.mkdir(parents=True, exist_ok=True)
         
         # 运行持续测试
@@ -120,17 +121,17 @@ class ContinuousBenchmark:
             "--endpoint-type", "chat",
             "--streaming",
             "-u", service_url,
-            "--synthetic-input-tokens-mean", "5000",
+            "--synthetic-input-tokens-mean", "10000",
             "--synthetic-input-tokens-stddev", "0",
             "--concurrency", str(concurrency),
-            "--output-tokens-mean", "512",
-            "--extra-inputs", "max_tokens:512",
-            "--extra-inputs", "min_tokens:512",
+            "--output-tokens-mean", "256",
+            "--extra-inputs", "max_tokens:256",
+            "--extra-inputs", "min_tokens:256",
             "--extra-inputs", "ignore_eos:true",
-            "--tokenizer", "/raid5/models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+            "--tokenizer", "/home/bedicloud/models/DeepSeek/DeepSeek-R1-Distill-Qwen-7B",
             "--artifact-dir", str(output_dir),
-            #"--measurement-interval", "20000",    # 测量间隔20秒，3×20=60秒
-            "--request-count", str(concurrency * 4),          # 足够大的请求数量
+            "--measurement-interval", "20000",    # 测量间隔20秒，3×20=60秒
+            #"--request-count", "100000",          # 足够大的请求数量
             "--",
             "-vv",
             "--max-threads=300",
@@ -148,7 +149,7 @@ class ContinuousBenchmark:
                 text=True,
             )
             
-            stdout, stderr = process.communicate()  # 额外2分钟超时
+            stdout, stderr = process.communicate(timeout=duration_seconds + 120)  # 额外2分钟超时
             
             if process.returncode == 0:
                 print(f"   ✅ genai-perf执行成功")
@@ -456,13 +457,21 @@ def main():
     # 定义要测试的部署
     deployments = [
         {
-            'name': 'sglang-agg',
+            'name': 'vllm-agg',
             'url': 'http://127.0.0.1:8003'
         },
         {
-            'name': 'sglang-disagg',
+            'name': 'vllm-disagg-nixl-kvbm',
             'url': 'http://127.0.0.1:8005'
-        }
+        },
+        {
+            'name': 'vllm-disagg-kvbm',
+            'url': 'http://127.0.0.1:8007'
+        },
+        {
+            'name': 'vllm-disagg-nixl',
+            'url': 'http://127.0.0.1:8009'
+        },
     ]
     
     # 测试配置
