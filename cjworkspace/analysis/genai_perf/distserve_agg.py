@@ -38,6 +38,8 @@ class DistServeStyleTest:
         # 运行genai-perf测试 - 直接执行命令
         # 使用 cjworkspace/temp 目录，包含部署名和ISL/OSL信息
         isl = 5000
+        psl = 4500
+        psl_num = 20
         osl = 100
         stddev = 0
         
@@ -63,9 +65,11 @@ class DistServeStyleTest:
             "-u",
             self.service_url,
             "--synthetic-input-tokens-mean",
-            str(isl),
+            str(isl-psl),
             "--synthetic-input-tokens-stddev",
             str(stddev),
+            "--num-prefix-prompts", str(psl_num),                 
+            "--prefix-prompt-length", str(psl), 
             "--concurrency",
             str(concurrency),
             "--output-tokens-mean",
@@ -80,6 +84,8 @@ class DistServeStyleTest:
             "ignore_eos:true",
             "--tokenizer",
             self.model_name,
+            "--warmup-request-count",
+            str(psl_num),
             "--artifact-dir",
             str(output_dir),
             "--",

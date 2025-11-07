@@ -126,11 +126,11 @@ def find_result_files(base_dir: str = None, mode: str = "agg", filter_isl: float
         if filter_osl is not None and abs(osl - filter_osl) > 0.1:
             continue
         if filter_deployment:
-            # 支持用逗号分隔的多个部署名；大小写不敏感，精确匹配或前缀匹配
+            # 支持用逗号分隔的多个部署名；大小写不敏感，精确匹配
             wanted = [d.strip().lower() for d in filter_deployment.split(',') if d.strip()]
             name_lc = (deployment_name or '').lower()
-            # 精确匹配或作为前缀匹配（例如 "3p1d" 匹配 "3p1d" 或 "3p1d_xxx"）
-            if wanted and not any(name_lc == w or name_lc.startswith(w + '_') for w in wanted):
+            # 精确匹配（例如 "1a" 只匹配 "1a"，不匹配 "1a_router"）
+            if wanted and name_lc not in wanted:
                 continue
         
         # 查找 JSON 文件

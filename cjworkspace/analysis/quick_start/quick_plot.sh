@@ -5,5 +5,11 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-./generate_all_plots.sh --isl 5000 --osl 100 --disagg-deploy-1 3p1d --disagg-deploy-2 3p1d_newrouter --skip-extract
+./generate_all_plots.sh \
+    --isl 5000 \
+    --osl 100 \
+    --agg-deploy-1 4a \
+    --agg-deploy-2 4a_10router 
+
+    #--skip-extract
 
