@@ -105,6 +105,8 @@ TensorRT-LLM
 
 # Benchmarks
 benchmarks/results
+cjworkspace/temp
+cjworkspace/ucx
 profiling_results*
 
 # Direnv

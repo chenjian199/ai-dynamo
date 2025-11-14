@@ -60,8 +60,17 @@ ARG SCCACHE_BUCKET
 ARG SCCACHE_REGION
 ARG CARGO_BUILD_JOBS
 ARG CUDA_VERSION
+ARG ALL_PROXY
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
 
 # Set all environment variables
+ENV http_proxy=http://172.17.0.1:7890
+ENV https_proxy=http://172.17.0.1:7890
+ENV ALL_PROXY=socks5h://172.17.0.1:7891
+ENV no_proxy=127.0.0.1,localhost
+
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=America/Los_Angeles \
     CUDA_HOME=/usr/local/cuda \

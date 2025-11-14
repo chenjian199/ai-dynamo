@@ -364,7 +364,7 @@ ${RUN_PREFIX} docker run \
     ${RM_STRING} \
     --network "$NETWORK" \
     ${RUNTIME:+--runtime "$RUNTIME"} \
-    --shm-size=10G \
+    --shm-size=50G \
     --ulimit memlock=-1 \
     --ulimit stack=67108864 \
     --ulimit nofile=65536:65536 \

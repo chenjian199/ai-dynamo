@@ -68,7 +68,7 @@ services:
       # To access DCGM metrics:
       # Outside the container: curl http://localhost:9401/metrics (or the host IP)
       # Inside the container (container-to-container): curl http://dcgm-exporter:9401/metrics
-      - 9401:9401
+      - 9402:9401
     cap_add:
       - SYS_ADMIN
     deploy:
@@ -106,7 +106,7 @@ services:
     networks:
       - monitoring
     ports:
-      - "9090:9090"
+      - "9091:9090"
     profiles: [metrics]
     extra_hosts:
     - "host.docker.internal:host-gateway"

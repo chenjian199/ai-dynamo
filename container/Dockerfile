@@ -148,6 +148,13 @@ ARG NIXL_GDRCOPY_REF
 
 WORKDIR /workspace
 
+# Set proxy environment variables for network operations
+
+ENV http_proxy=http://172.17.0.1:7890 \
+    https_proxy=http://172.17.0.1:7890 \
+    ALL_PROXY=socks5h://172.17.0.1:7891 \
+    no_proxy=127.0.0.1,localhost
+
 # Install system dependencies
 RUN yum groupinstall -y 'Development Tools' &&  \
     dnf install -y almalinux-release-synergy && \
@@ -330,6 +337,12 @@ FROM base AS dev
 
 ARG ENABLE_KVBM
 ARG ARCH_ALT
+
+# Set proxy environment variables for network operations
+ENV http_proxy=http://172.17.0.1:7890 \
+    https_proxy=http://172.17.0.1:7890 \
+    ALL_PROXY=socks5h://172.17.0.1:7891 \   
+    no_proxy=127.0.0.1,localhost
 
 # Application environment variables
 ENV DYNAMO_HOME=/opt/dynamo \

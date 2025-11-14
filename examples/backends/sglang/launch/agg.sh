@@ -5,22 +5,55 @@
 # Setup cleanup trap
 cleanup() {
     echo "Cleaning up background processes..."
-    kill $DYNAMO_PID 2>/dev/null || true
-    wait $DYNAMO_PID 2>/dev/null || true
+    kill $DYNAMO_PID $WORKER_PID1 $WORKER_PID2 $WORKER_PID3 2>/dev/null || true
+    wait $DYNAMO_PID $WORKER_PID1 $WORKER_PID2 $WORKER_PID3 2>/dev/null || true
     echo "Cleanup complete."
 }
 trap cleanup EXIT INT TERM
 
 
 # run ingress
-python3 -m dynamo.frontend --http-port=8000 &
+python3 -m dynamo.frontend --http-port=8003 &
 DYNAMO_PID=$!
 
 # run worker with metrics enabled
 DYN_SYSTEM_ENABLED=true DYN_SYSTEM_PORT=8081 \
-python3 -m dynamo.sglang \
-  --model-path Qwen/Qwen3-0.6B \
-  --served-model-name Qwen/Qwen3-0.6B \
+CUDA_VISIBLE_DEVICES=0 python3 -m dynamo.sglang \
+  --model-path /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --page-size 16 \
+  --tp 1 \
+  --trust-remote-code \
+  --skip-tokenizer-init \
+  --enable-metrics &
+WORKER_PID1=$!
+
+DYN_SYSTEM_ENABLED=true DYN_SYSTEM_PORT=8081 \
+CUDA_VISIBLE_DEVICES=1 python3 -m dynamo.sglang \
+  --model-path /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --page-size 16 \
+  --tp 1 \
+  --trust-remote-code \
+  --skip-tokenizer-init \
+  --enable-metrics &
+WORKER_PID2=$!
+
+DYN_SYSTEM_ENABLED=true DYN_SYSTEM_PORT=8081 \
+CUDA_VISIBLE_DEVICES=2 python3 -m dynamo.sglang \
+  --model-path /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --page-size 16 \
+  --tp 1 \
+  --trust-remote-code \
+  --skip-tokenizer-init \
+  --enable-metrics &
+WORKER_PID3=$!
+
+DYN_SYSTEM_ENABLED=true DYN_SYSTEM_PORT=8081 \
+CUDA_VISIBLE_DEVICES=3 python3 -m dynamo.sglang \
+  --model-path /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
+  --served-model-name /models/deepseek-ai/DeepSeek-R1-Distill-Llama-8B \
   --page-size 16 \
   --tp 1 \
   --trust-remote-code \

@@ -43,6 +43,8 @@ def run_aiperf(
     output_dir: Path,
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
+    # Resolve to absolute path to avoid path duplication issues
+    output_dir_abs = output_dir.resolve()
     cmd = [
         "aiperf",
         "profile",
@@ -61,6 +63,8 @@ def run_aiperf(
         str(concurrency),
         "--output-tokens-mean",
         str(osl),
+        "--request-count",
+        str(concurrency * 2),
         "--extra-inputs",
         f"max_tokens:{osl}",
         "--extra-inputs",
@@ -70,16 +74,20 @@ def run_aiperf(
         "--tokenizer",
         model_name,
         "--artifact-dir",
-        str(output_dir),
+        str(output_dir_abs),
     ]
     print(
         f"Running aiperf with isl {isl}, osl {osl}, concurrency {concurrency}",
         flush=True,
     )
 
+    # Use workspace root as cwd to avoid path duplication
+    # aiperf will create subdirectories under artifact-dir, so we don't want
+    # to set cwd to output_dir itself
+    workspace_root = Path.cwd()
     aip_process = subprocess.Popen(
         cmd,
-        cwd=str(output_dir),
+        cwd=str(workspace_root),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
